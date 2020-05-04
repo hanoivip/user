@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('hanoivip::layouts.app-id')
 
 @section('content')
 <div class="zid_pagecont">     
     <div class="formrow">  
-        Cập nhật email bảo mật
+        Cập nhật mật khẩu bảo mật
     </div>       
     <div class="zidregister_form">
         @if (!empty($message))

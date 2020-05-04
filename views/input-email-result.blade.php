@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('hanoivip::layouts.app-id')
 
 @section('content')
 <div class="zid_pagecont">     
     <div class="formrow">  
-        Đổi Mật Khẩu
+        Cập nhật email
     </div>       
     <div class="zidregister_form">
         @if (!empty($message))
@@ -12,7 +12,7 @@
                 {{ $message }}
         </div>
         <p class="align_center">
-            <input type="button" class="zidloginnowbtn zidbtn_default" value="Trở về {{ config('id.name.site') }}" onclick="window.location.href = '{{ route("home") }}'">
+            <input type="button" class="zidloginnowbtn zidbtn_default" value="Trở về {{ config('id.name.site') }}" onclick="window.location.href = '{{ route('home') }}'">
         </p>
         @endif
         @if (!empty($error_message))

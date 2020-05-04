@@ -29,14 +29,14 @@ class SecurityController extends Controller
     {
         $uid = Auth::user()->id;
         $secure = $this->secureService->getInfo($uid);
-        return view('secure-info', ['info' => $secure]);
+        return view('hanoivip::secure-info', ['info' => $secure]);
     }
     
     public function updateEmailUI()
     {
         $uid = Auth::user()->id;
         $secure = $this->secureService->getInfo($uid);
-        return view('secure-update-email', ['info' => $secure]);
+        return view('hanoivip::secure-update-email', ['info' => $secure]);
     }
     
     public function doUpdateEmail(SecureEmail $request)
@@ -80,7 +80,7 @@ class SecurityController extends Controller
                 $error_message = __('secure.email.update.exception');
             }
         }
-        return view('secure-update-email-result', ['message' => $message, 'error_message' => $error_message]);
+        return view('hanoivip::secure-update-email-result', ['message' => $message, 'error_message' => $error_message]);
     }
     
     protected function isTooFast($uid)
@@ -118,14 +118,14 @@ class SecurityController extends Controller
             Log::error("Secure resend email exception. Msg:" . $ex->getMessage());
             $error_message = __('secure.email.resend.exception');
         }
-        return view('secure-resend-email-result', ['message' => $message, 'error_message' => $error_message ]);
+        return view('hanoivip::secure-resend-email-result', ['message' => $message, 'error_message' => $error_message ]);
     }
     
     public function updatePass2()
     {
         $uid = Auth::user()->id;
         $secure = $this->secureService->getInfo($uid);
-        return view('secure-update-pass2', ['info' => $secure]);
+        return view('hanoivip::secure-update-pass2', ['info' => $secure]);
     }
     
     public function doUpdatePass2(UpdatePass2 $request)
@@ -156,7 +156,7 @@ class SecurityController extends Controller
             Log::error("Secure update pass2 exception. Msg:" . $ex->getMessage());
             $error_message = __('secure.pass2.update.exception');
         }
-        return view('secure-update-pass2-result', ['message' => $message, 'error_message' => $error_message]);
+        return view('hanoivip::secure-update-pass2-result', ['message' => $message, 'error_message' => $error_message]);
     }
     
     public function updateQna()
@@ -166,7 +166,7 @@ class SecurityController extends Controller
         $questions = [];
         for ($i=1; $i<=20; ++$i)
             $questions[] = [ $i, __('secure.qna.question' . $i) ];
-        return view('secure-update-qna', ['info' => $secure, 'questions' => $questions]);
+        return view('hanoivip::secure-update-qna', ['info' => $secure, 'questions' => $questions]);
     }
     
     public function doUpdateQna(UpdateQna $request)
@@ -198,6 +198,6 @@ class SecurityController extends Controller
             Log::error("Secure update qna exception. Msg:" . $ex->getMessage());
             $error_message = __('secure.qna.update.exception');
         }
-        return view('secure-update-qna-result', ['message' => $message, 'error_message' => $error_message]);
+        return view('hanoivip::secure-update-qna-result', ['message' => $message, 'error_message' => $error_message]);
     }
 }

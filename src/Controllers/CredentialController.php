@@ -27,12 +27,12 @@ class CredentialController extends Controller
     {
         $uid = Auth::user()->id;
         $credential = $this->credentialMgr->getUserCredentials($uid);
-        return view('credential-info', ['credential' => $credential]);
+        return view('hanoivip::credential-info', ['credential' => $credential]);
     }
     
     public function updateEmailUI()
     {
-        return view('input-email');
+        return view('hanoivip::input-email');
     }
 
     /**
@@ -69,7 +69,7 @@ class CredentialController extends Controller
             Log::error("Update login email exception. Msg:" . $ex->getMessage());
             $error_message = __('email.update.exception');
         }
-        return view('input-email-result', ['message' => $message, 'error_message' => $error_message]);
+        return view('hanoivip::input-email-result', ['message' => $message, 'error_message' => $error_message]);
     }
     
     protected function isTooFast($uid)
@@ -105,13 +105,13 @@ class CredentialController extends Controller
             Log::error("Resend email validation exception. Msg:" . $ex->getMessage());
             $error_message = __('email.resend.exception');
         }
-        return view('resend-email-result', ['message' => $message, 'error_message' => $error_message]);
+        return view('hanoivip::resend-email-result', ['message' => $message, 'error_message' => $error_message]);
     }
     
     public function updatePasswordUI()
     {
         Log::debug('xxxx');
-        return view('password-update');
+        return view('hanoivip::password-update');
     }
     
     public function doUpdatePassword(UpdatePassword $request)
@@ -143,14 +143,14 @@ class CredentialController extends Controller
             Log::error("Update password exception. Msg: " . $ex->getMessage());
             $error_message = __('password.update.exception');
         }
-        return view('password-update-result', ['message' => $message, 'error_message' => $error_message]);
+        return view('hanoivip::password-update-result', ['message' => $message, 'error_message' => $error_message]);
     }
     
     public function personalInfo()
     {
         $uid = Auth::user()->id;
         $credential = $this->credentialMgr->getUserCredentials($uid);
-        return view('personal-info', ['personal' => $credential]);
+        return view('hanoivip::personal-info', ['personal' => $credential]);
     }
     
     public function updatePersonalUI()
@@ -169,7 +169,7 @@ class CredentialController extends Controller
             $marriages[] = [ $i, __('credential.personal.marriage' . $i) ];
         $uid = Auth::user()->id;
         $credential = $this->credentialMgr->getUserCredentials($uid);
-        return view('personal-update', [ 'personal' => $credential, 'cities' => $cities, 
+        return view('hanoivip::personal-update', [ 'personal' => $credential, 'cities' => $cities, 
             'careers' => $careers, 'sexs' => $sexs, 'marriages' => $marriages ]);
     }
     
@@ -191,6 +191,6 @@ class CredentialController extends Controller
             Log::error("Update personal exception. Msg: " . $ex->getMessage());
             $error_message = __('personal.update.exception');
         }
-        return view('personal-update-result', ['message' => $message, 'error_message' => $error_message]);
+        return view('hanoivip::personal-update-result', ['message' => $message, 'error_message' => $error_message]);
     }
 }

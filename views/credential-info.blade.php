@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('hanoivip::layouts.app-id')
 
 @section('content')
 <div class="zid_pagecont">     
@@ -23,7 +23,7 @@
         <div class="formrow_content">
             <strong class="formrow_text">
                 @if (!empty($credential->email))
-                        {{ hideEmail($credential->email) }}
+                        {{ $credential->email }}
                         @if (empty($credential->email_verified))
                             (Chưa xác thực)
                         @else
@@ -52,7 +52,7 @@
             <span>Mật khẩu:</span>
         </label>
         <div class="formrow_content">
-            <span style="font-size:12px"><i>{{ hidePassword($credential->password) }}</i></span>
+            <span style="font-size:12px"><i>{{ $credential->password }}</i></span>
             <strong class="formrow_text"></strong>
             
         </div>

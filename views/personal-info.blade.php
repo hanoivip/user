@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('hanoivip::layouts.app-id')
 
 @section('content')
     <div class="zid_pagecont"> 
