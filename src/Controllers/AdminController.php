@@ -63,6 +63,7 @@ class AdminController extends Controller
             $user = $this->credentials->getUserCredentials($uid);
             if (!empty($user))
             {
+                // hosted with passport server
                 return $user->createToken('ops')->accessToken;
             }
         }
