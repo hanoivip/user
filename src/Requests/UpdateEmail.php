@@ -24,7 +24,8 @@ class UpdateEmail extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email|not_current_email|not_too_fast:300',
+            'email' => 'required|string|email',
+            //'email' => 'required|string|email|not_current_email|not_too_fast:300',
             //'captcha' => 'required|string|captcha'
         ];
     }
@@ -32,7 +33,9 @@ class UpdateEmail extends FormRequest
     public function messages()
     {
         return [
-            'email' => 'Email validation fail..'    
+            'email' => 'Email validation fail..',
+            'not_current_email' => 'You have to use another email..',
+            'not_too_fast' => 'You have to wait 5 minutes from the last update',
         ];
     }
 }

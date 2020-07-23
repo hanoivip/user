@@ -45,7 +45,7 @@ class ValidationMail extends Mailable
     public function build()
     {
         return $this->to($this->user->email)
-                    ->view('emails.update-login', 
+                    ->view('hanoivip::emails.update-login', 
                         ['username' => $this->user->name, 'token' => $this->token, 'expires' => $this->expires]);
     }
 }

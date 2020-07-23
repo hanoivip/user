@@ -64,12 +64,12 @@ class SecurityController extends Controller
                 {
                     if ($result)
                     {
-                        $message = __('secure.email.update.success');
+                        $message = __('hanoivip::secure.email.update.success');
                         Auth::guard()->logout();
                         $request->session()->invalidate();
                     }
                     else
-                        $error_message = __('secure.email.update.fail');
+                        $error_message = __('hanoivip::secure.email.update.fail');
                 }
                 else 
                     $error_message = $result;
@@ -77,7 +77,7 @@ class SecurityController extends Controller
             catch (Exception $ex)
             {
                 Log::error("Secure update email exception. Msg:" . $ex->getMessage());
-                $error_message = __('secure.email.update.exception');
+                $error_message = __('hanoivip::secure.email.update.exception');
             }
         }
         return view('hanoivip::secure-update-email-result', ['message' => $message, 'error_message' => $error_message]);
@@ -106,17 +106,17 @@ class SecurityController extends Controller
         {
             if ($this->isTooFast($uid))
             {
-                $error_message = __('secure.email.resend.toofast');
+                $error_message = __('hanoivip::secure.email.resend.toofast');
             }
             else if ($this->secureService->resendEmail($uid))
-                $message = __('secure.email.resend.success');
+                $message = __('hanoivip::secure.email.resend.success');
             else
-                $error_message = __('secure.email.resend.fail');
+                $error_message = __('hanoivip::secure.email.resend.fail');
         }
         catch (Exception $ex)
         {
             Log::error("Secure resend email exception. Msg:" . $ex->getMessage());
-            $error_message = __('secure.email.resend.exception');
+            $error_message = __('hanoivip::secure.email.resend.exception');
         }
         return view('hanoivip::secure-resend-email-result', ['message' => $message, 'error_message' => $error_message ]);
     }
@@ -141,12 +141,12 @@ class SecurityController extends Controller
             {
                 if ($result)
                 {
-                    $message = __('secure.pass2.update.success');
+                    $message = __('hanoivip::secure.pass2.update.success');
                     Auth::guard()->logout();
                     $request->session()->invalidate();
                 }
                 else 
-                    $error_message = __('secure.pass2.update.fail');
+                    $error_message = __('hanoivip::secure.pass2.update.fail');
             }
             else
                 $error_message = $result;
@@ -154,7 +154,7 @@ class SecurityController extends Controller
         catch (Exception $ex) 
         {
             Log::error("Secure update pass2 exception. Msg:" . $ex->getMessage());
-            $error_message = __('secure.pass2.update.exception');
+            $error_message = __('hanoivip::secure.pass2.update.exception');
         }
         return view('hanoivip::secure-update-pass2-result', ['message' => $message, 'error_message' => $error_message]);
     }
@@ -165,7 +165,7 @@ class SecurityController extends Controller
         $secure = $this->secureService->getInfo($uid);
         $questions = [];
         for ($i=1; $i<=20; ++$i)
-            $questions[] = [ $i, __('secure.qna.question' . $i) ];
+            $questions[] = [ $i, __('hanoivip::secure.qna.question' . $i) ];
         return view('hanoivip::secure-update-qna', ['info' => $secure, 'questions' => $questions]);
     }
     
@@ -183,12 +183,12 @@ class SecurityController extends Controller
             {
                 if ($result)
                 {
-                    $message = __('secure.qna.update.success');
+                    $message = __('hanoivip::secure.qna.update.success');
                     Auth::guard()->logout();
                     $request->session()->invalidate();
                 }
                 else
-                    $error_message = __('secure.qna.update.fail');
+                    $error_message = __('hanoivip::secure.qna.update.fail');
             }
             else 
                 $error_message = $result;
@@ -196,7 +196,7 @@ class SecurityController extends Controller
         catch (Exception $ex)
         {
             Log::error("Secure update qna exception. Msg:" . $ex->getMessage());
-            $error_message = __('secure.qna.update.exception');
+            $error_message = __('hanoivip::secure.qna.update.exception');
         }
         return view('hanoivip::secure-update-qna-result', ['message' => $message, 'error_message' => $error_message]);
     }

@@ -57,7 +57,8 @@ class CredentialService
      * + Gửi email yêu cầu xác thực
      * 
      * Điều kiện sau:
-     * + Phải có email xác thực
+     * + Chưa xác thực email nào
+     * + Đã xác thực cần liên hệ hỗ trợ để đổi
      * 
      * @param number $uid
      * @param string $email
@@ -67,18 +68,25 @@ class CredentialService
     public function updateEmail($uid, $email)
     {
         $credential = $this->getUserCredentials($uid);
-        $now = Carbon::now();
-        //Generate token
-        $token = $this->generateToken();
-        //Save
-        $credential->email = $email;
-        $credential->last_email_validation = $now;
-        $credential->email_validation_token = $token;
-        $credential->email_verified = false;
-        $credential->save();
-        //Send mail
-        Mail::send(new ValidationMail($credential, $token));
-        return true;
+        if (empty($credential->email) || empty($credential->email_verified))
+        {
+            $now = Carbon::now();
+            //Generate token
+            $token = $this->generateToken();
+            //Save
+            $credential->email = $email;
+            $credential->last_email_validation = $now;
+            $credential->email_validation_token = $token;
+            $credential->email_verified = false;
+            $credential->save();
+            //Send mail
+            Mail::send(new ValidationMail($credential, $token));
+            return true;
+        }
+        else 
+        {
+            return __('hanoivip::email.update.verified');
+        }
     }
     
     protected function generateToken()

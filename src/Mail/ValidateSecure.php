@@ -33,8 +33,8 @@ class ValidateSecure extends Mailable
 
     public function build()
     {
-        Log::debug('secure email ' . print_r($this->user, true) . ' token:' . $this->token);
-        return $this->view('emails.secure-update-email',
+        //Log::debug('secure email ' . print_r($this->user, true) . ' token:' . $this->token);
+        return $this->view('hanoivip::emails.secure-update-email',
             ['username' => $this->user->name, 'token' => $this->token, 'expires' => $this->expires]);
     }
 }

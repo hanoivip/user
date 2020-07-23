@@ -209,10 +209,9 @@ class SecureService
      *
      *
      * @param string $token
-     * @param User $affectedUser
      * @return boolean|string
      */
-    public function verify($token, &$affectedUser = null)
+    public function verify($token)
     {
         $user = UserSecure::where('email_validation_token', $token)->get();
         if ($user->isEmpty())
@@ -240,12 +239,6 @@ class SecureService
         
         $userByToken->email_verified = true;
         $userByToken->save();
-        
-        if (isset($affectedUser))
-        {
-            $uid = $user->user_id;
-            $affectedUser = User::find($uid);
-        }
             
         return true;
     }

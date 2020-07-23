@@ -40,10 +40,10 @@ class PublicController extends Controller
                 {
                     if (empty($affectedUser))
                         throw new Exception('Verify affected user not set.');
-                    $message = __("email.verify.success", ['username' => $affectedUser->name]);
+                    $message = __("hanoivip::email.verify.success", ['username' => $affectedUser->name]);
                 }
                 else
-                    $error_message = __("email.verify.fail");
+                    $error_message = __("hanoivip::email.verify.fail");
             }
             else 
                 $error_message = $result;
@@ -51,9 +51,9 @@ class PublicController extends Controller
         catch (Exception $ex)
         {
             Log::error("Verify login email exception. Msg:" . $ex->getMessage());
-            $error_message = __("email.verify.exception");
+            $error_message = __("hanoivip::email.verify.exception");
         }
-        return view("verify-login-result", ['message' => $message, 'error_message' => $error_message]);
+        return view("hanoivip::verify-login-result", ['message' => $message, 'error_message' => $error_message]);
     }
     
     /**
@@ -67,27 +67,17 @@ class PublicController extends Controller
         $error_message = '';
         try
         {
-            $affectedUser = new User();
-            $result = $this->secures->verify($token, $affectedUser);
-            if (gettype($result) == "boolean")
-            {
-                if ($result)
-                {
-                    if (empty($affectedUser))
-                        throw new Exception('Verify affected user not set.');
-                    $message = __("secure.email.verify.success", ['username' => $affectedUser->name]);
-                }
-                else
-                    $error_message = __("secure.email.verify.fail");
-            }
+            $result = $this->secures->verify($token);
+            if ($result == true)
+                $message = __("hanoivip::secure.email.verify.success");
             else
                 $error_message = $result;
         }
         catch (Exception $ex)
         {
-            Log::error("Verify login email exception. Msg:" . $ex->getMessage());
-            $error_message = __("secure.email.verify.exception");
+            Log::error("Verify secure email exception. Msg:" . $ex->getMessage());
+            $error_message = __("hanoivip::secure.email.verify.exception");
         }
-        return view("verify-secure-result", ['message' => $message, 'error_message' => $error_message]);
+        return view("hanoivip::verify-secure-result", ['message' => $message, 'error_message' => $error_message]);
     }
 }

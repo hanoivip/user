@@ -54,12 +54,9 @@ class CredentialController extends Controller
         try 
         {
             $result = $this->credentialMgr->updateEmail($uid, $email);
-            if (gettype($result) == "boolean")
+            if ($result === true)
             {
-                if ($result)
-                    $message = __('hanoivip::email.update.success', ['email' => $email]);
-                else 
-                    $error_message = __('hanoivip::email.update.fail');
+                $message = __('hanoivip::email.update.success', ['email' => $email]);
             }
             else
                 $error_message = $result;

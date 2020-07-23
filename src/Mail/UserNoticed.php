@@ -32,6 +32,6 @@ class UserNoticed extends Mailable
     {
         return $this->to($this->user->email)
                     ->subject('Thông báo từ BQT')
-                    ->view('emails.notice-user');
+                    ->view('hanoivip::emails.notice-user');
     }
 }

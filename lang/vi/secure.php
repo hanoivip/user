@@ -1,5 +1,4 @@
 <?php
-
 return [
 
     'email' => [
@@ -9,45 +8,47 @@ return [
             Vui lòng kiểm tra hộp thư và nhấn vào link xác thực.
             
             Quá trình xác thực có thể mất vài phút, nếu sau 5 phút mà bạn vẫn chưa nhận được thư xác thực. Vui lòng thử gửi lại .',
-            
+
             'fail' => 'Cập nhật email đăng nhập thất bại.',
-            
-            'exception' => 'Cập nhật email đăng nhập có lỗi. Vui lòng liên hệ ngay GM để giải quyết.',
+
+            'exception' => 'Cập nhật email đăng nhập có lỗi. Vui lòng liên hệ ngay GM để giải quyết.'
         ],
-        
+
         'verify' => [
-            'success' => 'Chúc mừng bạn đã cập nhật email đăng nhập mới thành công cho tài khoản :username.',
-            
+            'success' => 'Chúc mừng bạn đã cập nhật email đăng nhập mới thành công!',
+
             'fail' => 'Xác thực email đăng nhập thất bại.',
-            
-            'exception' => 'Xác thực email đăng nhập có lỗi. Vui lòng liên hệ ngay GM để giải quyết.',
+
+            'exception' => 'Xác thực email đăng nhập có lỗi. Vui lòng liên hệ ngay GM để giải quyết.'
         ],
         'resend' => [
             'success' => 'Gửi lại xác nhận email thành công.',
-            
+
             'fail' => 'Gửi lại xác nhận email thất bại.',
-            
+
             'exception' => 'Gửi lại xác nhận email có lỗi. Vui lòng liên hệ ngay GM để giải quyết.',
+            
+            'toofast' => 'Yêu cầu gửi email xác thực quá nhanh, bạn cần đợi 5 phút.'
         ],
-        'exists' => 'Email đã tồn tại.',
+        'exists' => 'Email đã tồn tại.'
     ],
     'pass2' => [
         'update' => [
             'success' => 'Cập nhật mật khẩu bảo mật thành công.',
             'fail' => 'Cập nhật mật khẩu bảo mật thất bại.',
-            'exception' => 'Cập nhật mật khẩu bảo mật có lỗi. Vui lòng liên hệ ngay GM để giải quyết.',
+            'exception' => 'Cập nhật mật khẩu bảo mật có lỗi. Vui lòng liên hệ ngay GM để giải quyết.'
         ],
 
-        'duplicated_not_good' => 'Cập nhật mật khẩu bảo mật thất bại, phải khác với mật khẩu hiện tại.',
+        'duplicated_not_good' => 'Cập nhật mật khẩu bảo mật thất bại, phải khác với mật khẩu hiện tại.'
     ],
 
     'qna' => [
         'update' => [
             'success' => 'Cập nhật câu hỏi bảo mật thành công.',
-            
+
             'fail' => 'Cập nhật câu hỏi bảo mật thất bại.',
-            
-            'exception' => 'Cập nhật câu hỏi bảo mật có lỗi. Vui lòng liên hệ ngay GM để giải quyết.',
+
+            'exception' => 'Cập nhật câu hỏi bảo mật có lỗi. Vui lòng liên hệ ngay GM để giải quyết.'
         ],
         'question1' => 'Bạn ghét điều gì nhất?',
         'question2' => 'Bạn thường làm gì khi rảnh rỗi?',
@@ -68,6 +69,6 @@ return [
         'question17' => 'Tên trường đại học mà bạn đã học?',
         'question18' => 'Bạn gặp vợ (chồng) mình ở đâu?',
         'question18' => 'Họ của bố bạn là gì?',
-        'question18' => 'Tên của ông bạn là gì?',
-    ],
+        'question18' => 'Tên của ông bạn là gì?'
+    ]
 ];
