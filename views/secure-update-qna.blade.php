@@ -85,7 +85,7 @@
         <div class="zidform_btn">
             <div class="zidform_twobtn">
                 <p class="btn_cell">
-                    <input type="button" class="zidregcancelbtn" onclick="window.location = '{{ route("home") }}'" value="Hủy bỏ">
+                    <input type="button" class="zidregcancelbtn" onclick="window.location = '{{ route("user") }}'" value="Hủy bỏ">
                 </p>
                 <p class="btn_cell">
                     <input type="submit" class="zidbtn_default" value="Cập nhật">

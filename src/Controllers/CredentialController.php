@@ -57,9 +57,9 @@ class CredentialController extends Controller
             if (gettype($result) == "boolean")
             {
                 if ($result)
-                    $message = __('email.update.success', ['email' => $email]);
+                    $message = __('hanoivip::email.update.success', ['email' => $email]);
                 else 
-                    $error_message = __('email.update.fail');
+                    $error_message = __('hanoivip::email.update.fail');
             }
             else
                 $error_message = $result;
@@ -67,7 +67,7 @@ class CredentialController extends Controller
         catch (Exception $ex)
         {
             Log::error("Update login email exception. Msg:" . $ex->getMessage());
-            $error_message = __('email.update.exception');
+            $error_message = __('hanoivip::email.update.exception');
         }
         return view('hanoivip::input-email-result', ['message' => $message, 'error_message' => $error_message]);
     }
@@ -94,16 +94,16 @@ class CredentialController extends Controller
         try 
         {
             if ($this->isTooFast($uid))
-                $error_message = __('email.resend.toofast');
+                $error_message = __('hanoivip::email.resend.toofast');
             else if ($this->credentialMgr->resendEmail($uid))
-                $message = __('email.resend.success');
+                $message = __('hanoivip::email.resend.success');
             else
-                $error_message = __('email.resend.fail');
+                $error_message = __('hanoivip::email.resend.fail');
         }
         catch (Exception $ex)
         {
             Log::error("Resend email validation exception. Msg:" . $ex->getMessage());
-            $error_message = __('email.resend.exception');
+            $error_message = __('hanoivip::email.resend.exception');
         }
         return view('hanoivip::resend-email-result', ['message' => $message, 'error_message' => $error_message]);
     }
@@ -127,13 +127,13 @@ class CredentialController extends Controller
             {
                 if ($result)
                 {
-                    $message = __('password.update.success');
+                    $message = __('hanoivip::password.update.success');
                     //Auto logout
                     Auth::guard()->logout();
                     $request->session()->invalidate();
                 }
                 else
-                    $error_message = __('password.update.fail');
+                    $error_message = __('hanoivip::password.update.fail');
             }
             else
                 $error_message = $result;
@@ -141,7 +141,7 @@ class CredentialController extends Controller
         catch (Exception $ex)
         {
             Log::error("Update password exception. Msg: " . $ex->getMessage());
-            $error_message = __('password.update.exception');
+            $error_message = __('hanoivip::password.update.exception');
         }
         return view('hanoivip::password-update-result', ['message' => $message, 'error_message' => $error_message]);
     }
@@ -157,16 +157,16 @@ class CredentialController extends Controller
     {
         $sexs = [];
         for ($i=1; $i<6; $i++)
-            $sexs[] = [ $i, __('credential.personal.sex' . $i) ];
+            $sexs[] = [ $i, __('hanoivip::credential.personal.sex' . $i) ];
         $cities = [];
         for ($i=1; $i<65; $i++)
-            $cities[] = [ $i, __('credential.personal.city' . $i) ];
+            $cities[] = [ $i, __('hanoivip::credential.personal.city' . $i) ];
         $careers = [];
         for ($i=1; $i<10; $i++)
-            $careers[] = [ $i, __('credential.personal.career' . $i) ];
+            $careers[] = [ $i, __('hanoivip::credential.personal.career' . $i) ];
         $marriages = [];
         for ($i=1; $i<4; $i++)
-            $marriages[] = [ $i, __('credential.personal.marriage' . $i) ];
+            $marriages[] = [ $i, __('hanoivip::credential.personal.marriage' . $i) ];
         $uid = Auth::user()->id;
         $credential = $this->credentialMgr->getUserCredentials($uid);
         return view('hanoivip::personal-update', [ 'personal' => $credential, 'cities' => $cities, 
@@ -181,15 +181,15 @@ class CredentialController extends Controller
         try 
         {
             if ($this->credentialMgr->updatePersonal($uid, $request->all()))
-                $message = __('personal.update.success');
+                $message = __('hanoivip::personal.update.success');
             else
-                $error_message = __('personal.update.fail');
+                $error_message = __('hanoivip::personal.update.fail');
             
         }
         catch (Exception $ex)
         {
             Log::error("Update personal exception. Msg: " . $ex->getMessage());
-            $error_message = __('personal.update.exception');
+            $error_message = __('hanoivip::personal.update.exception');
         }
         return view('hanoivip::personal-update-result', ['message' => $message, 'error_message' => $error_message]);
     }

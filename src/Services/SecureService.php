@@ -82,10 +82,10 @@ class SecureService
     {
         $otherSecure = UserSecure::where('email', $newmail)->get();
         if (!$otherSecure->isEmpty())
-            return __('secure.email.exists');
+            return __('hanoivip::secure.email.exists');
         $otherLogin = User::where('email', $newmail)->get();
         if (!$otherLogin->isEmpty())
-            return __('secure.email.exists');
+            return __('hanoivip::secure.email.exists');
         $info = $this->getInfo($uid);
         $token = $this->generateToken();
         //Save new info
@@ -157,10 +157,10 @@ class SecureService
         $user = User::find($uid);
         $secure = UserSecure::find($uid);
         if (Hash::check($newpass2, $user->password))
-            return __('secure.update.pass2.duplicated_not_good');
+            return __('hanoivip::secure.update.pass2.duplicated_not_good');
         if (!empty($secure->answer) &&
             Hash::check($newpass2, $secure->answer))
-            return __('secure.update.pass2.duplicated_not_good');
+            return __('hanoivip::secure.update.pass2.duplicated_not_good');
         //Save
         $secure->pass2 = Hash::make($newpass2);
         $secure->save();
@@ -190,9 +190,9 @@ class SecureService
         $user = User::find($uid);
         $secure = UserSecure::find($uid);
         if (Hash::check($answer, $user->password))
-            return __('secure.update.qna.duplicated_not_good');
+            return __('hanoivip::secure.update.qna.duplicated_not_good');
         if (Hash::check($answer, $secure->pass2))
-            return __('secure.update.qna.duplicated_not_good');
+            return __('hanoivip::secure.update.qna.duplicated_not_good');
         //Save
         $secure->question = $question;
         $secure->answer = Hash::make($answer);

@@ -20,7 +20,7 @@
         <div class="zidform_btn">
             <div class="zidform_twobtn">
                 <p class="btn_cell">
-                    <input type="button" class="zidregcancelbtn" onclick="window.location = 'http://passport.vn1.us'" value="Hủy bỏ">
+                    <input type="button" class="zidregcancelbtn" onclick="window.location.href = '{{ route('user') }}'" value="Hủy bỏ">
                 </p>
                 <p class="btn_cell">
                     <input type="submit" class="zidbtn_default" value="Gửi email xác nhận">

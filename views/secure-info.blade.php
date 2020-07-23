@@ -23,7 +23,7 @@
                 @if (empty($info->email))
                      (Chưa có thông tin)
                 @else
-                    {{ hideEmail($info->email) }}
+                    {{ $info->email }}
                     @if (empty($info->email_verified))
                         <a href="{{route('secure-resend-email')}}">Xác thực</a>
                     @else
@@ -44,7 +44,7 @@
                 @if (empty($info->pass2))
                         (Chưa có thông tin)
                 @else
-                        {{ hidePassword($info->pass2) }}
+                        {{ $info->pass2 }}
                 @endif</i></span>
             <strong class="formrow_text"></strong>
             
@@ -62,7 +62,7 @@
                         empty($info->answer))
                         (Chưa có thông tin)
                 @else
-                        {{ hidePassword($info->answer) }}
+                        {{ $info->answer }}
                 @endif</i></span>
             <strong class="formrow_text"></strong>
             

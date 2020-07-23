@@ -155,10 +155,10 @@ class CredentialService
         $userSecure = $this->secures->getInfo($uid);
         if (!empty($userSecure) && !empty($userSecure->pass2) &&
             Hash::check($newpass, $userSecure->pass2))
-            return __('password.update.similar_pass2');
+            return __('hanoivip::password.update.similar_pass2');
         if (!empty($userSecure) && !empty($userSecure->answer) &&
             Hash::check($newpass, $userSecure->answer))
-            return __('password.update.similar_answer');
+            return __('hanoivip::password.update.similar_answer');
         //Save history    
         $history = new PasswordHistory();
         $history->user_id = $uid;
