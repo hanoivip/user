@@ -56,7 +56,6 @@ class PasswordService
         $record->created_at = Carbon::now();
         $record->save();
         
-        $record->update();
         Mail::to($email)->send(new ResetPassword($record->token));
         return true;
     }
@@ -92,12 +91,11 @@ class PasswordService
     public function resetPassword($token, $password)
     {
         if (($record = $this->validate($token)) === false)
-            return __('hanoivip::secure.reset.token-invalid');
+            return __('hanoivip::secure.reset.token-invalid'); 
         $secureInfo = $this->secure->getRecordByEmail($record->email);
         $result = $this->credentials->updatePass($secureInfo->user_id, $password);
         if ($result)
         {
-            //$this->invalidate($token);
             $record->token = 'xxx';
             $record->save();
         }
