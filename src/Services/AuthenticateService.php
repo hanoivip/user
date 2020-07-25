@@ -21,13 +21,5 @@ class AuthenticateService
     {
         Log::debug('Logout all devices');
     }
-    /**
-     * @param number $userId
-     * @param string $secureEmail
-     * @return PasswordReset
-     */
-    public function prepareReset($userId, $secureEmail)
-    {
-        
-    }
+
 }

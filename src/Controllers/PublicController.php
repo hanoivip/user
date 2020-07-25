@@ -94,7 +94,7 @@ class PublicController extends Controller
         $sentResult = $this->resets->sendResetEmail($email);
         if ($sentResult === true) {
             return view('hanoivip::password-forgot-sent', [
-                'message' => __('hanoivip::secure.reset.mail-sent')
+                'message' => __('hanoivip::secure.reset.email-sent')
             ]);
         } else {
             return view('hanoivip::password-forgot-sent', [
@@ -116,7 +116,7 @@ class PublicController extends Controller
     public function resetPass(ResetPassword $request)
     {
         $token = $request->input('token');
-        $password = $request->input('password');
+        $password = $request->input('newpass');
         $result = $this->resets->resetPassword($token, $password);
         if ($result == true)
             return view('hanoivip::password-forgot-reset-result',

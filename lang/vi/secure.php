@@ -27,7 +27,7 @@ return [
             'fail' => 'Gửi lại xác nhận email thất bại.',
 
             'exception' => 'Gửi lại xác nhận email có lỗi. Vui lòng liên hệ ngay GM để giải quyết.',
-            
+
             'toofast' => 'Yêu cầu gửi email xác thực quá nhanh, bạn cần đợi 5 phút.'
         ],
         'exists' => 'Email đã tồn tại.'
@@ -70,5 +70,13 @@ return [
         'question18' => 'Bạn gặp vợ (chồng) mình ở đâu?',
         'question18' => 'Họ của bố bạn là gì?',
         'question18' => 'Tên của ông bạn là gì?'
+    ],
+
+    'reset' => [
+        'email-invalid' => 'Email không tồn tại!',
+        'email-sent' => 'Chúng tôi đã gửi cho bạn 1 email hướng dẫn đặt lại mật khẩu. Mời kiểm tra email và làm theo hướng dẫn.',
+        'token-invalid' => 'Mời kiểm tra lại email và làm lại theo hướng dẫn.',
+        'success' => 'Cài đặt lại mật khẩu thành công!',
+        'too-fast' => 'Yêu cầu gửi email quá nhanh. Bạn cần đợi ít nhất 2 phút giữa 2 lần yêu cầu.'
     ]
 ];

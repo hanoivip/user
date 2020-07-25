@@ -55,5 +55,5 @@ Route::middleware('web')
     Route::post('/pass/forgot-by-email', 'PublicController@forgotPass')->name('pass-forgot-do');
     // Reset process
     Route::get('/pass/reset', 'PublicController@resetPassUI')->name('pass-reset');
-    Route::get('/pass/reset/do', 'PublicController@resetPass')->name('pass-reset-do');
+    Route::post('/pass/reset/do', 'PublicController@resetPass')->name('pass-reset-do');
 });

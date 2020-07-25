@@ -23,10 +23,33 @@ class CredentialService
         $this->secures = $secures;
         $this->authenticator = $authenticator;
     }
-    
+    /**
+     * Create new user record
+     * 
+     * @param string $usernameOrEmail
+     * @param string $password
+     * @return User|string
+     */
+    public function createUser($usernameOrEmail, $password)
+    {
+        $otherUser = $this->getUserCredentials($usernameOrEmail);
+        if (!empty($otherUser))
+            return __('hanoivip::user.create.exists');
+        $user = new User();
+        if(filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {
+            $user->email = $usernameOrEmail;
+        }
+        else {
+            $user->name = $usernameOrEmail;
+        }
+        //$user->password = config('id.password.hashed') ? Hash::make($password) : $password;
+        $user->password = Hash::make($password);
+        $user->save();
+        return $user;
+    }
     /**
      * Get user all credentials info. 
-     * Can query by UID or Username
+     * Can query by UID or Username or Login email
      * 
      * @param number|string $uidOrUsername
      * @return User
@@ -35,8 +58,10 @@ class CredentialService
     {
         if (is_numeric($uidOrUsername))
             return User::find($uidOrUsername);
-        else
+        else if (filter_var($uidOrUsername, FILTER_VALIDATE_EMAIL) === false)
             return User::where('name', $uidOrUsername)->first();
+        else 
+            return User::where('email', $uidOrUsername)->first();
     }
     
     /**
@@ -45,8 +70,7 @@ class CredentialService
      * 
      * Validator:
      * + Định dạng email
-     * + Khác với email hiện tại
-     * + Duy nhất (đăng nhập & bảo mật)
+     * + Duy nhất (không trùng email đăng nhập & bảo mật của ai)
      * 
      * Điều kiện đầu:
      * + Email chưa được cập nhật hoặc chưa xác thực
@@ -57,8 +81,7 @@ class CredentialService
      * + Gửi email yêu cầu xác thực
      * 
      * Điều kiện sau:
-     * + Chưa xác thực email nào
-     * + Đã xác thực cần liên hệ hỗ trợ để đổi
+     * + Cập nhật email thành công, chưa xác thực email
      * 
      * @param number $uid
      * @param string $email
@@ -70,8 +93,12 @@ class CredentialService
         $credential = $this->getUserCredentials($uid);
         if (empty($credential->email) || empty($credential->email_verified))
         {
+            // Check email exists
+            $otherUser = $this->getUserCredentials($email);
+            if (!empty($otherUser) && $otherUser->id != $uid)
+                return __('hanoivip::email.update.exists');
+            // Can update email
             $now = Carbon::now();
-            //Generate token
             $token = $this->generateToken();
             //Save
             $credential->email = $email;
@@ -161,6 +188,8 @@ class CredentialService
     {
         $user = $this->getUserCredentials($uid);
         $userSecure = $this->secures->getInfo($uid);
+        if (empty($newpass))
+            return __('hanoivip::password.update.password-empty');
         if (!empty($userSecure) && !empty($userSecure->pass2) &&
             Hash::check($newpass, $userSecure->pass2))
             return __('hanoivip::password.update.similar_pass2');

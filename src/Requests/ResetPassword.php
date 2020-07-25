@@ -14,8 +14,8 @@ class ResetPassword extends FormRequest
     public function rules()
     {
         return [
-            'newpass' => 'required|string|confirmed',
-            'captcha' => 'required|string|captcha'
+            'newpass' => 'required|string|min:8|confirmed',
+            'token' => 'required|string',
         ];
     }
 }

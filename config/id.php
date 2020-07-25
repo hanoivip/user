@@ -13,4 +13,7 @@ return [
     'sms' => [
         'enabled' => false    
     ],
+    'password' => [
+        'hashed' => true,   // cần băm mật khẩu hay không?
+    ]
 ];
