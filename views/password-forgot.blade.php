@@ -4,7 +4,7 @@
 
 <div class="zid_pagecont">
     <div class="formrow">  
-        Tìm lại mật khẩu bằng email
+        Tìm lại mật khẩu bằng email bảo mật (chú ý không phải là email đăng nhập)
     </div>  
     <form class="zidregister_form" method="POST" action="{{ route('pass-forgot-do') }}">
         {{ csrf_field() }}

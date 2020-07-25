@@ -8,7 +8,7 @@
     </div>  
     <form class="zidregister_form" method="POST" action="{{ route('pass-reset-do') }}">
         {{ csrf_field() }}
-        <input type="hidden" id="token" name="token" value="{{$token}}"/>
+        <input type="hidden" id="resettoken" name="resettoken" value="{{$token}}"/>
         <div class="form_input_grp">
             <div class="form_input_wrapper" id="wrap_newpwd">
                 <input id="newpass" type="password" placeholder="Mật khẩu mới" class="form_input" name="newpass" required>

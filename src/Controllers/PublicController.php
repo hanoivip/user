@@ -115,7 +115,7 @@ class PublicController extends Controller
     
     public function resetPass(ResetPassword $request)
     {
-        $token = $request->input('token');
+        $token = $request->input('resettoken');
         $password = $request->input('newpass');
         $result = $this->resets->resetPassword($token, $password);
         if ($result == true)

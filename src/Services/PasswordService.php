@@ -98,7 +98,7 @@ class PasswordService
         if ($result)
         {
             //$this->invalidate($token);
-            $record->token = '';
+            $record->token = 'xxx';
             $record->save();
         }
         return $result;
