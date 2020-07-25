@@ -1,11 +1,11 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('web')->prefix('user')
+Route::middleware(['web', 'auth'])->prefix('user')
     ->namespace('Hanoivip\User\Controllers')
     ->group(function () {
 
-    Route::get('/user', 'CredentialController@infoUI')->name('user');
+    Route::get('/', 'CredentialController@infoUI')->name('user');
 
     // Show login settings
     Route::get('/general', 'CredentialController@infoUI')->name('general');
@@ -33,26 +33,27 @@ Route::middleware('web')->prefix('user')
     // Secure by question&answer
     Route::get('/secure/update-qna', 'SecurityController@updateQna')->name('secure-update-qna');
     Route::post('/secure/update-qna-result', 'SecurityController@doUpdateQna')->name('secure-update-qna-result');
-
-    // Public routes
-    Route::get('/email/verify/{token}', 'PublicController@verifyEmail')->name('email-verify');
-    Route::get('/secure/verify/{token}', 'PublicController@verifySecureEmail')->name('secure-verify');
-
     // Show personal settings
     Route::get('/personal', 'CredentialController@personalInfo')->name('personal');
     Route::get('/personal/update', 'CredentialController@updatePersonalUI')->name('personal-update');
     Route::post('/personal/update-result', 'CredentialController@doUpdatePersonal')->name('personal-update-result');
+});
 
-    // Show social settings
-    Route::get('/social', function () {
-        return view('social-info');
-    })->name('social');
-    // Show news
-    Route::get('/news', function () {
-        return view('news-info');
-    })->name('news');
-    // Shot hot
-    Route::get('/hot', function () {
-        return view('hot-info');
-    })->name('hot');
+Route::middleware('web')->prefix('user')
+    ->namespace('Hanoivip\User\Controllers')
+    ->group(function () {
+    // Public routes
+    Route::get('/email/verify/{token}', 'PublicController@verifyEmail')->name('email-verify');
+    Route::get('/secure/verify/{token}', 'PublicController@verifySecureEmail')->name('secure-verify');
+    });
+    
+Route::middleware('web')
+->namespace('Hanoivip\User\Controllers')
+->group(function () {
+    // Reset password
+    Route::get('/pass/forgot', 'PublicController@forgotPassUI')->name('forgot');
+    Route::post('/pass/forgot-by-email', 'PublicController@forgotPass')->name('pass-forgot-do');
+    // Reset process
+    Route::get('/pass/reset', 'PublicController@resetPassUI')->name('pass-reset');
+    Route::get('/pass/reset/do', 'PublicController@resetPass')->name('pass-reset-do');
 });

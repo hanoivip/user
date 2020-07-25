@@ -187,10 +187,9 @@ class CredentialService
      * 
      * 
      * @param string $token
-     * @param User $affectedUser
      * @return boolean|string
      */
-    public function verify($token, &$affectedUser = null)
+    public function verify($token)
     {
         $user = User::where('email_validation_token', $token)->get();
         if ($user->isEmpty())
@@ -219,8 +218,6 @@ class CredentialService
         $userByToken->email_verified = true;
         $userByToken->save();
         
-        if (isset($affectedUser))
-            $affectedUser = $userByToken;
         return true;
     }
     
@@ -243,4 +240,5 @@ class CredentialService
         $user->save();
         return true;
     }
+    
 }

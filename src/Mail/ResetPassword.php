@@ -8,19 +8,16 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class ValidateSecure extends Mailable
+class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
     protected $token;
     
-    protected $user;
-    
     protected $expires;
     
-    public function __construct($user, $token, $expires = null)
+    public function __construct($token, $expires = null)
     {
-        $this->user = $user;
         $this->token = $token;
         if (empty($expires))
         {
@@ -33,7 +30,7 @@ class ValidateSecure extends Mailable
 
     public function build()
     {
-        return $this->view('hanoivip::emails.secure-update-email',
-            ['username' => $this->user->name, 'token' => $this->token, 'expires' => $this->expires]);
+        return $this->view('hanoivip::emails.secure-reset-password',
+            ['token' => $this->token, 'expires' => $this->expires]);
     }
 }

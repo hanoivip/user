@@ -1,83 +1,128 @@
 <?php
-
 namespace Hanoivip\User\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Exception;
+use Hanoivip\User\Http\Requests\ResetPassword;
 use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\User;
 use Hanoivip\User\Services\SecureService;
+use Hanoivip\User\Services\PasswordService;
 
 class PublicController extends Controller
 {
+
     protected $credentials;
-    
+
     protected $secures;
-    
-    public function __construct(CredentialService $credentials,
-        SecureService $secures)
+
+    protected $resets;
+
+    public function __construct(
+        CredentialService $credentials, SecureService $secures, PasswordService $resets)
     {
         $this->credentials = $credentials;
         $this->secures = $secures;
+        $this->resets = $resets;
     }
-    
+
     /**
      * Xác thực email đăng nhập
-     * 
+     *
      * @param string $token
      */
     public function verifyEmail($token)
     {
         $message = '';
         $error_message = '';
-        try 
-        {
-            $affectedUser = new User();
-            $result = $this->credentials->verify($token, $affectedUser);
-            if (gettype($result) == "boolean")
-            {
-                if ($result)
-                {
-                    if (empty($affectedUser))
-                        throw new Exception('Verify affected user not set.');
-                    $message = __("hanoivip::email.verify.success", ['username' => $affectedUser->name]);
-                }
-                else
+        try {
+            $result = $this->credentials->verify($token);
+            if (gettype($result) == "boolean") {
+                if ($result) {
+                    $message = __("hanoivip::email.verify.success");
+                } else
                     $error_message = __("hanoivip::email.verify.fail");
-            }
-            else 
+            } else
                 $error_message = $result;
-        }
-        catch (Exception $ex)
-        {
+        } catch (Exception $ex) {
             Log::error("Verify login email exception. Msg:" . $ex->getMessage());
             $error_message = __("hanoivip::email.verify.exception");
         }
-        return view("hanoivip::verify-login-result", ['message' => $message, 'error_message' => $error_message]);
+        return view("hanoivip::verify-login-result", [
+            'message' => $message,
+            'error_message' => $error_message
+        ]);
     }
-    
+
     /**
      * Xác thực email bảo mật
-     * 
+     *
      * @param string $token
      */
     public function verifySecureEmail($token)
     {
         $message = '';
         $error_message = '';
-        try
-        {
+        try {
             $result = $this->secures->verify($token);
-            if ($result == true)
-                $message = __("hanoivip::secure.email.verify.success");
-            else
+            if (gettype($result) == "boolean") {
+                if ($result) {
+                    $message = __("hanoivip::secure.email.verify.success");
+                } else
+                    $error_message = __("hanoivip::secure.email.verify.fail");
+            } else
                 $error_message = $result;
-        }
-        catch (Exception $ex)
-        {
+        } catch (Exception $ex) {
             Log::error("Verify secure email exception. Msg:" . $ex->getMessage());
             $error_message = __("hanoivip::secure.email.verify.exception");
         }
-        return view("hanoivip::verify-secure-result", ['message' => $message, 'error_message' => $error_message]);
+        return view("hanoivip::verify-secure-result", [
+            'message' => $message,
+            'error_message' => $error_message
+        ]);
+    }
+
+    public function forgotPassUI(Request $request)
+    {
+        return view('hanoivip::password-forgot');
+    }
+
+    public function forgotPass(Request $request)
+    {
+        $email = $request->input('email');
+        $sentResult = $this->resets->sendResetEmail($email);
+        if ($sentResult === true) {
+            return view('hanoivip::password-forgot-sent', [
+                'message' => __('hanoivip::secure.reset.mail-sent')
+            ]);
+        } else {
+            return view('hanoivip::password-forgot-sent', [
+                'error_message' => $sentResult
+            ]);
+        }
+    }
+    
+    public function resetPassUI(Request $request)
+    {
+        $token = $request->input('token');
+        if ($this->resets->validate($token) === false)
+            return view('hanoivip::password-forgot-reset-result',
+                ['error_message' => __('hanoivip::secure.reset.token-invalid')]);
+        else
+            return view('hanoivip::password-forgot-reset', ['token' => $token]);
+    }
+    
+    public function resetPass(ResetPassword $request)
+    {
+        $token = $request->input('token');
+        $password = $request->input('password');
+        $result = $this->resets->resetPassword($token, $password);
+        if ($result == true)
+            return view('hanoivip::password-forgot-reset-result',
+                ['message' => __('hanoivip::secure.reset.success')]);
+        else
+            return view('hanoivip::password-forgot-reset-result',
+                ['error_message' => $result]);
     }
 }

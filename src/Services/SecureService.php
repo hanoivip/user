@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use Exception;
 use Hanoivip\User\Mail\ValidateSecure;
 use Carbon\Carbon;
+use Hanoivip\User\Mail\ResetPassword;
 
 class SecureService
 {
@@ -37,6 +38,13 @@ class SecureService
             $info->save();
         }
         return $info;
+    }
+    
+    public function getRecordByEmail($email)
+    {
+        $record = UserSecure::where('email', $email)->get();
+        if ($record->isNotEmpty())
+            return $record->first();
     }
     
     protected function generateToken()
@@ -241,5 +249,11 @@ class SecureService
         $userByToken->save();
             
         return true;
+    }
+    
+    public function canSecureByEmail($email)
+    {
+        $secureInfo = UserSecure::where('email', $email)->get();
+        return $secureInfo->isNotEmpty() && $secureInfo->first()->email_verified == true;
     }
 }

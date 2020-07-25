@@ -20,8 +20,6 @@ class SecurityController extends Controller
     
     public function __construct(SecureService $secure)
     {
-        $this->middleware('auth');
-        
         $this->secureService = $secure;
     }
 

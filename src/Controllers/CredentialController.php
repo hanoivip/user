@@ -18,8 +18,6 @@ class CredentialController extends Controller
     
     public function __construct(CredentialService $credentialMgr)
     {
-        $this->middleware('auth');
-        
         $this->credentialMgr = $credentialMgr;
     }
 

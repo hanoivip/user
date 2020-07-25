@@ -15,7 +15,7 @@ return [
     ],
 
     'verify' => [
-        'success' => 'Chúc mừng bạn đã cập nhật email đăng nhập mới thành công cho tài khoản :username.',
+        'success' => 'Chúc mừng bạn đã cập nhật email đăng nhập mới thành công.',
 
         'fail' => 'Xác thực email đăng nhập thất bại.',
 
