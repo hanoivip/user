@@ -2,6 +2,7 @@
 namespace Hanoivip\User;
 
 use Carbon\Carbon;
+use Hanoivip\User\Services\CredentialService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -131,5 +132,7 @@ class ModAuthServiceProvider extends ServiceProvider
     }
 
     public function register()
-    {}
+    {
+        $this->app->bind('CredentialService', CredentialService::class);
+    }
 }
