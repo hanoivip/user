@@ -24,6 +24,21 @@ class CredentialService
         $this->authenticator = $authenticator;
     }
     /**
+     * Validate/authenticate this user
+     * @param string $usernameOrEmail
+     * @param string $password
+     * @return boolean|User
+     */
+    public function validate($usernameOrEmail, $password)
+    {
+        $user=$this->getUserCredentials($usernameOrEmail);
+        if (empty($user))
+            return false;
+        if (!Hash::check($password, $user->password))
+            return false;
+        return $user;
+    }
+    /**
      * Create new user record
      * 
      * @param string $usernameOrEmail
