@@ -133,6 +133,6 @@ class ModAuthServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind('CredentialService', CredentialService::class);
+        
     }
 }

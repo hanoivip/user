@@ -2,6 +2,8 @@
 namespace Hanoivip\User;
 
 use Illuminate\Support\ServiceProvider;
+use Hanoivip\User\Services\CacheService;
+use Hanoivip\User\Services\CredentialService;
 
 class ModServiceProvider extends ServiceProvider
 {
@@ -26,5 +28,7 @@ class ModServiceProvider extends ServiceProvider
     public function register()
     {
         $this->commands([]);
+        $this->app->bind('CredentialService', CredentialService::class);
+        $this->app->bind('userCacheService', CacheService::class);
     }
 }
