@@ -44,4 +44,10 @@ class User extends Authenticatable
         }
         return $user->first();
     }
+    
+    public function withAccessToken($accessToken)
+    {
+        
+        return $this;
+    }
 }
