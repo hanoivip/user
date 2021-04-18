@@ -2,9 +2,9 @@
 
 namespace Hanoivip\User\Controllers;
 
-use Hanoivip\User\Http\Requests\AdminRequest;
 use Illuminate\Support\Facades\Log;
 use Exception;
+use Hanoivip\User\Requests\AdminRequest;
 use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\Services\SecureService;
 

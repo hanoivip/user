@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanoivip\User\Http\Requests;
+namespace Hanoivip\User\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

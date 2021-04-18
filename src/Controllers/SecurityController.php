@@ -2,17 +2,15 @@
 
 namespace Hanoivip\User\Controllers;
 
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Hanoivip\User\UserSecure;
+use Hanoivip\User\Requests\SecureEmail;
+use Hanoivip\User\Requests\UpdatePass2;
+use Hanoivip\User\Requests\UpdateQna;
+use Hanoivip\User\Services\SecureService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Exception;
-use Hanoivip\User\UserSecure;
-use Hanoivip\User\Services\SecureService;
-use Hanoivip\User\Http\Requests\SecureEmail;
-use Hanoivip\User\Http\Requests\ResendEmail;
-use Hanoivip\User\Http\Requests\UpdatePass2;
-use Hanoivip\User\Http\Requests\UpdateQna;
-use Carbon\Carbon;
 
 class SecurityController extends Controller
 {

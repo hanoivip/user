@@ -4,9 +4,8 @@ namespace Hanoivip\User\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Exception;
-use Hanoivip\User\Http\Requests\ResetPassword;
+use Hanoivip\User\Requests\ResetPassword;
 use Hanoivip\User\Services\CredentialService;
-use Hanoivip\User\User;
 use Hanoivip\User\Services\SecureService;
 use Hanoivip\User\Services\PasswordService;
 

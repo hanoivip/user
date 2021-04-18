@@ -7,9 +7,9 @@ use Hanoivip\User\Services\CredentialService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Exception;
-use Hanoivip\User\Http\Requests\UpdateEmail;
-use Hanoivip\User\Http\Requests\UpdatePassword;
-use Hanoivip\User\Http\Requests\UpdatePersonal;
+use Hanoivip\User\Requests\UpdateEmail;
+use Hanoivip\User\Requests\UpdatePassword;
+use Hanoivip\User\Requests\UpdatePersonal;
 use Carbon\Carbon;
 
 class CredentialController extends Controller
