@@ -1,11 +1,8 @@
 <?php
 
-namespace Hanoivip\User\Console\Commands;
-
+namespace Hanoivip\User\Commands;
 use Hanoivip\User\Services\CredentialService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Auth;
-
 class AuthTest extends Command
 {
     /**

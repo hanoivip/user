@@ -1,14 +1,11 @@
 <?php
 
-namespace Hanoivip\User\Console\Commands;
+namespace Hanoivip\User\Commands;
 
+use Carbon\Carbon;
 use Hanoivip\User\User;
 use Hanoivip\User\Jobs\ProcessUserGift;
-use Hanoivip\User\Mail\UserGift;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
-use CurlHelper;
 
 class TargetGift extends Command
 {
