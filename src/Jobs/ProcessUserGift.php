@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use CurlHelper;
+use Mervick\CurlHelper;
 use Exception;
 
 class ProcessUserGift implements ShouldQueue
