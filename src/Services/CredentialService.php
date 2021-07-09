@@ -202,6 +202,8 @@ class CredentialService
     public function updatePass($uid, $newpass)
     {
         $user = $this->getUserCredentials($uid);
+        if (empty($user))
+            return __('hanoivip::user.not-found');
         $userSecure = $this->secures->getInfo($uid);
         if (empty($newpass))
             return __('hanoivip::password.update.password-empty');
@@ -284,5 +286,34 @@ class CredentialService
         $user->save();
         return true;
     }
-    
+    /**
+     * Cập nhật tên đăng nhập.
+     * (bind tk, mua bán tk,)
+     * 
+     * Xử lý:
+     * + Kiểm tra có thể cập nhật ko? Chỉ cho phép các tk tạm thời cập nhật
+     * + Xem tên đăng nhập đã dùng chưa
+     * 
+     * @param number $uid
+     * @param string $username
+     * @param string $password
+     * @return bool|string
+     */
+    public function bindAccount($uid, $username, $password)
+    {
+        $user = $this->getUserCredentials($uid);
+        if (empty($user))
+            return __('hanoivip::user.not-found');
+        // name == password == device?
+        if (!Hash::check($user->name, $user->password))
+            return __('hanoivip::username.update.not-allowed');
+        $existUser = $this->getUserCredentials($username);
+        if (!empty($existUser))
+            return __('hanoivip::username.update.exists');
+        //update info
+        $user->name = $username;
+        $user->password = Hash::make($password);
+        $user->save();
+        return true;
+    }
 }
