@@ -13,7 +13,7 @@
             <div class="form_input_wrapper" id="wrap_newpwd">
                 <input id="newpass" type="password" placeholder="Mật khẩu mới" class="form_input" name="newpass" required>
                 @if ($errors->has('newpass'))
-                    <span class="help-block">
+                    <span class="help-block" style="color: red;">
                         <strong>{{ $errors->first('newpass') }}</strong>
                     </span>
                 @endif

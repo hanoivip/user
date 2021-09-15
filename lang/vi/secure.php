@@ -15,11 +15,11 @@ return [
         ],
         
         'verify' => [
-            'success' => 'Chúc mừng bạn đã cập nhật email đăng nhập mới thành công!',
+            'success' => 'Chúc mừng bạn đã cập nhật email bảo mật thành công!',
             
-            'fail' => 'Xác thực email đăng nhập thất bại.',
+            'fail' => 'Xác thực email bảo mật thất bại. Thử lại trước khi liên hệ hỗ trợ.',
             
-            'exception' => 'Xác thực email đăng nhập có lỗi. Vui lòng liên hệ ngay GM để giải quyết.'
+            'exception' => 'Xác thực email đăng nhập có lỗi. Vui lòng liên hệ ngay hỗ trợ.'
         ],
         'resend' => [
             'success' => 'Gửi lại xác nhận email thành công.',
@@ -30,7 +30,9 @@ return [
             
             'toofast' => 'Yêu cầu gửi email xác thực quá nhanh, bạn cần đợi 5 phút.'
         ],
-        'exists' => 'Email đã tồn tại.'
+        'exists' => 'Email đã tồn tại.',
+        
+        'verified' => 'Email đã được thiết lập. Không cho thiết lập lại.'
     ],
     'pass2' => [
         'update' => [

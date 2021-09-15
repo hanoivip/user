@@ -67,7 +67,7 @@ class SecureService
      * + Nếu đã thiết lập mà chưa xác thực
      * => cứ đổi
      * + Nếu đã thiết lập và đã xác thực
-     * => cứ đổi
+     * => ko cho đổi
      * 
      * Validation:
      * + Xác nhận có nhớ CMTND (nếu đã thiết lập)
@@ -99,6 +99,8 @@ class SecureService
         if (!$otherLogin->isEmpty())
             return __('hanoivip::secure.email.exists');
         $info = $this->getInfo($uid);
+        if (!empty($info->email) && $info->email_verified)
+            return __('hanoivip::secure.email.verified');
         $token = $this->generateToken();
         //Save new info
         $info->email = $newmail;
@@ -107,7 +109,6 @@ class SecureService
         $info->last_email_validation = Carbon::now();
         $info->save();
         //Send validation email
-        //$user = User::find($uid);
         Mail::to($newmail)->send(new ValidateSecure(Auth::user(), $token));
         return true;
     }
@@ -252,7 +253,7 @@ class SecureService
         }
         $userByToken->email_verified = true;
         $userByToken->save();
-        event(new EmailUpdated($user->user_id, $user->email));
+        event(new EmailUpdated($userByToken->user_id, $userByToken->email));
         return true;
     }
     

@@ -3,6 +3,7 @@ namespace Hanoivip\User\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Exception;
 use Hanoivip\User\Requests\ResetPassword;
 use Hanoivip\User\Services\CredentialService;
@@ -113,11 +114,19 @@ class PublicController extends Controller
         else
             return view('hanoivip::password-forgot-reset', ['token' => $token]);
     }
-    
-    public function resetPass(ResetPassword $request)
+
+    public function resetPass(Request $request)
     {
         $token = $request->input('resettoken');
         $password = $request->input('newpass');
+        $validator = Validator::make($request->all(), [
+            'newpass' => 'required|string|min:8|confirmed',
+            'resettoken' => 'required|string',
+        ]);
+        if ($validator->fails())
+        {
+            return view('hanoivip::password-forgot-reset', ['token' => $token])->withErrors($validator->errors());
+        }
         $result = $this->resets->resetPassword($token, $password);
         if ($result == true)
             return view('hanoivip::password-forgot-reset-result',

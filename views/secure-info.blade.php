@@ -31,8 +31,10 @@
                     @endif
                 @endif
             </strong>
-        </div>       
-        <a href="{{route('secure-update-email')}}" class="formrow_editbtn">Cập nhật</a>
+        </div>
+        @if (empty($info->email_verified))
+        	<a href="{{route('secure-update-email')}}" class="formrow_editbtn">Cập nhật</a>
+    	@endif
     </div>
     <div class="formrow">
         <a href="javascript:void(0)" id="btn_edit_email" class="formrow_editbtn">Edit</a>
