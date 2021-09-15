@@ -23,21 +23,21 @@ class SecurityController extends Controller
 
     public function infoUI()
     {
-        $uid = Auth::user()->id;
+        $uid = Auth::user()->getAuthIdentifier();
         $secure = $this->secureService->getInfo($uid);
         return view('hanoivip::secure-info', ['info' => $secure]);
     }
     
     public function updateEmailUI()
     {
-        $uid = Auth::user()->id;
+        $uid = Auth::user()->getAuthIdentifier();
         $secure = $this->secureService->getInfo($uid);
         return view('hanoivip::secure-update-email', ['info' => $secure]);
     }
     
     public function doUpdateEmail(SecureEmail $request)
     {
-        $uid = Auth::user()->id;
+        $uid = Auth::user()->getAuthIdentifier();
         $newmail = $request->input('newmail');
         $phone = $request->input('phone');
         $message = '';
@@ -95,7 +95,7 @@ class SecurityController extends Controller
     
     public function resendEmail()
     {
-        $uid = Auth::user()->id;
+        $uid = Auth::user()->getAuthIdentifier();
         $message = '';
         $error_message = '';
         try 
@@ -119,14 +119,14 @@ class SecurityController extends Controller
     
     public function updatePass2()
     {
-        $uid = Auth::user()->id;
+        $uid = Auth::user()->getAuthIdentifier();
         $secure = $this->secureService->getInfo($uid);
         return view('hanoivip::secure-update-pass2', ['info' => $secure]);
     }
     
     public function doUpdatePass2(UpdatePass2 $request)
     {
-        $uid = Auth::user()->id;
+        $uid = Auth::user()->getAuthIdentifier();
         $newpass2 = $request->input('newpass2');
         $message = '';
         $error_message = '';
@@ -157,7 +157,7 @@ class SecurityController extends Controller
     
     public function updateQna()
     {
-        $uid = Auth::user()->id;
+        $uid = Auth::user()->getAuthIdentifier();
         $secure = $this->secureService->getInfo($uid);
         $questions = [];
         for ($i=1; $i<=20; ++$i)
@@ -167,7 +167,7 @@ class SecurityController extends Controller
     
     public function doUpdateQna(UpdateQna $request)
     {
-        $uid = Auth::user()->id;
+        $uid = Auth::user()->getAuthIdentifier();
         $question = $request->input('newquestion');
         $answer = $request->input('newanswer');
         $message = '';

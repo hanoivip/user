@@ -19,7 +19,9 @@ class PublicController extends Controller
     protected $resets;
 
     public function __construct(
-        CredentialService $credentials, SecureService $secures, PasswordService $resets)
+        CredentialService $credentials, 
+        SecureService $secures, 
+        PasswordService $resets)
     {
         $this->credentials = $credentials;
         $this->secures = $secures;

@@ -4,6 +4,7 @@ namespace Hanoivip\User\Services;
 
 use Hanoivip\User\User;
 use Hanoivip\User\UserSecure;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -11,6 +12,9 @@ use Exception;
 use Hanoivip\User\Mail\ValidateSecure;
 use Carbon\Carbon;
 use Hanoivip\User\Mail\ResetPassword;
+use Hanoivip\Events\UserSecure\EmailUpdated;
+use Hanoivip\Events\UserSecure\QnaUpdated;
+use Hanoivip\Events\UserSecure\Pass2Updated;
 
 class SecureService
 {
@@ -103,8 +107,8 @@ class SecureService
         $info->last_email_validation = Carbon::now();
         $info->save();
         //Send validation email
-        $user = User::find($uid);
-        Mail::to($newmail)->send(new ValidateSecure($user, $token));
+        //$user = User::find($uid);
+        Mail::to($newmail)->send(new ValidateSecure(Auth::user(), $token));
         return true;
     }
     
@@ -141,8 +145,8 @@ class SecureService
         $secure->email_verified = false;
         $secure->save();
         //Send mail
-        $user = User::find($uid);
-        Mail::to($secure->email)->send(new ValidateSecure($user, $token));
+        //$user = User::find($uid);
+        Mail::to($secure->email)->send(new ValidateSecure(Auth::user(), $token));
         return true;
     }
     
@@ -162,16 +166,17 @@ class SecureService
      */
     public function updatePass2($uid, $newpass2)
     {
-        $user = User::find($uid);
+        //$user = User::find($uid);
         $secure = UserSecure::find($uid);
-        if (Hash::check($newpass2, $user->password))
-            return __('hanoivip::secure.update.pass2.duplicated_not_good');
+        //if (Hash::check($newpass2, $user->password))
+        //    return __('hanoivip::secure.update.pass2.duplicated_not_good');
         if (!empty($secure->answer) &&
             Hash::check($newpass2, $secure->answer))
             return __('hanoivip::secure.update.pass2.duplicated_not_good');
         //Save
         $secure->pass2 = Hash::make($newpass2);
         $secure->save();
+        event(new Pass2Updated($uid, $newpass2));
         return true;
     }
     
@@ -195,16 +200,17 @@ class SecureService
      */
     public function updateQna($uid, $question, $answer)
     {
-        $user = User::find($uid);
+        //$user = User::find($uid);
         $secure = UserSecure::find($uid);
-        if (Hash::check($answer, $user->password))
-            return __('hanoivip::secure.update.qna.duplicated_not_good');
+        //if (Hash::check($answer, $user->password))
+        //    return __('hanoivip::secure.update.qna.duplicated_not_good');
         if (Hash::check($answer, $secure->pass2))
             return __('hanoivip::secure.update.qna.duplicated_not_good');
         //Save
         $secure->question = $question;
         $secure->answer = Hash::make($answer);
         $secure->save();
+        event(new QnaUpdated($uid, $question));
         return true;
     }
     
@@ -244,10 +250,9 @@ class SecureService
             Log::debug('Credential link was expired.');
             return false;
         }
-        
         $userByToken->email_verified = true;
         $userByToken->save();
-            
+        event(new EmailUpdated($user->user_id, $user->email));
         return true;
     }
     

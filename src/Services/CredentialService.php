@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Mail;
 use Exception;
 use Hanoivip\User\Mail\ValidationMail;
 use Hanoivip\User\PasswordHistory;
+use Hanoivip\Events\User\UserCreated;
+use Hanoivip\Events\User\PassUpdated;
+use Hanoivip\Events\User\DetailUpdated;
+use Hanoivip\Events\User\UserBinded;
 
 class CredentialService
 {
@@ -60,6 +64,7 @@ class CredentialService
         //$user->password = config('id.password.hashed') ? Hash::make($password) : $password;
         $user->password = Hash::make($password);
         $user->save();
+        event(new UserCreated($usernameOrEmail));
         return $user;
     }
     /**
@@ -221,6 +226,7 @@ class CredentialService
         //Save new pass
         $user->password = Hash::make($newpass);
         $user->save();
+        event(new PassUpdated($uid, $user->name, $newpass));
         return true;
     }
     
@@ -260,10 +266,8 @@ class CredentialService
             Log::debug('Credential link was expired.');
             return false;
         }
-        
         $userByToken->email_verified = true;
         $userByToken->save();
-        
         return true;
     }
     
@@ -284,6 +288,7 @@ class CredentialService
         $user->career = $info['career'];
         $user->mariage = $info['marriage'];
         $user->save();
+        event(new DetailUpdated($uid));
         return true;
     }
     /**
@@ -314,6 +319,7 @@ class CredentialService
         $user->name = $username;
         $user->password = Hash::make($password);
         $user->save();
+        event(new UserBinded($uid));
         return true;
     }
 }

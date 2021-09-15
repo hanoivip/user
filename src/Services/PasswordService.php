@@ -94,6 +94,7 @@ class PasswordService
             return __('hanoivip::secure.reset.token-invalid'); 
         $secureInfo = $this->secure->getRecordByEmail($record->email);
         $result = $this->credentials->updatePass($secureInfo->user_id, $password);
+        Log::debug(print_r($result));
         if ($result)
         {
             $record->token = 'xxx';

@@ -105,7 +105,6 @@ class CredentialController extends Controller
     
     public function updatePasswordUI()
     {
-        Log::debug('xxxx');
         return view('hanoivip::password-update');
     }
     
