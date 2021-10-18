@@ -1,0 +1,28 @@
+.navbar-default{
+	border-bottom: 1px solid #387dc9;
+    height: 44px;
+    background-color: #42a3d6;
+}
+.container .navbar-header a{
+	color: #fff;
+}
+.container .navbar-header a:hover{
+	color: #fff;
+}
+#app-navbar-collapse .navbar-right li a {
+	color: #fff;
+}
+#app-navbar-collapse .navbar-right li.open a {
+	color: #777;
+}
+.list_game{
+	padding: 0;
+}
+.list_game li{
+    list-style: none;
+}
+@media (max-width: 767px){
+	#app-navbar-collapse .navbar-right li.open a {
+		color: #fff;
+	}
+}
