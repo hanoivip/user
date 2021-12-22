@@ -3,11 +3,11 @@ return [
     
     'email' => [
         'update' => [
-            'success' => 'Chúc mừng bạn, chúng tôi đã gửi một thư xác thực đến địa chỉ :email.
+            'success' => 'Chúng tôi đã gửi một thư xác thực đến địa chỉ email bạn vừa đăng ký.
             
-            Vui lòng kiểm tra hộp thư và nhấn vào link xác thực.
+            Vui lòng kiểm tra hộp thư và nhấn vào link xác thực (nếu không tìm thấy hãy kiểm tra trong mục Spam) .
             
-            Quá trình xác thực có thể mất vài phút, nếu sau 5 phút mà bạn vẫn chưa nhận được thư xác thực. Vui lòng thử gửi lại .',
+            Việc gửi thư có thể mất vài phút, nếu sau 10 phút mà bạn vẫn chưa nhận được thư xác thực. Vui lòng thử lại .',
             
             'fail' => 'Cập nhật email đăng nhập thất bại.',
             
