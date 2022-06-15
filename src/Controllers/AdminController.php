@@ -2,6 +2,7 @@
 
 namespace Hanoivip\User\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Exception;
 use Hanoivip\User\Requests\AdminRequest;
@@ -63,8 +64,30 @@ class AdminController extends Controller
             $user = $this->credentials->getUserCredentials($uid);
             if (!empty($user))
             {
-                // hosted with passport server
-                return $user->createToken('ops')->accessToken;
+                if ($request->ajax())
+                {
+                    $apiToken = $user->api_token;
+                    if (empty($apiToken))
+                    {
+                        $apiToken = Str::random(16);
+                        $user->api_token = $apiToken;
+                        $user->save();
+                        
+                    }
+                    return $apiToken;
+                }
+                else 
+                {
+                    $rememberToken = $user->remember_token;
+                    if (empty($rememberToken))
+                    {
+                        $rememberToken = Str::random(16);
+                        $user->remember_token = $rememberToken;
+                        $user->save();
+                        
+                    }
+                    return $rememberToken;
+                }
             }
         }
         catch (Exception $ex)
