@@ -53,6 +53,7 @@ class AdminController extends Controller
     
     /**
      * Generate personal access token
+     * TODO: moi thiet bi 1 token
      * 
      * @param AdminRequest $request
      */
@@ -64,30 +65,15 @@ class AdminController extends Controller
             $user = $this->credentials->getUserCredentials($uid);
             if (!empty($user))
             {
-                if ($request->ajax())
+                $apiToken = $user->api_token;
+                if (empty($apiToken))
                 {
-                    $apiToken = $user->api_token;
-                    if (empty($apiToken))
-                    {
-                        $apiToken = Str::random(16);
-                        $user->api_token = $apiToken;
-                        $user->save();
-                        
-                    }
-                    return $apiToken;
+                    $apiToken = Str::random(16);
+                    $user->api_token = $apiToken;
+                    $user->save();
+                    
                 }
-                else 
-                {
-                    $rememberToken = $user->remember_token;
-                    if (empty($rememberToken))
-                    {
-                        $rememberToken = Str::random(16);
-                        $user->remember_token = $rememberToken;
-                        $user->save();
-                        
-                    }
-                    return $rememberToken;
-                }
+                return $apiToken;
             }
         }
         catch (Exception $ex)
