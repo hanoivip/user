@@ -13,10 +13,21 @@ class UpdatePassword extends FormRequest
 
     public function rules()
     {
-        return [
-            'oldpass' => 'required|string|current_password',
-            'newpass' => 'required|string|confirmed',//noteasy
-            'captcha' => 'required|string|captcha'
-        ];
+        if ($this->ajax())
+        {
+            return [
+                'oldpass' => 'required|string|current_password',
+                'newpass' => 'required|string',//noteasy
+                //'captcha' => 'required|string|captcha_api:'. request('key') . ',math'
+            ];
+        }
+        else 
+        {
+            return [
+                'oldpass' => 'required|string|current_password',
+                'newpass' => 'required|string|confirmed',//noteasy
+                'captcha' => 'required|string|captcha'
+            ];
+        }
     }
 }

@@ -6,7 +6,7 @@
         Đổi Mật Khẩu
     </div>       
     <div class="zidregister_form">
-        @if (!empty($message))
+        @if (empty($error))
         <div class="zidreg_feedback">
             <p><img src="/images/success.jpg" alt="" width="100"></p>
                 {{ $message }}
@@ -15,10 +15,10 @@
             <input type="button" class="zidloginnowbtn zidbtn_default" value="Trở về {{ config('id.name.site') }}" onclick="window.location.href = '{{ route("user") }}'">
         </p>
         @endif
-        @if (!empty($error_message))
+        @if (!empty($error))
             <div class="zidreg_feedback">
             <p><img src="/images/failure.jpg" alt="" width="100"></p>            
-                {{ $error_message }}                        
+                {{ $message }}                        
         </div>
         @endif
     </div>

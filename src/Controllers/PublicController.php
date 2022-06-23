@@ -123,16 +123,36 @@ class PublicController extends Controller
             'newpass' => 'required|string|min:8|confirmed',
             'resettoken' => 'required|string',
         ]);
+        $error = 0;
+        $message = '';
         if ($validator->fails())
         {
-            return view('hanoivip::password-forgot-reset', ['token' => $token])->withErrors($validator->errors());
+            if ($request->ajax())
+                return ['error' => 1, 'message' => __('hanoivip::secure.reset.validation-fail')];
+            else
+                return view('hanoivip::password-forgot-reset', ['token' => $token])->withErrors($validator->errors());
         }
-        $result = $this->resets->resetPassword($token, $password);
-        if ($result == true)
-            return view('hanoivip::password-forgot-reset-result',
-                ['message' => __('hanoivip::secure.reset.success')]);
-        else
-            return view('hanoivip::password-forgot-reset-result',
-                ['error_message' => $result]);
+        try {
+            $result = $this->resets->resetPassword($token, $password);
+            if ($result == true)
+                $message = __('hanoivip::secure.reset.success');
+            else
+            {
+                $error = 1;
+                $message = $result;
+            }
+        } catch (Exception $e) {
+            $error = 999;
+            $message = __('hanoivip::secure.reset.exception');
+            Log::error("User reset password exception: " . $e->getMes);
+        }
+        if ($request->ajax())
+            return ['error' => $error, 'message' => $message];
+        return view('hanoivip::password-forgot-reset-result', ['error' => $error, 'message' => $message]);
+    }
+    
+    public function sendOtp(Request $request)
+    {
+        
     }
 }

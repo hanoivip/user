@@ -113,7 +113,7 @@ class CredentialController extends Controller
         $newpass = $request->input('newpass');
         $uid = Auth::user()->id;
         $message = '';
-        $error_message = '';
+        $error=0;
         try 
         {
             $result = $this->credentialMgr->updatePass($uid, $newpass);
@@ -127,17 +127,28 @@ class CredentialController extends Controller
                     $request->session()->invalidate();
                 }
                 else
-                    $error_message = __('hanoivip::password.update.fail');
+                {
+                    $error = 1;
+                    $message = __('hanoivip::password.update.fail');
+                }
             }
             else
-                $error_message = $result;
+            {
+                $error = 2;
+                $message = $result;
+            }
+                
         }
         catch (Exception $ex)
         {
             Log::error("Update password exception. Msg: " . $ex->getMessage());
-            $error_message = __('hanoivip::password.update.exception');
+            $message = __('hanoivip::password.update.exception');
+            $error = 999;
         }
-        return view('hanoivip::password-update-result', ['message' => $message, 'error_message' => $error_message]);
+        if ($this->ajax())
+            return ['error'=>$error, 'message'=>$message];
+        else
+            return view('hanoivip::password-update-result', ['message' => $message, 'error' => $error]);
     }
     
     public function personalInfo()
