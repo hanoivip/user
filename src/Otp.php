@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Hanoivip\User;
 
 use Illuminate\Database\Eloquent\Model;
 

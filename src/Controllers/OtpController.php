@@ -23,9 +23,11 @@ class OtpController extends Controller
     {
         $email = $request->input('email');
         $error = 0;
+        $message = __('hanoivip::otp.success');
         if (!$this->secures->canSecureByEmail($email))
         {
             $error = 1;
+            $message = __('hanoivip::otp.email-invalid');
         }
         else
         {
@@ -33,7 +35,7 @@ class OtpController extends Controller
             $key = md5($email);
             $otp = Otp::digits(6)->expiry(120)->generate($key);
             // save record
-            $record = new \App\Otp();
+            $record = new \Hanoivip\User\Otp();
             $record->address = $email;
             $record->type = 1;
             $record->otp = $otp;
@@ -42,7 +44,7 @@ class OtpController extends Controller
             // send mail
             Mail::to($email)->send(new UserOtp($otp, 120));
         }
-        return ['error'=>$error, 'message'=>''];
+        return ['error'=>$error, 'message'=>$message];
     }
     
     public function sendSms(Request $request)
