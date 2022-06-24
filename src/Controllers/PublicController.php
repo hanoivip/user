@@ -194,6 +194,6 @@ class PublicController extends Controller
     {
         $otp = $request->input('otp');
         $record = Otp::where("otp", $otp)->first();
-        return $record->userSecure();
+        return $record->userSecure()->first();
     }
 }

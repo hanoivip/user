@@ -79,6 +79,7 @@ return [
         'email-sent' => 'Chúng tôi đã gửi cho bạn 1 email hướng dẫn đặt lại mật khẩu. Mời kiểm tra email và làm theo hướng dẫn.',
         'token-invalid' => 'Mời kiểm tra lại email và làm lại theo hướng dẫn.',
         'success' => 'Cài đặt lại mật khẩu thành công!',
-        'too-fast' => 'Yêu cầu gửi email quá nhanh. Bạn cần đợi ít nhất 2 phút giữa 2 lần yêu cầu.'
+        'too-fast' => 'Yêu cầu gửi email quá nhanh. Bạn cần đợi ít nhất 2 phút giữa 2 lần yêu cầu.',
+        'otp-invalid' => 'OTP không hợp lệ',
     ]
 ];
