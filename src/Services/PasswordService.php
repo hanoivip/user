@@ -108,10 +108,9 @@ class PasswordService
         $record = Otp::where('otp', $otp)->get();
         if ($record->isEmpty())
             return __('hanoivip::secure.reset.otp-invalid');
-        $userSecure = $record->first()->userSecure->first();
-        $record = $record->first();
-        if (!\Tzsk\Otp\Facades\Otp::digits(strlen($record->otp))->expiry($record->expires)->check($otp, md5($userSecure->email)))
+        if (Carbon::now()->timestamp>=$record->first()->expires)
             return __('hanoivip::secure.reset.otp-expires');
+        $userSecure = $record->first()->userSecure->first();
         $result = $this->credentials->updatePass($userSecure->user_id, $password);
         return $result;
     }

@@ -1,6 +1,7 @@
 <?php
 namespace Hanoivip\User\Controllers;
 
+use Carbon\Carbon;
 use Hanoivip\User\Mail\UserOtp;
 use Hanoivip\User\Services\SecureService;
 use Illuminate\Http\Request;
@@ -17,6 +18,17 @@ class OtpController extends Controller
         $this->secures = $secures;
     }
     
+    function generateNumericOTP($n) {
+        
+        $generator = "1357902468";
+        $result = "";
+        
+        for ($i = 1; $i <= $n; $i++) {
+            $result .= substr($generator, (rand()%(strlen($generator))), 1);
+        }
+        return $result;
+    }
+    
     public function sendMail(Request $request)
     {
         $email = $request->input('email');
@@ -30,17 +42,16 @@ class OtpController extends Controller
         else
         {
             // thottle?
-            $key = md5($email);
-            $otp = Otp::digits(6)->expiry(2)->generate($key);
+            $otp = $this->generateNumericOTP(6);
             // save record
             $record = new \Hanoivip\User\Otp();
             $record->address = $email;
             $record->type = 1;
             $record->otp = $otp;
-            $record->expires = 120;
+            $record->expires = Carbon::now()->addMinutes(2)->timestamp;
             $record->save();
             // send mail
-            Mail::to($email)->send(new UserOtp($otp, 120));
+            Mail::to($email)->send(new UserOtp($otp, 60 * 2));
         }
         return ['error'=>$error, 'message'=>$message];
     }

@@ -9,8 +9,7 @@
 		"laravel/tinker" : "~1.0",
 		"mervick/curl-helper" : "^2.2",
 		"doctrine/dbal": "^2.13",
-		"mews/captcha": "^2.1",
-		"tzsk/otp": "^4.0"
+		"mews/captcha": "^2.1"
 	},
 	"autoload" : {
 		"psr-4" : {
