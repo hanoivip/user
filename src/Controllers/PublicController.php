@@ -172,7 +172,7 @@ class PublicController extends Controller
             $password = $request->input('password');
             try {
                 $result = $this->resets->resetPasswordByOtp($otp, $password);
-                if ($result == true)
+                if ($result === true)
                     $message = __('hanoivip::secure.reset.success');
                 else
                 {

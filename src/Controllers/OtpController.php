@@ -31,7 +31,7 @@ class OtpController extends Controller
         {
             // thottle?
             $key = md5($email);
-            $otp = Otp::digits(6)->expiry(120)->generate($key);
+            $otp = Otp::digits(6)->expiry(2)->generate($key);
             // save record
             $record = new \Hanoivip\User\Otp();
             $record->address = $email;
