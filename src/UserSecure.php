@@ -10,6 +10,6 @@ class UserSecure extends Model
     
     public function otps()
     {
-        return $this->hasMany(Otp::class, 'address', 'email');
+        return $this->hasMany(Otp::class, 'email', 'address');
     }
 }

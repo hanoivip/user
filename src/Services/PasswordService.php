@@ -108,7 +108,7 @@ class PasswordService
         $record = Otp::where('otp', $otp)->get();
         if ($record->isEmpty())
             return __('hanoivip::secure.otp-invalid');
-        $result = $this->credentials->updatePass($record->first()->userSecure->user_id, $password);
+        $result = $this->credentials->updatePass($record->first()->userSecure->first()->user_id, $password);
         return $result;
     }
 }
