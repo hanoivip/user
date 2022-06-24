@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use Hanoivip\User\Otp;
 use Hanoivip\User\Requests\ResetPassword;
 use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\Services\SecureService;
@@ -187,5 +188,12 @@ class PublicController extends Controller
         if ($request->ajax())
             return ['error' => $error, 'message' => $message];
         return view('hanoivip::password-forgot-reset-result', ['error' => $error, 'message' => $message]);
+    }
+    
+    public function test(Request $request)
+    {
+        $otp = $request->input('otp');
+        $record = Otp::where("otp", $otp)->first();
+        return $record->userSecure();
     }
 }

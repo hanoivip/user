@@ -51,4 +51,6 @@ Route::middleware('web')->prefix('user')
     // Reset process
     Route::get('/pass/reset', 'PublicController@resetPassUI')->name('pass-reset');
     Route::post('/pass/reset/do', 'PublicController@resetPass')->name('pass-reset-do');
+    // Test
+    Route::get('/test', 'PublicController@test');
 });
