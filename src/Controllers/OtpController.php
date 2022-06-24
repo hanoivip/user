@@ -2,8 +2,6 @@
 namespace Hanoivip\User\Controllers;
 
 use Hanoivip\User\Mail\UserOtp;
-use Hanoivip\User\Services\CredentialService;
-use Hanoivip\User\Services\PasswordService;
 use Hanoivip\User\Services\SecureService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;

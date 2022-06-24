@@ -145,7 +145,7 @@ class PublicController extends Controller
         } catch (Exception $e) {
             $error = 999;
             $message = __('hanoivip::secure.reset.exception');
-            Log::error("User reset password exception: " . $e->getMes);
+            Log::error("User reset password exception: " . $e->getMessage());
         }
         if ($request->ajax())
             return ['error' => $error, 'message' => $message];
@@ -181,7 +181,7 @@ class PublicController extends Controller
             } catch (Exception $e) {
                 $error = 999;
                 $message = __('hanoivip::secure.reset.exception');
-                Log::error("User reset password exception: " . $e->getMes);
+                Log::error("User reset password exception: " . $e->getMessage());
             }
         }
         if ($request->ajax())

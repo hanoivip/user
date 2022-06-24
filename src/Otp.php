@@ -9,6 +9,6 @@ class Otp extends Model
     public function userSecure()
     {
         // TODO: phone & address?
-        return $this->hasOne(UserSecure::class, 'email', 'address');
+        return $this->belongsTo(UserSecure::class, 'email', 'address');
     }
 }
