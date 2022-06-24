@@ -115,6 +115,7 @@ class PublicController extends Controller
             return view('hanoivip::password-forgot-reset', ['token' => $token]);
     }
 
+    // Reset password by email link
     public function resetPass(Request $request)
     {
         $token = $request->input('resettoken');
@@ -151,8 +152,40 @@ class PublicController extends Controller
         return view('hanoivip::password-forgot-reset-result', ['error' => $error, 'message' => $message]);
     }
     
-    public function sendOtp(Request $request)
+    public function resetPassByOtp(Request $request)
     {
-        
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|min:8',
+            'otp' => 'required|string',
+        ]);
+        $error = 0;
+        $message = '';
+        if ($validator->fails())
+        {
+            $error = 1;
+            $message = __('hanoivip::secure.reset.validation-fail');
+        }
+        else
+        {
+            $otp = $request->input('otp');
+            $password = $request->input('password');
+            try {
+                $result = $this->resets->resetPasswordByOtp($otp, $password);
+                if ($result == true)
+                    $message = __('hanoivip::secure.reset.success');
+                else
+                {
+                    $error = 2;
+                    $message = $result;
+                }
+            } catch (Exception $e) {
+                $error = 999;
+                $message = __('hanoivip::secure.reset.exception');
+                Log::error("User reset password exception: " . $e->getMes);
+            }
+        }
+        if ($request->ajax())
+            return ['error' => $error, 'message' => $message];
+        return view('hanoivip::password-forgot-reset-result', ['error' => $error, 'message' => $message]);
     }
 }

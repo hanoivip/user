@@ -7,6 +7,7 @@ use Hanoivip\User\PasswordReset;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Hanoivip\User\Mail\ResetPassword;
+use Hanoivip\User\Otp;
 
 class PasswordService
 {
@@ -94,12 +95,20 @@ class PasswordService
             return __('hanoivip::secure.reset.token-invalid'); 
         $secureInfo = $this->secure->getRecordByEmail($record->email);
         $result = $this->credentials->updatePass($secureInfo->user_id, $password);
-        Log::debug(print_r($result));
         if ($result)
         {
             $record->token = 'xxx';
             $record->save();
         }
+        return $result;
+    }
+    
+    public function resetPasswordByOtp($otp, $password)
+    {
+        $record = Otp::where('otp', $otp)->get();
+        if ($record->isEmpty())
+            return __('hanoivip::secure.otp-invalid');
+        $result = $this->credentials->updatePass($record->userSecure->user_id, $password);
         return $result;
     }
 }

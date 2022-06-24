@@ -6,7 +6,7 @@ Route::prefix('api')->namespace('Hanoivip\User\Controllers')->group(function () 
     Route::any('/admin/token', 'AdminController@generateToken');
     Route::any('/admin/user', 'AdminController@userInfo');
 
-    Route::any('/pass/reset', 'PublicController@resetPass');
+    Route::any('/pass/resetByOtp', 'PublicController@resetPassByOtp');
     Route::any('/otp/sendmail', 'OtpController@sendMail');
     Route::any('/otp/sendsms', 'OtpController@sendSms');
 });

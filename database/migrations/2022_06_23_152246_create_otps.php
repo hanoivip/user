@@ -11,7 +11,7 @@ class CreateOtps extends Migration
         Schema::create('otps', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('otp');
-            $table->integer('expries');
+            $table->integer('expires');
             $table->string('address')->comment('email, sms, ..');
             $table->integer('type');
             $table->timestamps();
