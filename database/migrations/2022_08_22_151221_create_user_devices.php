@@ -16,6 +16,7 @@ class CreateUserDevices extends Migration
             $table->string('device_id');
             $table->string('device_info')->default('')->comment('Detail device info');
             $table->boolean('revoked')->default(false);
+            $table->boolean('verified')->default(false);
             $table->timestamps();
         });
     }

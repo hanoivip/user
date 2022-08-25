@@ -212,22 +212,17 @@ class TwofaService
         if ($result === true)
         {
             $this->devices->trustDevice($userId, $device);
+            /*
             $way = UserVerifyWay::where('user_id', $userId)
             ->where('way', $way)
             ->where('verified', true)
             ->where('delete', false)
-            ->update('use_count', 'use_count + 1');
+            ->update(['use_count' => 'use_count + 1']);*/
             $this->notifyUser($userId, new TwofaNewDevice($device->deviceName, $device->deviceIp));
         }
         else 
         {
             $this->notifyUser($userId, new TwofaStrangeDevice($device->deviceName, $device->deviceIp));
         }
-    }
-    
-    public function forceTrustDevice($userId, $device)
-    {
-        $this->devices->trustDevice($userId, $device);
-        $this->notifyUser($userId, new TwofaStrangeDevice($device->deviceName, $device->deviceIp));
     }
 }

@@ -18,14 +18,6 @@ use Hanoivip\Events\UserSecure\Pass2Updated;
 
 class SecureService
 {
-    
-    protected $authenticator;
-    
-    public function __construct(AuthenticateService $authenticator)
-    {
-        $this->authenticator = $authenticator;    
-    }
-    
     /**
      * Lấy bản ghi bảo mật của người chơi.
      * 

@@ -35,7 +35,8 @@ class DeviceInfo
         }
         else 
         {
-            $deviceId = $this->encrypter->decrypt(Cookie::get($key), false);
+            if (Cookie::has($key))
+                $deviceId = $this->encrypter->decrypt(Cookie::get($key), false);
             $deviceOs = $agent->platform();
             $deviceOsVer = $agent->version($deviceOs);
             $deviceName = $agent->browser();

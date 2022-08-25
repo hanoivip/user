@@ -16,16 +16,12 @@ use Hanoivip\Events\User\DetailUpdated;
 use Hanoivip\Events\User\UserBinded;
 
 class CredentialService
-{
-    protected $authenticator;
-    
+{   
     protected $secures;
     
-    public function __construct(SecureService $secures,
-        AuthenticateService $authenticator)
+    public function __construct(SecureService $secures)
     {
         $this->secures = $secures;
-        $this->authenticator = $authenticator;
     }
     /**
      * Validate/authenticate this user
