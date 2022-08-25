@@ -4,10 +4,10 @@ namespace Hanoivip\User;
 use Illuminate\Support\ServiceProvider;
 use Hanoivip\User\Services\CacheService;
 use Hanoivip\User\Services\CredentialService;
+use Hanoivip\User\Services\DeviceService;
 
 class ModServiceProvider extends ServiceProvider
 {
-
     public function boot()
     {
         $this->publishes([
@@ -29,5 +29,6 @@ class ModServiceProvider extends ServiceProvider
         $this->commands([]);
         $this->app->bind('CredentialService', CredentialService::class);
         $this->app->bind('userCacheService', CacheService::class);
+        $this->app->bind('DeviceService', DeviceService::class);
     }
 }

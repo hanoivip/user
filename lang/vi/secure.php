@@ -81,5 +81,6 @@ return [
         'success' => 'Cài đặt lại mật khẩu thành công!',
         'too-fast' => 'Yêu cầu gửi email quá nhanh. Bạn cần đợi ít nhất 2 phút giữa 2 lần yêu cầu.',
         'otp-invalid' => 'OTP không hợp lệ',
+        'otp-expires' => 'OTP không hợp lệ ..',
     ]
 ];

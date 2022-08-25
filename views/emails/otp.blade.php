@@ -8,18 +8,15 @@
 		</tr>
 		<tr>
 			<td align="left" height="60">
-				<p
-					style="margin: 0; font-family: Arial, Helvetica, sans-serif; color: #333333; font-size: 20px; font-weight: 400; text-transform: uppercase">Mã
-					OTP</p>
+				<p style="margin: 0; font-family: Arial, Helvetica, sans-serif; color: #333333; font-size: 20px; font-weight: 400; text-transform: uppercase">Mã OTP</p>
 			</td>
 		</tr>
-
 
 		<tr>
 			<td height="30">
 				<p
 					style="margin: 0; font-family: Arial, Helvetica, sans-serif; color: #555; font-size: 13px">
-					Mã OTP của bạn là <strong>{{ $otp }}</strong>.
+					Mã OTP (mật khẩu dùng 1 lần) của bạn là <strong>{{ $otp }}</strong>.
 				</p>
 			</td>
 		</tr>

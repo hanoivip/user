@@ -10,7 +10,10 @@ class EventServiceProvider extends ServiceProvider
         'Hanoivip\Events\Gate\UserTopup' => [
         ],
         'Hanovip\Events\Payment\TransactionUpdated' => [
-        ]
+        ],
+        'Illuminate\Auth\Events\Login' => [
+            'Hanoivip\User\Listeners\LogSuccessLogin',
+        ],
     ];
     
     public function boot()

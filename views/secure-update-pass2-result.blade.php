@@ -8,7 +8,7 @@
     <div class="zidregister_form">
         @if (!empty($message))
         <div class="zidreg_feedback">
-            <p><img src="/images/success.jpg" alt="" width="100"></p>
+            <p><img src="/images/success.png" alt="" width="100"></p>
                 {{ $message }}
         </div>
         <p class="align_center">
@@ -17,7 +17,7 @@
         @endif
         @if (!empty($error_message))
             <div class="zidreg_feedback">
-            <p><img src="/images/failure.jpg" alt="" width="100"></p>            
+            <p><img src="/images/failure.png" alt="" width="100"></p>            
                 {{ $error_message }}                        
         </div>
         @endif

@@ -102,16 +102,4 @@ class PasswordService
         }
         return $result;
     }
-    
-    public function resetPasswordByOtp($otp, $password)
-    {
-        $record = Otp::where('otp', $otp)->get();
-        if ($record->isEmpty())
-            return __('hanoivip::secure.reset.otp-invalid');
-        if (Carbon::now()->timestamp>=$record->first()->expires)
-            return __('hanoivip::secure.reset.otp-expires');
-        $userSecure = $record->first()->userSecure->first();
-        $result = $this->credentials->updatePass($userSecure->user_id, $password);
-        return $result;
-    }
 }

@@ -103,6 +103,7 @@ class CredentialController extends Controller
         return view('hanoivip::resend-email-result', ['message' => $message, 'error_message' => $error_message]);
     }
     
+    // TODO: recent login middleware, < 1p
     public function updatePasswordUI()
     {
         return view('hanoivip::password-update');

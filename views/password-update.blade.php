@@ -8,15 +8,6 @@
     <form class="zidregister_form" method="POST" action="{{ route('pass-update-result') }}">
         {{ csrf_field() }}
         <div class="form_input_grp">
-            <div class="form_input_wrapper" id="wrap_oldpwd">
-                <input id="oldpass" type="password" placeholder="Mật khẩu hiện tại" class="form_input" name="oldpass" value="{{ old('oldpass') }}" required autofocus>
-
-                @if ($errors->has('oldpass'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('oldpass') }}</strong>
-                    </span>
-                @endif
-            </div>
             <div class="form_input_wrapper" id="wrap_newpwd">
                 <input id="newpass" type="password" placeholder="Mật khẩu mới" class="form_input" name="newpass" required>
                 @if ($errors->has('newpass'))

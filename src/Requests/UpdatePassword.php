@@ -16,7 +16,7 @@ class UpdatePassword extends FormRequest
         if ($this->ajax())
         {
             return [
-                'oldpass' => 'required|string|current_password',
+                //'oldpass' => 'required|string|current_password',
                 'newpass' => 'required|string',//noteasy
                 //'captcha' => 'required|string|captcha_api:'. request('key') . ',math'
             ];
@@ -24,7 +24,7 @@ class UpdatePassword extends FormRequest
         else 
         {
             return [
-                'oldpass' => 'required|string|current_password',
+                //'oldpass' => 'required|string|current_password',
                 'newpass' => 'required|string|confirmed',//noteasy
                 'captcha' => 'required|string|captcha'
             ];

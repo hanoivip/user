@@ -6,27 +6,20 @@ use Hanoivip\User\Mail\UserOtp;
 use Hanoivip\User\Services\SecureService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Tzsk\Otp\Facades\Otp;
+use Hanoivip\User\Services\OtpService;
 
 class OtpController extends Controller
 {
     protected $secures;
+    
+    protected $otp;
 
     public function __construct(
-        SecureService $secures)
+        SecureService $secures,
+        OtpService $otp)
     {
         $this->secures = $secures;
-    }
-    
-    function generateNumericOTP($n) {
-        
-        $generator = "1357902468";
-        $result = "";
-        
-        for ($i = 1; $i <= $n; $i++) {
-            $result .= substr($generator, (rand()%(strlen($generator))), 1);
-        }
-        return $result;
+        $this->otp = $otp;
     }
     
     public function sendMail(Request $request)
@@ -42,14 +35,7 @@ class OtpController extends Controller
         else
         {
             // thottle?
-            $otp = $this->generateNumericOTP(6);
-            // save record
-            $record = new \Hanoivip\User\Otp();
-            $record->address = $email;
-            $record->type = 1;
-            $record->otp = $otp;
-            $record->expires = Carbon::now()->addMinutes(2)->timestamp;
-            $record->save();
+            $otp = $this->otp->generate();
             // send mail
             Mail::to($email)->send(new UserOtp($otp, 60 * 2));
         }

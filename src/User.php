@@ -50,4 +50,14 @@ class User extends Authenticatable
         
         return $this;
     }
+    
+    public function verifyWays()
+    {
+        return $this->hasMany(UserVerifyWay::class);
+    }
+    
+    public function devices()
+    {
+        return $this->hasMany(UserDevice::class);
+    }
 }
