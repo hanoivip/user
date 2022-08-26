@@ -15,7 +15,7 @@ class TwofaNewDevice extends Mailable
     
     public $deviceName;
 
-    public function __construct($ip, $name)
+    public function __construct($name, $ip)
     {
         $this->deviceIp = $ip;
         $this->deviceName = $name;

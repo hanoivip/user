@@ -21,15 +21,15 @@ class DeviceInfo
     
     public function handle(Request $request, Closure $next)
     {
-        $key = "us-device-id";
+        $key = 'us-device-id';
         $deviceId = '';
         $deviceIp = $request->getClientIp();
         $agent = new Agent();
         if ($request->ajax())
         {
-            $deviceId = $request->headers->get('us-device-id');
-            $deviceOs = $request->headers->get('us-device-os');
-            $deviceOsVer = $request->headers->get('us-device-os-ver');
+            $deviceId = $this->tryGetValue($request, 'us-device-id');
+            $deviceOs = $this->tryGetValue($request, 'us-device-os');
+            $deviceOsVer = $this->tryGetValue($request, 'us-device-os-ver');
             $deviceName = $agent->device();
             $deviceVer = $agent->version($deviceName);
         }
@@ -52,5 +52,15 @@ class DeviceInfo
         //Log::debug(print_r($info, true));
         $request->attributes->add(['device' => $info]);
         return $next($request);
+    }
+    
+    protected function tryGetValue(Request $request, $key)
+    {
+        if (Cookie::has($key))
+            return $this->encrypter->decrypt(Cookie::get($key), false);
+        if ($request->headers->has($key))
+            return $this->headers->get($key);
+        Log::error("DeviceInfo fail to retrieve $key");
+        return null;
     }
 }
