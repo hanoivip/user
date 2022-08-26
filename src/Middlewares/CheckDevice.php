@@ -2,18 +2,15 @@
 
 namespace Hanoivip\User\Middlewares;
 
+use Hanoivip\User\Services\TwofaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Closure;
-use Hanoivip\User\Services\TwofaService;
-use Hanoivip\User\Services\DeviceService;
 
 class CheckDevice
 {
     private $twofa;
     
-    private $devices;
     
     const VERIFY_ROUTE = 'twofa.verify';
     
@@ -24,24 +21,17 @@ class CheckDevice
     ];
     
     public function __construct(
-        TwofaService $twofa,
-        DeviceService $devices)
+        TwofaService $twofa)
     {
         $this->twofa = $twofa;
-        $this->devices = $devices;
     }
     
     public function handle(Request $request, Closure $next)
     {
-        $device = $request->get('device');
-        if (!empty($device))
-        {
-            //Log::debug(print_r($device, true));
-            $this->devices->logDevice($device);
-        }
         if (Auth::check())
         {
             $userId = Auth::user()->getAuthIdentifier();
+            $device = $request->get('device');
             $uri = $request->getRequestUri();
             //Log::debug("checking .. $uri");
             if (!in_array($uri, $this->except))

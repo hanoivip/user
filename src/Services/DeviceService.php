@@ -111,7 +111,6 @@ class DeviceService
         {
             if ($record->user_id != $userId)
                 throw new Exception("Device is other user??");
-            return;
         }
         $record->user_id = $userId;
         $record->api_token = $token;

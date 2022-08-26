@@ -9,14 +9,20 @@ use Illuminate\Support\Facades\Log;
 use Closure;
 use Jenssegers\Agent\Agent;
 use Hanoivip\User\Device;
+use Hanoivip\User\Services\DeviceService;
 
 class DeviceInfo
 {   
     protected $encrypter;
     
-    public function __construct(Encrypter $encrypter)
+    protected $devices;
+    
+    public function __construct(
+        Encrypter $encrypter, 
+        DeviceService $devices)
     {
         $this->encrypter = $encrypter;
+        $this->devices = $devices;
     }
     
     public function handle(Request $request, Closure $next)
@@ -51,6 +57,8 @@ class DeviceInfo
         $info->deviceVer = $deviceVer;
         //Log::debug(print_r($info, true));
         $request->attributes->add(['device' => $info]);
+        // Log it
+        $this->devices->logDevice($info);
         return $next($request);
     }
     
