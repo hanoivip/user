@@ -56,7 +56,6 @@ class CheckDevice
                     $this->twofa->needVerifyDevice($userId, $device))
                     return response()->redirectToRoute(self::VERIFY_ROUTE);
             }
-            $this->devices->mapUserDevice($userId, $device);
         }
         return $next($request);
     }
