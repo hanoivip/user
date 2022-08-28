@@ -5,6 +5,7 @@ use Illuminate\Support\ServiceProvider;
 use Hanoivip\User\Services\CacheService;
 use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\Services\DeviceService;
+use Hanoivip\User\Services\TwofaService;
 
 class ModServiceProvider extends ServiceProvider
 {
@@ -30,5 +31,6 @@ class ModServiceProvider extends ServiceProvider
         $this->app->bind('CredentialService', CredentialService::class);
         $this->app->bind('userCacheService', CacheService::class);
         $this->app->bind('DeviceService', DeviceService::class);
+        $this->app->bind('TwofaService', TwofaService::class);
     }
 }
