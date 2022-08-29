@@ -60,18 +60,6 @@ class DeviceService
     /**
      * 
      * @param Device $device
-     * @param string $token
-     *
-    public function assignToken($device, $token)
-    {
-        UserDevice::where('device_id', $device->deviceId)
-        ->where('revoked', false)
-        ->update(['api_token' => $token]);
-        return true;
-    }*/
-    /**
-     * 
-     * @param Device $device
      * @return string
      */
     public function getToken($device)

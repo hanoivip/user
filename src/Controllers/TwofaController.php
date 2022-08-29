@@ -134,6 +134,10 @@ class TwofaController extends Controller
         else 
             $way = $this->twofa->getDefaultWay();
         $this->twofa->startVerifyDevice($userId, $way, $device);
+        if ($request->ajax())
+        {
+            return ['error' => 0, 'message' => 'success', 'data' => ''];
+        }
         return view('hanoivip::twofa-verify', ['way' => $way]);
     }
     
@@ -144,10 +148,17 @@ class TwofaController extends Controller
         $way = $request->input('way');
         $otp = $request->input('otp');
         $this->twofa->verify($userId, $device, $way, $otp);
-        if ($request->has('redirect'))
-            return response()->redirectTo($request->input('redirect'));
+        if ($request->ajax())
+        {
+            return ['error' => 0, 'message' => 'success', 'data' => ''];
+        }
         else 
-            return response()->redirectToRoute('home');
+        {
+            if ($request->has('redirect'))
+                return response()->redirectTo($request->input('redirect'));
+            else 
+                return response()->redirectToRoute('home');
+        }
     }
 }
     

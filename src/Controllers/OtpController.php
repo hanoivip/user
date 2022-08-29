@@ -1,12 +1,11 @@
 <?php
 namespace Hanoivip\User\Controllers;
 
-use Carbon\Carbon;
 use Hanoivip\User\Mail\UserOtp;
+use Hanoivip\User\Services\OtpService;
 use Hanoivip\User\Services\SecureService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Hanoivip\User\Services\OtpService;
 
 class OtpController extends Controller
 {
@@ -42,8 +41,10 @@ class OtpController extends Controller
         return ['error'=>$error, 'message'=>$message];
     }
     
-    public function sendSms(Request $request)
+    public function check(Request $request)
     {
-        
+        $otp = $request->input('otp');
+        $result = $this->otp->check($otp);
+        return ['error' => $result ? 0 : 1, 'message' => $result ? 'correct': 'incorrect'];
     }
 }
