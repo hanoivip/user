@@ -10,10 +10,14 @@ Route::prefix('api')->namespace('Hanoivip\User\Controllers')->group(function () 
     Route::any('/pass/resetByOtp', 'PublicController@resetPassByOtp');
     Route::any('/otp/sendmail', 'OtpController@sendMail');
     Route::any('/otp/sendsms', 'OtpController@sendSms');
+    
+    
 });
 
 Route::prefix('api')->middleware('auth:api')
     ->namespace('Hanoivip\User\Controllers')
     ->group(function () {
     Route::any('/pass/update', 'CredentialController@doUpdatePassword');
+    Route::any('/verify/init', 'TwofaController@verify');
+    Route::any('/verify', 'TwofaController@doVerify');
 });
