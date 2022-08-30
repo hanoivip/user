@@ -4,15 +4,20 @@ namespace Hanoivip\User\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Hanoivip\User\Services\TwofaService;
+use Hanoivip\User\Services\DeviceService;
 
 class TwofaController extends Controller
 {
     protected $twofa;
     
+    protected $devices;
+    
     public function __construct(
-        TwofaService $twofa)
+        TwofaService $twofa,
+        DeviceService $devices)
     {
         $this->twofa = $twofa;
+        $this->devices = $devices;
     }
 
     public function index()
@@ -123,6 +128,22 @@ class TwofaController extends Controller
             
             return view('hanoivip::twofa-validate-value', ['way' => $way, 'value' => $value]);
         }
+    }
+    // Check device need to verify
+    public function needVerify(Request $request)
+    {
+        $device = $request->get('device');
+        $record = $this->devices->getDeviceById($device->deviceId);
+        $need = false;
+        if (!empty($record))
+        {
+            $userId = $record->user_id;
+            if (!empty($userId))
+            {
+                $need = $this->twofa->getStatus($userId) && $this->twofa->needVerifyDevice($userId, $device);
+            }
+        }
+        return ['error' => 0, 'message' => 'success', 'data' => ['need_verify' => $need]];
     }
     // Verify user device UI
     public function verify(Request $request)

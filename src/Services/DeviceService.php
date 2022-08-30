@@ -74,6 +74,11 @@ class DeviceService
     {
         return UserDevice::where($tokenColumn, $token)->first();
     }
+    
+    public function getDeviceById($id)
+    {
+        return UserDevice::where('device_id', $id)->first();
+    }
     /**
      * 
      * @param Device $device
