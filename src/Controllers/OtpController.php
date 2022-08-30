@@ -45,6 +45,6 @@ class OtpController extends Controller
     {
         $otp = $request->input('otp');
         $result = $this->otp->check($otp);
-        return ['error' => $result ? 0 : 1, 'message' => $result ? 'correct': 'incorrect'];
+        return ['error' => gettype($result) == 'string' ? 1 : 0, 'message' => $result];
     }
 }
