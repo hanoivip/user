@@ -148,8 +148,13 @@ class TwofaController extends Controller
     // Verify user device UI
     public function verify(Request $request)
     {
-        $userId = Auth::user()->getAuthIdentifier();
         $device = $request->get('device');
+        $record = $this->devices->getDeviceById($device->deviceId);
+        if (empty($record))
+        {
+            return ['error' => 1, 'message' => 'fail', 'data' => ''];
+        }
+        $userId = $record->user_id;
         if ($request->has('way'))
             $way = $request->input('way');
         else 
@@ -164,10 +169,15 @@ class TwofaController extends Controller
     
     public function doVerify(Request $request)
     {
-        $userId = Auth::user()->getAuthIdentifier();
         $device = $request->get('device');
         $way = $request->input('way');
         $otp = $request->input('otp');
+        $record = $this->devices->getDeviceById($device->deviceId);
+        if (empty($record))
+        {
+            return ['error' => 1, 'message' => 'fail', 'data' => ''];
+        }
+        $userId = $record->user_id;
         $this->twofa->verify($userId, $device, $way, $otp);
         if ($request->ajax())
         {

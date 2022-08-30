@@ -12,12 +12,12 @@ Route::prefix('api')->namespace('Hanoivip\User\Controllers')->group(function () 
     Route::any('/otp/sendsms', 'OtpController@sendSms');
     
     Route::any('/verify/need', 'TwofaController@needVerify');
+    Route::any('/verify/init', 'TwofaController@verify');
+    Route::any('/verify', 'TwofaController@doVerify');
 });
 
 Route::prefix('api')->middleware('auth:api')
     ->namespace('Hanoivip\User\Controllers')
     ->group(function () {
     Route::any('/pass/update', 'CredentialController@doUpdatePassword');
-    Route::any('/verify/init', 'TwofaController@verify');
-    Route::any('/verify', 'TwofaController@doVerify');
 });
