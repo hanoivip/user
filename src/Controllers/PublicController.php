@@ -181,8 +181,8 @@ class PublicController extends Controller
         {
             $otp = $request->input('otp');
             $password = $request->input('password');
-            $record = $this->otps->check($otp);
-            $userID = $record->value;
+            $record = $this->otps->get($otp);
+            $userID = $record->address;
             try {
                 $result = $this->credentials->updatePass($userID, $password);
                 if ($result === true)
