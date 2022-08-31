@@ -14,6 +14,7 @@ Route::prefix('api')->namespace('Hanoivip\User\Controllers')->group(function () 
     Route::any('/verify/need', 'TwofaController@needVerify');
     Route::any('/verify/init', 'TwofaController@verify');
     Route::any('/verify', 'TwofaController@doVerify');
+    Route::any('/verify/list', 'TwofaController@listWays');
 });
 
 Route::prefix('api')->middleware('auth:api')

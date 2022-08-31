@@ -12,9 +12,5 @@ return [
         'protected-email' => 'Protected by email',
         'protected-code' => 'Protected by backup codes',
         'protected-authenticator' => 'Protected by authenticator app'
-    ],
-    'user' => [
-        'not-exists' => 'User not exists',
-        'no-way' => 'User have not set any verification method'
     ]
 ];

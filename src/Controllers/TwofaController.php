@@ -3,6 +3,7 @@ namespace Hanoivip\User\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\Services\TwofaService;
 use Hanoivip\User\Services\DeviceService;
 
@@ -12,12 +13,16 @@ class TwofaController extends Controller
     
     protected $devices;
     
+    protected $users;
+    
     public function __construct(
         TwofaService $twofa,
-        DeviceService $devices)
+        DeviceService $devices,
+        CredentialService $users)
     {
         $this->twofa = $twofa;
         $this->devices = $devices;
+        $this->users = $users;
     }
 
     public function index()
@@ -189,6 +194,25 @@ class TwofaController extends Controller
                 return response()->redirectTo($request->input('redirect'));
             else 
                 return response()->redirectToRoute('home');
+        }
+    }
+    
+    public function listWays(Request $request)
+    {
+        $username = $request->get('username');
+        $record = $this->users->getUserCredentials($username);
+        if (!empty($record))
+        {
+            $userId = $record->id;
+            $ways = $this->twofa->getUserWays($userId);
+            if (!empty($ways))
+                return ['error' => 0, 'message' => 'success', 'data' => $ways];
+            else
+                return ['error' => 2, 'message' => __('twofa.user.no-way'), 'data' => []];
+        }
+        else
+        {
+            return ['error' => 1, 'message' => __('twofa.user.not-exists'), 'data' => []];
         }
     }
 }

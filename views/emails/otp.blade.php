@@ -3,7 +3,7 @@
 		<tr>
 			<td style="border-bottom: 1px solid #cccccc"><a
 				href="{{ route('home') }}" target="_blank"><img title="zing id logo"
-					src="{{ asset('img/logo-vn1.png') }}" alt="" vspace="10"
+					src="{{ asset('img/logo.png') }}" alt="" vspace="10"
 					class="m_4832652223584893077CToWUd CToWUd" style="width: 64px; height: 64px;"></a></td>
 		</tr>
 		<tr>
