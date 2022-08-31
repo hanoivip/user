@@ -7,7 +7,6 @@ Route::prefix('api')->namespace('Hanoivip\User\Controllers')->group(function () 
     Route::any('/admin/user', 'AdminController@userInfo');
 
     Route::any('/otp/check', 'OtpController@check');
-    Route::any('/pass/resetByOtp', 'PublicController@resetPassByOtp');
     Route::any('/otp/sendmail', 'OtpController@sendMail');
     Route::any('/otp/sendsms', 'OtpController@sendSms');
     
@@ -15,6 +14,10 @@ Route::prefix('api')->namespace('Hanoivip\User\Controllers')->group(function () 
     Route::any('/verify/init', 'TwofaController@verify');
     Route::any('/verify', 'TwofaController@doVerify');
     Route::any('/verify/list', 'TwofaController@listWays');
+});
+
+Route::prefix('api')->middleware('otp')->namespace('Hanoivip\User\Controllers')->group(function () {
+    Route::any('/pass/resetByOtp', 'PublicController@resetPassByOtp');
 });
 
 Route::prefix('api')->middleware('auth:api')

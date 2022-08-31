@@ -18,12 +18,12 @@ class OtpService
         return $result;
     }
     
-    function generate($expires = 2)
+    function generate($userId = 0, $expires = 2)
     {
         $otp = $this->generateNumericOTP();
         // save record
         $record = new \Hanoivip\User\Otp();
-        $record->address = 'x';
+        $record->address = $userId;
         $record->type = 0;
         $record->otp = $otp;
         $record->expires = Carbon::now()->addMinutes($expires)->timestamp;
@@ -39,5 +39,10 @@ class OtpService
         if (Carbon::now()->timestamp>=$record->first()->expires)
             return __('hanoivip::twofa.expired');
         return true;
+    }
+    
+    function get($otp)
+    {
+        return Otp::where('otp', $otp)->first();
     }
 }

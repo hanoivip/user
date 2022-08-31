@@ -11,6 +11,7 @@ use Hanoivip\User\Requests\ResetPassword;
 use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\Services\SecureService;
 use Hanoivip\User\Services\PasswordService;
+use Hanoivip\User\Services\OtpService;
 
 class PublicController extends Controller
 {
@@ -20,15 +21,19 @@ class PublicController extends Controller
     protected $secures;
 
     protected $resets;
+    
+    protected $otps;
 
     public function __construct(
         CredentialService $credentials, 
         SecureService $secures, 
-        PasswordService $resets)
+        PasswordService $resets,
+        OtpService $otps)
     {
         $this->credentials = $credentials;
         $this->secures = $secures;
         $this->resets = $resets;
+        $this->otps = $otps;
     }
 
     /**
@@ -117,7 +122,12 @@ class PublicController extends Controller
             return view('hanoivip::password-forgot-reset', ['token' => $token]);
     }
 
-    // Reset password by email link
+    /**
+     * Reset password by resettoken
+     * @param Request $request
+     * @return number[]|string[]|array[]|NULL[]
+     * @deprecated
+     */
     public function resetPass(Request $request)
     {
         $token = $request->input('resettoken');
@@ -171,7 +181,8 @@ class PublicController extends Controller
         {
             $otp = $request->input('otp');
             $password = $request->input('password');
-            $userID = Auth::user()->getAuthIdentifier();
+            $record = $this->otps->check($otp);
+            $userID = $record->value;
             try {
                 $result = $this->credentials->updatePass($userID, $password);
                 if ($result === true)

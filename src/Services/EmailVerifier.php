@@ -25,7 +25,7 @@ class EmailVerifier implements IVerifier
         $record->value = $value;
         $record->save();
         // generate otp
-        $otp = $this->otp->generate();
+        $otp = $this->otp->generate($userId);
         Mail::to($value)->send(new UserOtp($otp, 60 * 2));
         return true;
     }
@@ -44,7 +44,7 @@ class EmailVerifier implements IVerifier
         ->get();
         if ($record->isEmpty())
             return __('hanoivip::twofa.email.not-valid-email');
-        $otp = $this->otp->generate();
+        $otp = $this->otp->generate($userId);
         Mail::to($record->first()->value)->send(new UserOtp($otp, 60 * 2));
         return true;
     }
