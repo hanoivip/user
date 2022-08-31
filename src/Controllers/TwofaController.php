@@ -205,14 +205,19 @@ class TwofaController extends Controller
         {
             $userId = $record->id;
             $ways = $this->twofa->getUserWays($userId);
+            $list = [];
+            foreach ($ways as $way => $detail)
+            {
+                $list[$way] = $detail->value;
+            }
             if (!empty($ways))
-                return ['error' => 0, 'message' => 'success', 'data' => $ways];
+                return ['error' => 0, 'message' => 'success', 'data' => $list];
             else
-                return ['error' => 2, 'message' => __('twofa.user.no-way'), 'data' => []];
+                return ['error' => 2, 'message' => __('hanoivip::twofa.user.no-way'), 'data' => []];
         }
         else
         {
-            return ['error' => 1, 'message' => __('twofa.user.not-exists'), 'data' => []];
+            return ['error' => 1, 'message' => __('hanoivip::twofa.user.not-exists'), 'data' => []];
         }
     }
 }
