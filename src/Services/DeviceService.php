@@ -4,6 +4,7 @@ namespace Hanoivip\User\Services;
 
 use Hanoivip\User\Device;
 use Hanoivip\User\UserDevice;
+use Illuminate\Support\Facades\Log;
 use Exception;
 
 class DeviceService
@@ -97,16 +98,22 @@ class DeviceService
     
     public function mapUserDevice($device, $userId, $token)
     {
-        $record = UserDevice::where('device_id', $device->deviceId)->first();
+        $record = UserDevice::where('device_id', $device->deviceId)
+        ->where('user_id', $userId)
+        ->first();
         if (empty($record))
-            return;
-        if ($record->user_id != 0)
         {
-            if ($record->user_id != $userId)
-                throw new Exception("Device is other user??");
+            // player first login in this device
+            UserDevice::where('device_id', $device->deviceId)
+            ->where('user_id', 0)
+            ->update(['user_id' => $userId, 'api_token' => $token]);
         }
-        $record->user_id = $userId;
-        $record->api_token = $token;
-        $record->save();
+        else
+        {
+            // player relogin in this device
+            UserDevice::where('device_id', $device->deviceId)
+            ->where('user_id', $userId)
+            ->update(['api_token' => $token]);
+        }
     }
 }
