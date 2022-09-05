@@ -57,8 +57,6 @@ class DeviceInfo
         $info->deviceVer = $deviceVer;
         //Log::debug(print_r($info, true));
         $request->attributes->add(['device' => $info]);
-        // Log it
-        $this->devices->logDevice($info);
         return $next($request);
     }
     

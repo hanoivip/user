@@ -83,9 +83,11 @@ class DeviceService
     /**
      * 
      * @param Device $device
+     * @deprecated
      */
     public function logDevice($device)
     {
+        /*
         $record = UserDevice::where('device_id', $device->deviceId)->first();
         if (!empty($record))
             return;
@@ -94,6 +96,8 @@ class DeviceService
         $record->device_id = $device->deviceId;
         $record->device_info = $device->info();
         $record->save();
+        */
+        return false;
     }
     
     public function mapUserDevice($device, $userId, $token)
@@ -104,9 +108,12 @@ class DeviceService
         if (empty($record))
         {
             // player first login in this device
-            UserDevice::where('device_id', $device->deviceId)
-            ->where('user_id', 0)
-            ->update(['user_id' => $userId, 'api_token' => $token]);
+            $record1 = new UserDevice();
+            $record1->user_id = $userId;
+            $record1->device_id = $device->deviceId;
+            $record1->device_info = $device->info();
+            $record1->api_token = $token;
+            $record1->save();
         }
         else
         {
@@ -115,5 +122,6 @@ class DeviceService
             ->where('user_id', $userId)
             ->update(['api_token' => $token]);
         }
+        return true;
     }
 }
