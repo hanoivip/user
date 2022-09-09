@@ -5,6 +5,7 @@ namespace Hanoivip\User\Middlewares;
 use Hanoivip\User\Services\TwofaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Closure;
 
 class CheckDevice
@@ -33,7 +34,7 @@ class CheckDevice
             $userId = Auth::user()->getAuthIdentifier();
             $device = $request->get('device');
             $uri = $request->getRequestUri();
-            //Log::debug("checking .. $uri");
+            Log::debug("checking .. $uri");
             if (!in_array($uri, $this->except))
             {
                 if (empty($device) &&
