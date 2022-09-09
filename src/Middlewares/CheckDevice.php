@@ -33,8 +33,8 @@ class CheckDevice
         {
             $userId = Auth::user()->getAuthIdentifier();
             $device = $request->get('device');
-            $uri = $request->getRequestUri();
-            Log::debug("checking .. $uri");
+            $uri = $request->getPathInfo();
+            //Log::debug("checking .. $uri");
             if (!in_array($uri, $this->except))
             {
                 if (empty($device) &&
