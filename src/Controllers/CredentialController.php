@@ -138,7 +138,6 @@ class CredentialController extends Controller
                 $error = 2;
                 $message = $result;
             }
-                
         }
         catch (Exception $ex)
         {
@@ -146,7 +145,7 @@ class CredentialController extends Controller
             $message = __('hanoivip::password.update.exception');
             $error = 999;
         }
-        if ($this->ajax())
+        if ($request->ajax())
             return ['error'=>$error, 'message'=>$message];
         else
             return view('hanoivip::password-update-result', ['message' => $message, 'error' => $error]);

@@ -4,6 +4,7 @@ namespace Hanoivip\User\Middlewares;
 
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 use Closure;
@@ -13,6 +14,8 @@ use Hanoivip\User\Services\DeviceService;
 
 class DeviceInfo
 {   
+    const DEVICE_ID_KEY = 'us-device-id';
+    
     protected $encrypter;
     
     protected $devices;
@@ -27,7 +30,6 @@ class DeviceInfo
     
     public function handle(Request $request, Closure $next)
     {
-        $key = 'us-device-id';
         $deviceId = '';
         $deviceIp = $request->getClientIp();
         $agent = new Agent();
@@ -41,8 +43,11 @@ class DeviceInfo
         }
         else 
         {
-            if (Cookie::has($key))
-                $deviceId = $this->encrypter->decrypt(Cookie::get($key), false);
+            $deviceId = $this->tryGetValue($request, 'us-device-id');
+            if (empty($deviceId))
+            {
+                $deviceId = $this->generateDeviceId();
+            }
             $deviceOs = $agent->platform();
             $deviceOsVer = $agent->version($deviceOs);
             $deviceName = $agent->browser();
@@ -68,5 +73,12 @@ class DeviceInfo
             return $request->headers->get($key);
         Log::error("DeviceInfo fail to retrieve $key");
         return null;
+    }
+    
+    protected function generateDeviceId()
+    {
+        $deviceId = Str::random();
+        Cookie::queue(Cookie::make(self::DEVICE_ID_KEY, $deviceId, 365 * 24 * 60));
+        return $deviceId;
     }
 }
