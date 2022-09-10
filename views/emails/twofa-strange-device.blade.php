@@ -22,7 +22,7 @@
 				</p>
 				<p>Tên thiết bị: {{$name}}</p>
 				<p>IP: {{$ip}}</p>
-				<p>Nếu không phải là bạn, hãy thiết lập ngay bảo mật 2 bước hoặc liên hệ fanpage để được hỗ trợ</p>
+				<p>Nếu không phải là bạn hãy liên hệ fanpage để được hỗ trợ</p>
 			</td>
 		</tr>
 

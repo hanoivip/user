@@ -30,9 +30,7 @@ class DeviceService
     {
         UserDevice::where('user_id', $userId)
         ->where('device_id', $device->deviceId)
-        ->where('verified', false)
-        ->where('revoked', false)
-        ->update(['verified' => true]);
+        ->update(['verified' => true, 'revoked' => false]);
         return true;
     }
     
@@ -46,7 +44,7 @@ class DeviceService
     public function revokeAllDevices($userId)
     {
         UserDevice::where('user_id', $userId)
-        ->update(['revoked', true]);
+        ->update(['revoked' => true]);
     }
     /**
      * 

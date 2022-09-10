@@ -19,7 +19,8 @@ class Device
     public function info()
     {
         $arr = ['os' => $this->deviceOs, 'osVer' => $this->deviceOsVer,
-            'name' => $this->deviceName, 'ver' => $this->deviceVer
+            'name' => $this->deviceName, 'ver' => $this->deviceVer,
+            'ip' => $this->deviceIp
         ];
         return json_encode($arr);
     }

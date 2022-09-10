@@ -2,6 +2,7 @@
 
 return [
     'system-error' => 'Lỗi hệ thống! Hãy thử lại trước khi liên hệ hỗ trợ!',
+    'turn-off-success' => 'Đã tắt xác thực 2 bước!',
     'device' => [
         'verified' => '',
     ],
@@ -17,9 +18,15 @@ return [
         'not-exists' => 'Người dùng không tồn tại',
         'no-way' => 'Bạn chưa thiết lập cách bảo vệ tài khoản nào'
     ],
+    'validate' => [
+        'success' => 'Phương thức xác thực mới đã được thêm thành công'
+    ],
     'verification' => [
         'email' => 'Chúng tôi phát hiện 1 thiết bị mới đang đăng nhập vào tài khoản của bạn và đã gửi 1 email. Hãy kiểm tra email để lấy mã xác thực!',
         'code' => 'Chúng tôi phát hiện 1 thiết bị mới đang đăng nhập vào tài khoản của bạn. Hãy sử dụng mã xác thực được lưu từ trước để xác thực cho thiết bị này!',
         'authenticator' => 'Chúng tôi phát hiện 1 thiết bị mới đang đăng nhập vào tài khoản của bạn. Hãy lấy mã xác thực từ ứng dụng xác thực đã đăng ký trước!'
-    ]
+    ],
+    'device' => [
+        'revoke-success' => 'Thiết bị đã được loại bỏ quyền đăng nhập tài khoản'
+    ],
 ];

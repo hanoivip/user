@@ -35,6 +35,10 @@
     </form>
 
 @endif
-<a href="{{route('twofa')}}">Back</a>
+
+<br/>
+<div>
+	<a href="{{route('twofa')}}">Back</a>
+</div>
 
 @endsection

@@ -46,13 +46,26 @@ class TwofaController extends Controller
     {
         $userId = Auth::user()->getAuthIdentifier();
         $this->twofa->turnoff($userId);
-        return view('hanoivip::twofa-turnoff');
+        return view('hanoivip::twofa-success', ['message' => __('hanoivip::twofa.turn-off-success')]);
+    }
+    public function listDevices()
+    {
+        $userId = Auth::user()->getAuthIdentifier();
+        $devices = $this->twofa->getUserDevices($userId);
+        return view('hanoivip::device', ['devices' => $devices]);
     }
     public function revokeDevices()
     {
         $userId = Auth::user()->getAuthIdentifier();
         $this->twofa->revokeDevices($userId);
         return view('hanoivip::twofa-revoke-devices');
+    }
+    public function revokeDevice(Request $request)
+    {
+        $userId = Auth::user()->getAuthIdentifier();
+        $deviceId = $request->input('device');
+        $this->twofa->revokeDevice($userId, $deviceId);
+        return view('hanoivip::twofa-success', ['message' => __('hanoivip::twofa.device.revoke-success')]);
     }
     // List all values of a way
     public function list(Request $request)
@@ -126,7 +139,7 @@ class TwofaController extends Controller
                 abort(500, 'No need validation');
             $otp = $request->input('otp');
             $result = $this->twofa->validateValue($userId, $way, $value, $otp);
-            return view('hanoivip::twofa-success');
+            return view('hanoivip::twofa-success', ['message' => __('hanoivip::twofa.validate.success')]);
         }
         else
         {
@@ -193,8 +206,13 @@ class TwofaController extends Controller
             if ($request->has('redirect'))
                 return response()->redirectTo($request->input('redirect'));
             else 
-                return response()->redirectToRoute('home');
+                return response()->redirectToRoute('twofa.verify.success');
         }
+    }
+    
+    public function onVerifySuccess(Request $request)
+    {
+        return view('hanoivip::twofa-verify-success');
     }
     
     public function listWays(Request $request)

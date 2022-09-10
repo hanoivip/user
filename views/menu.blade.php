@@ -18,7 +18,7 @@
     </a>
 </div>
 <div class="menu_cell m04">
-    <a href="{{ route('device') }}" title="Quản lý thiết bị">
+    <a href="{{ route('twofa.device') }}" title="Quản lý thiết bị">
         <span class="zid_subnav_icon"></span>
         Quản lý thiết bị
     </a>

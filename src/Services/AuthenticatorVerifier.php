@@ -42,10 +42,20 @@ class AuthenticatorVerifier implements IVerifier
         $record = UserVerifyWay::where('user_id', $userId)
         ->where('way', self::way)
         ->where('delete', false)
+        ->where('verified', false)
         ->get();
         if ($record->isEmpty())
             return __('hanoivip::twofa.authenticator.empty');
-        return $this->google2fa->verifyKey($record->first()->value, $verifier);
+        $result = $this->google2fa->verifyKey($record->first()->value, $verifier);
+        /*
+        if ($result)
+        {
+            UserVerifyWay::where('user_id', $userId)
+            ->where('way', self::way)
+            ->where('delete', false)
+            ->update(['verified' => true]);
+        }*/
+        return $result;
     }
 
     public function needValidation()

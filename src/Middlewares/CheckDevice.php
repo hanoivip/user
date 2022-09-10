@@ -18,6 +18,7 @@ class CheckDevice
     protected $except = [
         '/user/verify',
         '/user/verify/do',
+        '/user/verify/success',
         '/logout',
     ];
     

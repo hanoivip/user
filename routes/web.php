@@ -50,12 +50,14 @@ Route::middleware(['web', 'auth'])->prefix('user')
     // 2fa - verify
     Route::get('/verify', 'TwofaController@verify')->name('twofa.verify');
     Route::any('/verify/do', 'TwofaController@doVerify')->name('twofa.verify.do');
+    Route::any('/verify/success', 'TwofaController@onVerifySuccess')->name('twofa.verify.success');
     // 2fa - revoke all trusted/logged devices
-    Route::post('/twofa/device/revoke', 'TwofaController@revokeDevices')->name('twofa.device.revoke');
+    Route::post('/twofa/device/revoke/all', 'TwofaController@revokeDevices')->name('twofa.device.revoke-all');
     Route::any('/twofa/turnoff', 'TwofaController@turnOff')->name('twofa.turnoff');
     
     // device
-    Route::get('/device', 'DeviceController@index')->name('device');
+    Route::get('/device', 'TwofaController@listDevices')->name('twofa.device');
+    Route::post('/device/revoke', 'TwofaController@revokeDevice')->name('twofa.device.revoke');
 });
     
 Route::middleware(['web', 'auth', 'relogin'])->prefix('user')

@@ -5,11 +5,13 @@ namespace Hanoivip\User\Services;
 use Hanoivip\User\UserVerifyWay;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use Hanoivip\User\Mail\TwofaTurnOff;
 use Hanoivip\User\Mail\TwofaTurnOn;
 use Hanoivip\User\Mail\TwofaValueAdded;
 use Hanoivip\User\Mail\TwofaValueRemoved;
 use Hanoivip\User\Mail\TwofaRevokeDevices;
+use Hanoivip\User\Mail\TwofaRevokeDevice;
 use Hanoivip\User\Mail\TwofaNewDevice;
 use Hanoivip\User\Mail\TwofaStrangeDevice;
 use Hanoivip\User\Device;
@@ -87,6 +89,12 @@ class TwofaService
         $this->notifyUser($userId, new TwofaRevokeDevices());
     }
     
+    public function revokeDevice($userId, $deviceId)
+    {
+        $device = $this->devices->revokeUserDevice($userId, $deviceId);
+        $this->notifyUser($userId, new TwofaRevokeDevice($device));
+    }
+    
     public function list($userId, $way)
     {
         return UserVerifyWay::where('user_id', $userId)
@@ -146,6 +154,7 @@ class TwofaService
         $status = $this->getStatus($userId);
         $verifier = $this->getVerifier($way);
         $result = $verifier->validate($userId, $value, $validator);
+        Log::debug("test..." . print_r($result, true));
         if ($result == true)
         {
             UserVerifyWay::where('user_id', $userId)
