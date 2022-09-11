@@ -91,8 +91,8 @@ class TwofaService
     
     public function revokeDevice($userId, $deviceId)
     {
-        $device = $this->devices->revokeUserDevice($userId, $deviceId);
-        $this->notifyUser($userId, new TwofaRevokeDevice($device));
+        $this->devices->revokeUserDevice($userId, $deviceId);
+        $this->notifyUser($userId, new TwofaRevokeDevice());
     }
     
     public function list($userId, $way)

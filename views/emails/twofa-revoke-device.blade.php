@@ -20,8 +20,6 @@
 					style="margin: 0; font-family: Arial, Helvetica, sans-serif; color: #555; font-size: 13px">
 					Bạn vừa loại bỏ truy cập của 1 thiêt bị
 				</p>
-				<p>Tên thiết bị: {{$name}}</p>
-				<p>IP: {{$ip}}</p>
 				<p>Nếu không phải là bạn hãy liên hệ fanpage để được hỗ trợ</p>
 			</td>
 		</tr>

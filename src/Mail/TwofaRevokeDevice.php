@@ -13,14 +13,12 @@ class TwofaRevokeDevice extends Mailable
     
     public $device;
 
-    public function __construct($device)
+    public function __construct()
     {
-        $this->device = $device;
     }
 
     public function build()
     {
-        return $this->view('hanoivip::emails.twofa-revoke-device',
-            ['ip' => $this->device->deviceIp, 'name' => $this->device->deviceName]);
+        return $this->view('hanoivip::emails.twofa-revoke-device', []);
     }
 }

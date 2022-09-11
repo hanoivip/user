@@ -63,7 +63,7 @@ class TwofaController extends Controller
     public function revokeDevice(Request $request)
     {
         $userId = Auth::user()->getAuthIdentifier();
-        $deviceId = $request->input('device');
+        $deviceId = $request->input('deviceId');
         $this->twofa->revokeDevice($userId, $deviceId);
         return view('hanoivip::twofa-success', ['message' => __('hanoivip::twofa.device.revoke-success')]);
     }
