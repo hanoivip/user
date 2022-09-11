@@ -190,12 +190,15 @@ class TwofaController extends Controller
         $device = $request->get('device');
         $way = $request->input('way');
         $otp = $request->input('otp');
+        /*
         $record = $this->devices->getDeviceById($device->deviceId);
         if (empty($record))
         {
             return ['error' => 1, 'message' => 'fail', 'data' => ''];
         }
         $userId = $record->user_id;
+        */
+        $userId = Auth::user()->getAuthIdentifier();
         $this->twofa->verify($userId, $device, $way, $otp);
         if ($request->ajax())
         {
