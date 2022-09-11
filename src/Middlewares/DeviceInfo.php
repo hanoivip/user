@@ -31,7 +31,7 @@ class DeviceInfo
     public function handle(Request $request, Closure $next)
     {
         $deviceId = '';
-        $deviceIp = $request->getClientIp();
+        $deviceIp = $this->tryGetIp($request);
         $agent = new Agent();
         if ($request->ajax())
         {
@@ -63,6 +63,18 @@ class DeviceInfo
         //Log::debug(print_r($info, true));
         $request->attributes->add(['device' => $info]);
         return $next($request);
+    }
+    
+    protected function tryGetIp(Request $request)
+    {
+        $ip = $request->headers->get('CF-Connecting-IP');
+        if (empty($ip))
+        {
+            $ip = $request->headers->get('X-Real-IP');
+        }
+        if (empty($ip))
+            $ip = $request->getClientIp();
+        return $ip;
     }
     
     protected function tryGetValue(Request $request, $key)
