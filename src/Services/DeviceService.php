@@ -57,7 +57,7 @@ class DeviceService
         return empty($this->getUserDevice($userId, $device->deviceId));
     }
     /**
-     * 
+     * @deprecated
      * @param Device $device
      * @return string
      */
@@ -73,7 +73,11 @@ class DeviceService
     {
         return UserDevice::where($tokenColumn, $token)->first();
     }
-    
+    /**
+     * @deprecated
+     * @param unknown $id
+     * @return unknown
+     */
     public function getDeviceById($id)
     {
         return UserDevice::where('device_id', $id)->first();

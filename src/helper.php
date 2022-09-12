@@ -1,6 +1,7 @@
 <?php 
 
 use Hanoivip\User\Facades\DeviceFacade;
+use Illuminate\Support\Facades\Auth;
 
 if (! function_exists('current_device')) 
 {
@@ -12,8 +13,15 @@ if (! function_exists('current_device'))
 
 if (! function_exists('current_device_token'))
 {
-    function current_device_token()
+    function current_user_device_token()
     {
-        return DeviceFacade::getToken(request()->get('device'));
+        if (Auth::check())
+        {
+            $deviceId = request()->get('device')->deviceId;
+            $userId = Auth::user()->getAuthIdentifier();
+            $device = DeviceFacade::getUserDevice($userId, $deviceId);
+            return $device->api_token;
+        }
+        return "";
     }
 }
