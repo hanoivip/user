@@ -7,6 +7,8 @@ use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\Services\DeviceService;
 use Hanoivip\User\Services\TwofaService;
 
+require_once 'helper.php';
+
 class ModServiceProvider extends ServiceProvider
 {
     public function boot()

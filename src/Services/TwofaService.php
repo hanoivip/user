@@ -154,7 +154,7 @@ class TwofaService
         $status = $this->getStatus($userId);
         $verifier = $this->getVerifier($way);
         $result = $verifier->validate($userId, $value, $validator);
-        Log::debug("test..." . print_r($result, true));
+        //Log::debug("test..." . print_r($result, true));
         if ($result == true)
         {
             UserVerifyWay::where('user_id', $userId)
@@ -214,6 +214,7 @@ class TwofaService
      *
      * @param number $userId
      * @param Device $device
+     * @return boolean
      */
     public function verify($userId, $device, $way, $otp)
     {
@@ -234,5 +235,18 @@ class TwofaService
         {
             $this->notifyUser($userId, new TwofaStrangeDevice($device->deviceName, $device->deviceIp));
         }
+        return $result;
+    }
+    
+    public function startVerifyUser($userId, $way, $device)
+    {
+        $verifier = $this->getVerifier($way);
+        return $verifier->startVerify($userId, $device->deviceId);
+    }
+    
+    public function verifyUser($userId, $device, $way, $otp)
+    {
+        $verifier = $this->getVerifier($way);
+        return $verifier->verify($userId, $device->deviceId, $otp);
     }
 }

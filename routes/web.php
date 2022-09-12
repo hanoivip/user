@@ -75,13 +75,18 @@ Route::middleware('web')->prefix('user')
     ->namespace('Hanoivip\User\Controllers')
     ->group(function () {
     // Public routes
-    Route::get('/email/verify/{token}', 'PublicController@verifyEmail')->name('email-verify');
-    Route::get('/secure/verify/{token}', 'PublicController@verifySecureEmail')->name('secure-verify');
-    // Reset password
-    Route::get('/pass/forgot', 'PublicController@forgotPassUI')->name('forgot');
-    Route::post('/pass/forgot-by-email', 'PublicController@forgotPass')->name('pass-forgot-do');
+    //Route::get('/email/verify/{token}', 'PublicController@verifyEmail')->name('email-verify');
+    //Route::get('/secure/verify/{token}', 'PublicController@verifySecureEmail')->name('secure-verify');
+    // Reset password - with secure email (old flow)
+    //Route::get('/pass/forgot', 'PublicController@forgotPassUI')->name('forgot');
+    //Route::post('/pass/forgot-by-email', 'PublicController@forgotPass')->name('pass-forgot-do');
     // Reset process
     Route::get('/pass/reset', 'PublicController@resetPassUI')->name('pass-reset');
+    // Reset password - with verification methods (new flow)
+    Route::any('/forgot', 'Forgot@inputUsername')->name('forgot');
+    Route::any('/forgot/otp', 'Forgot@inputOtp')->name('forgot.otp');
+    Route::post('/forgot/otp/check', 'Forgot@checkOtp')->name('forgot.checkotp');
+    Route::any('/forgot/reset', 'Forgot@resetPassword')->name('forgot.reset');
 });
     
 Route::middleware(['web', 'otp'])->prefix('user')

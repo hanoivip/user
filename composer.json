@@ -16,7 +16,10 @@
 	"autoload" : {
 		"psr-4" : {
 			"Hanoivip\\User\\" : "src/"
-		}
+		},
+		"files": [
+			"src/helper.php"
+		]
 	},
 	"extra" : {
 		"laravel" : {

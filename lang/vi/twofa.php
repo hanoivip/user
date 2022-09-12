@@ -29,4 +29,9 @@ return [
     'device' => [
         'revoke-success' => 'Thiết bị đã được loại bỏ quyền đăng nhập tài khoản'
     ],
+    'forgot' => [
+        'email' => 'Chúng tôi đã gửi 1 mã OTP vào hòm thư của bạn. Hãy kiểm tra và nhập mã vào bên dưới',
+        'code' => 'Bạn hãy dùng 1 trong các mã số bạn đã lưu trước đó',
+        'authenticator' => 'Hãy lấy mã xác thực trong ứng dụng xác thực đã đăng ký.',
+    ]
 ];

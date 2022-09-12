@@ -10,10 +10,10 @@ Route::prefix('api')->namespace('Hanoivip\User\Controllers')->group(function () 
     Route::any('/otp/sendmail', 'OtpController@sendMail');
     Route::any('/otp/sendsms', 'OtpController@sendSms');
     
-    Route::any('/verify/need', 'TwofaController@needVerify');
-    Route::any('/verify/init', 'TwofaController@verify');
-    Route::any('/verify', 'TwofaController@doVerify');
-    Route::any('/verify/list', 'TwofaController@listWays');
+    //Route::any('/verify/need', 'TwofaController@needVerify');
+    Route::any('/forgot/list', 'AppForgot@listWays');
+    Route::any('/forgot/init', 'AppForgot@verify');
+    Route::any('/forgot', 'AppForgot@doVerify');
 });
 
 Route::prefix('api')->middleware('otp')->namespace('Hanoivip\User\Controllers')->group(function () {

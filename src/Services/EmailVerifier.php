@@ -4,6 +4,7 @@ namespace Hanoivip\User\Services;
 
 use Hanoivip\User\UserVerifyWay;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use Hanoivip\User\Mail\UserOtp;
 
 class EmailVerifier implements IVerifier
@@ -45,6 +46,7 @@ class EmailVerifier implements IVerifier
         if ($record->isEmpty())
             return __('hanoivip::twofa.email.not-valid-email');
         $otp = $this->otp->generate($userId);
+        //Log::debug("Send mail to " . $record->first()->value . " otp " . $otp);
         Mail::to($record->first()->value)->send(new UserOtp($otp, 60 * 2));
         return true;
     }

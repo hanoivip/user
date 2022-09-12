@@ -58,15 +58,15 @@
 		</div>
 	</div>
 	<div class="zid_pagecont">
-		<h2 class="landing_menu_title" style="text-align: right;">
-			ID: <strong>{{ Auth::user()->getAuthIdentifier() }}</strong><a
-				href="{{ route('logout') }}"
-				onclick="event.preventDefault(); 
-                        document.getElementById('logout-form').submit();">,Thoát
-			</a></span>
-			<form id="logout-form" action="{{ route('logout') }}" method="post"
-				style="display: none;">{{ csrf_field() }}</form>
-		</h2>
+    	@if (Auth::check())
+    		<h2 class="landing_menu_title" style="text-align: right;">
+    			ID: <strong>{{ Auth::user()->getAuthIdentifier() }}</strong>
+    				<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">,Thoát
+    				</a>
+        			<form id="logout-form" action="{{ route('logout') }}" method="post"
+        				style="display: none;">{{ csrf_field() }}</form>
+    		</h2>
+    	@endif
 		@yield('content')
 	</div>
 	<p class="text_copyright">Copyright © {{ config('id.name.portal') }}</p>

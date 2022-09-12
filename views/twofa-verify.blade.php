@@ -17,8 +17,8 @@ Or choose another verification methods:
 <form method="get" action="{{route('twofa.verify')}}" id="ways-form">
 	<select id="way" name="way" onchange="document.getElementById('ways-form').submit()">
     	<option value="authenticator" selected={{$way=='authenticator'?'true':'false'}}>Authenticator App</option>
-    	<option value="code" selected={{$way=='authenticator'?'true':'false'}}>Backup Codes</option>
-    	<option value="email" selected={{$way=='authenticator'?'true':'false'}}>Secure Email</option>
+    	<option value="code" selected={{$way=='code'?'true':'false'}}>Backup Codes</option>
+    	<option value="email" selected={{$way=='email'?'true':'false'}}>Secure Email</option>
     </select>
 </form>
 

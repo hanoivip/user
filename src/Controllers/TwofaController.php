@@ -148,6 +148,11 @@ class TwofaController extends Controller
         }
     }
     // Check device need to verify
+    /**
+     * @deprecated
+     * @param Request $request
+     * @return number[]|string[]|boolean[][]
+     */
     public function needVerify(Request $request)
     {
         $device = $request->get('device');
@@ -167,12 +172,7 @@ class TwofaController extends Controller
     public function verify(Request $request)
     {
         $device = $request->get('device');
-        $record = $this->devices->getDeviceById($device->deviceId);
-        if (empty($record))
-        {
-            return ['error' => 1, 'message' => 'fail', 'data' => ''];
-        }
-        $userId = $record->user_id;
+        $userId = Auth::user()->getAuthIdentifier();
         if ($request->has('way'))
             $way = $request->input('way');
         else 
@@ -190,26 +190,32 @@ class TwofaController extends Controller
         $device = $request->get('device');
         $way = $request->input('way');
         $otp = $request->input('otp');
-        /*
-        $record = $this->devices->getDeviceById($device->deviceId);
-        if (empty($record))
-        {
-            return ['error' => 1, 'message' => 'fail', 'data' => ''];
-        }
-        $userId = $record->user_id;
-        */
         $userId = Auth::user()->getAuthIdentifier();
-        $this->twofa->verify($userId, $device, $way, $otp);
-        if ($request->ajax())
+        $result = $this->twofa->verify($userId, $device, $way, $otp);
+        if ($result === true)
         {
-            return ['error' => 0, 'message' => 'success', 'data' => ''];
+            if ($request->ajax())
+            {
+                return ['error' => 0, 'message' => 'success', 'data' => ''];
+            }
+            else 
+            {
+                if ($request->has('redirect'))
+                    return response()->redirectTo($request->input('redirect'));
+                else 
+                    return response()->redirectToRoute('twofa.verify.success');
+            }
         }
         else 
         {
-            if ($request->has('redirect'))
-                return response()->redirectTo($request->input('redirect'));
-            else 
-                return response()->redirectToRoute('twofa.verify.success');
+            if ($request->ajax())
+            {
+                return ['error' => 1, 'message' => 'failure', 'data' => ''];
+            }
+            else
+            {
+                return response()->redirectToRoute('twofa.verify');
+            }
         }
     }
     
@@ -218,28 +224,6 @@ class TwofaController extends Controller
         return view('hanoivip::twofa-verify-success');
     }
     
-    public function listWays(Request $request)
-    {
-        $username = $request->get('username');
-        $record = $this->users->getUserCredentials($username);
-        if (!empty($record))
-        {
-            $userId = $record->id;
-            $ways = $this->twofa->getUserWays($userId);
-            $list = [];
-            foreach ($ways as $way => $detail)
-            {
-                $list[$way] = $detail->value;
-            }
-            if (!empty($ways))
-                return ['error' => 0, 'message' => 'success', 'data' => $list];
-            else
-                return ['error' => 2, 'message' => __('hanoivip::twofa.user.no-way'), 'data' => []];
-        }
-        else
-        {
-            return ['error' => 1, 'message' => __('hanoivip::twofa.user.not-exists'), 'data' => []];
-        }
-    }
+
 }
     
