@@ -126,4 +126,11 @@ class DeviceService
         }
         return true;
     }
+    
+    public function getUserDeviceAll($userId, $deviceId)
+    {
+        return UserDevice::where('user_id', $userId)
+        ->where('device_id', $deviceId)
+        ->first();
+    }
 }

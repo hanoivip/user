@@ -19,7 +19,7 @@ if (! function_exists('current_device_token'))
         {
             $deviceId = request()->get('device')->deviceId;
             $userId = Auth::user()->getAuthIdentifier();
-            $device = DeviceFacade::getUserDevice($userId, $deviceId);
+            $device = DeviceFacade::getUserDeviceAll($userId, $deviceId);
             return $device->api_token;
         }
         return "";
