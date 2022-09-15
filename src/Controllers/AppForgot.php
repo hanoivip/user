@@ -60,30 +60,51 @@ class AppForgot extends Controller
         }
     }
     
-    public function verify(Request $request)
+    public function verifyUser(Request $request)
     {
         $device = $request->get('device');
         $username = $request->input('username');
         $record = $this->users->getUserCredentials($username);
         if (empty($record))
             abort(501, 'User not exists');
-        $username = $record->id;
+        $userId = $record->id;
         $way = $request->input('way');
         $this->twofa->startVerifyUser($userId, $way, $device);
         return ['error' => 0, 'message' => 'success', 'data' => ''];
     }
     
-    public function doVerify(Request $request)
+    public function checkVerifyUser(Request $request)
     {
         $device = $request->get('device');
         $username = $request->input('username');
+        $otp = $request->input('otp');
         $record = $this->users->getUserCredentials($username);
         if (empty($record))
             abort(501, 'User not exists');
-        $username = $record->id;
+        $userId = $record->id;
         $way = $request->input('way');
         $result = $this->twofa->verifyUser($userId, $device, $way, $otp);
         return ['error' => $result?0:1, 'message' => $result?'success':'failure'];
+    }
+    
+    public function resetPassword(Request $request)
+    {
+        $device = $request->get('device');
+        $username = $request->input('username');
+        $otp = $request->input('otp');
+        $record = $this->users->getUserCredentials($username);
+        if (empty($record))
+            abort(501, 'User not exists');
+        $userId = $record->id;
+        $way = $request->input('way');
+        $result = $this->twofa->verifyUser($userId, $device, $way, $otp);
+        if ($result === true)
+        {
+            $password = $request->input('password');
+            $result2 = $this->users->updatePass($userId, $password);
+            return ['error' => $result2?0:1, 'message' => $result2?'success':'failure'];
+        }
+        abort(501, 'Otp verification fail');
     }
     
 }
