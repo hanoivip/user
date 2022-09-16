@@ -3,6 +3,7 @@ namespace Hanoivip\User\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\Services\TwofaService;
 use Hanoivip\User\Services\DeviceService;
@@ -123,9 +124,21 @@ class TwofaController extends Controller
     public function download(Request $request)
     {
         $userId = Auth::user()->getAuthIdentifier();
+        $username = Auth::user()->getAuthIdentifierName();
         $way = $request->input('way');
-        $result = $this->twofa->refreshValue($userId, $way);
-        return view('hanoivip::twofa-remove-success');
+        $list = $this->twofa->list($userId, $way);
+        $content = "";
+        foreach ($list as $l)
+        {
+            $content .= "$l->value\n";
+        }
+        $fileName = "BackupCodes@$username.txt";
+        $headers = [
+            'Content-type' => 'text/plain',
+            'Content-Disposition' => sprintf('attachment; filename="%s"', $fileName),
+            'Content-Length' => strlen($content)
+        ];
+        return Response::make($content, 200, $headers);
     }
     // Validate new added value 
     public function validate1(Request $request)
@@ -146,27 +159,6 @@ class TwofaController extends Controller
             
             return view('hanoivip::twofa-validate-value', ['way' => $way, 'value' => $value]);
         }
-    }
-    // Check device need to verify
-    /**
-     * @deprecated
-     * @param Request $request
-     * @return number[]|string[]|boolean[][]
-     */
-    public function needVerify(Request $request)
-    {
-        $device = $request->get('device');
-        $record = $this->devices->getDeviceById($device->deviceId);
-        $need = false;
-        if (!empty($record))
-        {
-            $userId = $record->user_id;
-            if (!empty($userId))
-            {
-                $need = $this->twofa->getStatus($userId) && $this->twofa->needVerifyDevice($userId, $device);
-            }
-        }
-        return ['error' => 0, 'message' => 'success', 'data' => ['need_verify' => $need]];
     }
     // Verify user device UI
     public function verify(Request $request)

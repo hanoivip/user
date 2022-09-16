@@ -77,6 +77,5 @@ class AuthenticatorVerifier implements IVerifier
         ->update(['delete' => true]);
     }
 
-
     
 }

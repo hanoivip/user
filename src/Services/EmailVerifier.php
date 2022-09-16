@@ -75,6 +75,5 @@ class EmailVerifier implements IVerifier
         ->update(['delete' => true]);
     }
 
-
     
 }

@@ -9,7 +9,7 @@
         @if (empty($value->use_count))
         	<p>{{$value->value}}</p>
         @else
-        	<p>-------</p>
+        	<s>{{$value->value}}</s>
         @endif
 	@endforeach
 

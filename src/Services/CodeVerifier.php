@@ -71,7 +71,5 @@ class CodeVerifier implements IVerifier
         ->where('way', self::way)
         ->update(['delete' => true]);
     }
-
-
     
 }
