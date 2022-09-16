@@ -83,7 +83,6 @@ class DeviceInfo
             return $this->encrypter->decrypt(Cookie::get($key), false);
         if ($request->headers->has($key))
             return $request->headers->get($key);
-        Log::error("DeviceInfo fail to retrieve $key");
         return null;
     }
     
