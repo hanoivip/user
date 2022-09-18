@@ -31,7 +31,7 @@
     	<h2>Your verify methods</h1>
     	@foreach ($userWays as $way => $i)
     		<br/>
-    		<img src="{{asset('/images/success.png')}}" width="32"/>
+    		<img src="{{asset('/id/images/success.png')}}" width="32"/>
     		<a href="{{route('twofa.list', ['way' => $way])}}">{{__("hanoivip::twofa.way.protected-" . $way)}}</a>
     	@endforeach
     @else
