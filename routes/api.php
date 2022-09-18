@@ -8,9 +8,6 @@ Route::prefix('api')->namespace('Hanoivip\User\Controllers')->group(function () 
     Route::any('/otp/check', 'OtpController@check');
     Route::any('/otp/sendmail', 'OtpController@sendMail');
     Route::any('/otp/sendsms', 'OtpController@sendSms');
-    // verify device
-    Route::any('/verify/init', 'TwofaController@verify');
-    Route::any('/verify', 'TwofaController@doVerify');
     // forgot password - new flow - reset with verification methods
     Route::any('/forgot/list', 'AppForgot@listWays');
     Route::any('/forgot/init', 'AppForgot@verifyUser');
@@ -28,4 +25,7 @@ Route::prefix('api')->middleware('auth:api')
     ->namespace('Hanoivip\User\Controllers')
     ->group(function () {
     Route::any('/pass/update', 'CredentialController@doUpdatePassword');
+    // verify device
+    Route::any('/verify', 'TwofaController@verify');
+    Route::any('/verify/do', 'TwofaController@doVerify');
 });
