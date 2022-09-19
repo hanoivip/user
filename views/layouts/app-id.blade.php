@@ -63,8 +63,7 @@
     			ID: <strong>{{ Auth::user()->getAuthIdentifier() }}</strong>
     				<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">,Thoát
     				</a>
-        			<form id="logout-form" action="{{ route('logout') }}" method="post"
-        				style="display: none;">{{ csrf_field() }}</form>
+        			<form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">{{ csrf_field() }}</form>
     		</h2>
     	@endif
 		@yield('content')
