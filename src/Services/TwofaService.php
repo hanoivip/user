@@ -195,7 +195,7 @@ class TwofaService
     
     public function needVerifyDevice($userId, $device)
     {
-        return $this->devices->needVerifyDevice($userId, $device);
+        return $this->getStatus($userId) && $this->devices->needVerifyDevice($userId, $device);
     }
     /**
      * 
