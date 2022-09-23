@@ -56,50 +56,10 @@ class DeviceService
     {
         return empty($this->getUserDevice($userId, $device->deviceId));
     }
-    /**
-     * @deprecated
-     * @param Device $device
-     * @return string
-     */
-    public function getToken($device)
-    {
-        $record = UserDevice::where('device_id', $device->deviceId)
-        ->where('revoked', false)
-        ->first();
-        return $record->api_token;
-    }
     
     public function getDeviceByToken($token, $tokenColumn = 'api_token')
     {
         return UserDevice::where($tokenColumn, $token)->first();
-    }
-    /**
-     * @deprecated
-     * @param unknown $id
-     * @return unknown
-     */
-    public function getDeviceById($id)
-    {
-        return UserDevice::where('device_id', $id)->first();
-    }
-    /**
-     * 
-     * @param Device $device
-     * @deprecated
-     */
-    public function logDevice($device)
-    {
-        /*
-        $record = UserDevice::where('device_id', $device->deviceId)->first();
-        if (!empty($record))
-            return;
-        $record = new UserDevice();
-        $record->user_id = 0;
-        $record->device_id = $device->deviceId;
-        $record->device_info = $device->info();
-        $record->save();
-        */
-        return false;
     }
     
     public function mapUserDevice($device, $userId, $token)
@@ -126,7 +86,9 @@ class DeviceService
         }
         return true;
     }
-    
+    /**
+     * Do not care verification
+     */
     public function getUserDeviceAll($userId, $deviceId)
     {
         return UserDevice::where('user_id', $userId)

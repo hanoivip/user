@@ -11,7 +11,12 @@ use Closure;
 use Jenssegers\Agent\Agent;
 use Hanoivip\User\Device;
 use Hanoivip\User\Services\DeviceService;
-
+/**
+ * Get device detail info
+ * Assign ID if need
+ * @author GameOH
+ *
+ */
 class DeviceInfo
 {   
     const DEVICE_ID_KEY = 'us-device-id';
