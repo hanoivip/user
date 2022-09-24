@@ -63,6 +63,17 @@ class CredentialService
         event(new UserCreated($usernameOrEmail));
         return $user;
     }
+    
+    public function createGuest($uuid)
+    {
+        return $this->createUser($uuid, $uuid);
+    }
+    
+    public function isGuest($id)
+    {
+        $user = $this->getUserCredentials($id);
+        return !empty($user) && Hash::check($user->name, $user->password);
+    }
     /**
      * Get user all credentials info. 
      * Can query by UID or Username or Login email
@@ -318,4 +329,6 @@ class CredentialService
         event(new UserBinded($uid));
         return true;
     }
+    
+    
 }
