@@ -103,7 +103,6 @@ class CredentialController extends Controller
         return view('hanoivip::resend-email-result', ['message' => $message, 'error_message' => $error_message]);
     }
     
-    // TODO: recent login middleware, < 1p
     public function updatePasswordUI()
     {
         return view('hanoivip::password-update');
@@ -123,9 +122,6 @@ class CredentialController extends Controller
                 if ($result)
                 {
                     $message = __('hanoivip::password.update.success');
-                    //Auto logout
-                    Auth::guard()->logout();
-                    $request->session()->invalidate();
                 }
                 else
                 {
@@ -148,7 +144,14 @@ class CredentialController extends Controller
         if ($request->ajax())
             return ['error'=>$error, 'message'=>$message];
         else
+        {
+            if (empty($error))
+            {
+                Auth::guard()->logout();
+                $request->session()->invalidate();
+            }
             return view('hanoivip::password-update-result', ['message' => $message, 'error' => $error]);
+        }
     }
     
     public function personalInfo()
