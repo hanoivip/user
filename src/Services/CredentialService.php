@@ -54,9 +54,7 @@ class CredentialService
         if(filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {
             $user->email = $usernameOrEmail;
         }
-        else {
-            $user->name = $usernameOrEmail;
-        }
+        $user->name = $usernameOrEmail;
         //$user->password = config('id.password.hashed') ? Hash::make($password) : $password;
         $user->password = Hash::make($password);
         $user->save();

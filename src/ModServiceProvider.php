@@ -1,6 +1,7 @@
 <?php
 namespace Hanoivip\User;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Hanoivip\User\Services\CacheService;
 use Hanoivip\User\Services\CredentialService;
@@ -11,7 +12,7 @@ require_once 'helper.php';
 
 class ModServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(Router $router)
     {
         $this->publishes([
             __DIR__ . '/../views' => resource_path('views/vendor/hanoivip'),
@@ -25,6 +26,7 @@ class ModServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
         $this->loadTranslationsFrom(__DIR__ . '/../lang/', 'hanoivip');
         $this->mergeConfigFrom(__DIR__ . '/../config/id.php', 'id');
+        //TODO: $router->aliasMiddleware('language', config('language.middleware'));
     }
 
     public function register()
