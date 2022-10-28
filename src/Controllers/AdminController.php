@@ -101,6 +101,6 @@ class AdminController extends Controller
             Log::error('Admin get user info exception:' . $ex->getMessage());
             abort(500);
         }
-        abort(404);
+        abort(404, "User not found");
     }
 }

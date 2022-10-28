@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $userId = Auth::user()->getAuthIdentifier();
         $status = $this->twofa->getStatus($userId);
-        return view('hanoivip::index', ['status' => $status]);
+        return view('hanoivip::user', ['status' => $status]);
     }
     
     public function towfa()
