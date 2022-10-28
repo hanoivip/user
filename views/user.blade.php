@@ -10,7 +10,7 @@
     	@endif
     </h2>
 	
-    @include('hanoivip::menu')
+    @include('hanoivip::user-menu')
 </div>
 
 @endsection
