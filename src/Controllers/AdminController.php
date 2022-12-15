@@ -5,6 +5,7 @@ namespace Hanoivip\User\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Exception;
+use Hanoivip\User\Facades\DeviceFacade;
 use Hanoivip\User\Requests\AdminRequest;
 use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\Services\SecureService;
@@ -53,11 +54,28 @@ class AdminController extends Controller
     
     /**
      * Generate personal access token
-     * TODO: moi thiet bi 1 token
      * 
      * @param AdminRequest $request
      */
     public function generateToken(AdminRequest $request)
+    {
+        $uid = $request->input('uid');
+        try
+        {
+            $token = Str::random(32);
+            $device = $request->get('device');
+            DeviceFacade::mapUserDevice($device, $uid, $token);
+            return $token;
+        }
+        catch (Exception $ex)
+        {
+            Log::error('Admin generate user token exception:' . $ex->getMessage());
+            abort(500);
+        }
+        abort(404);
+    }
+    
+    public function generateToken1(AdminRequest $request)
     {
         $uid = $request->input('uid');
         try
