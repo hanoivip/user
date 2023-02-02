@@ -9,11 +9,11 @@ Route::middleware(['web', 'auth'])->prefix('user')
 
     // Show login settings
     // Depricated: lằng nhằng cái email đăng nhập
-    //Route::get('/general', 'CredentialController@infoUI')->name('general');
+    Route::get('/general', 'CredentialController@infoUI')->name('general');
     // Update email
-    //Route::get('/email/update', 'CredentialController@updateEmailUI')->name('email-update');
-    //Route::post('/email/update-result', 'CredentialController@doUpdateEmail')->name('email-update-result');
-    //Route::get('/email/resend', 'CredentialController@resendEmail')->name('resend-email');
+    Route::get('/email/update', 'CredentialController@updateEmailUI')->name('email-update');
+    Route::post('/email/update-result', 'CredentialController@doUpdateEmail')->name('email-update-result');
+    Route::get('/email/resend', 'CredentialController@resendEmail')->name('resend-email');
     // Update phone
     //Route::get('/phone/update', 'CredentialController@verifyPhoneUI')->name('phone-update');
     //Route::post('/phone/update-result', 'CredentialController@doVerifyPhone')->name('phone-update-result');

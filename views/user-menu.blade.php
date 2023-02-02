@@ -5,6 +5,12 @@
         Thông tin cá nhân
     </a>
 </div>
+<div class="menu_cell m02">
+    <a href="{{ route('general') }}" title="Thông tin cá nhân">
+        <span class="zid_subnav_icon"></span>
+        Thông tin đăng nhập
+    </a>
+</div>
 <div class="menu_cell m05">
     <a href="{{ route('pass-update') }}" title="Đổi mật khẩu">
         <span class="zid_subnav_icon"></span>
