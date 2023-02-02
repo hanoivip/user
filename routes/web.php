@@ -75,7 +75,7 @@ Route::middleware('web')->prefix('user')
     ->namespace('Hanoivip\User\Controllers')
     ->group(function () {
     // Public routes
-    //Route::get('/email/verify/{token}', 'PublicController@verifyEmail')->name('email-verify');
+    Route::get('/email/verify/{token}', 'PublicController@verifyEmail')->name('email-verify');
     //Route::get('/secure/verify/{token}', 'PublicController@verifySecureEmail')->name('secure-verify');
     // Reset password - with secure email (old flow)
     //Route::get('/pass/forgot', 'PublicController@forgotPassUI')->name('forgot');

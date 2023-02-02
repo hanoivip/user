@@ -4,6 +4,7 @@ namespace Hanoivip\User\Services;
 
 use Hanoivip\User\User;
 use Hanoivip\User\UserSecure;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -45,7 +46,7 @@ class SecureService
     
     protected function generateToken()
     {
-        return str_random(64);
+        return Str::random(64);
     }
     
     /**

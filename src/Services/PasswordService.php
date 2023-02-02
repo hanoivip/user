@@ -4,10 +4,9 @@ namespace Hanoivip\User\Services;
 
 use Carbon\Carbon;
 use Hanoivip\User\PasswordReset;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Hanoivip\User\Mail\ResetPassword;
-use Hanoivip\User\Otp;
 
 class PasswordService
 {
@@ -53,7 +52,7 @@ class PasswordService
         {
             $record=$record->first();
         }
-        $record->token = str_random(64);
+        $record->token = Str::random(64);
         $record->created_at = Carbon::now();
         $record->save();
         

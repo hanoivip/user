@@ -4,6 +4,7 @@ namespace Hanoivip\User\Services;
 
 use Hanoivip\User\User;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -143,7 +144,7 @@ class CredentialService
     
     protected function generateToken()
     {
-        return str_random(64);
+        return Str::random(64);
     }
     
     /**
