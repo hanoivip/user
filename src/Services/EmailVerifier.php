@@ -24,6 +24,7 @@ class EmailVerifier implements IVerifier
             return __("hanoivip.user::twofa.email.empty");
         $exists = UserVerifyWay::where('way', self::way)
         ->where('value', $value)
+        ->where('verified', true)
         ->where('delete', false)
         ->get();
         if ($exists->isNotEmpty())
