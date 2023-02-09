@@ -155,7 +155,7 @@ class TwofaService
         $verifier = $this->getVerifier($way);
         $result = $verifier->validate($userId, $value, $validator);
         //Log::debug("test..." . print_r($result, true));
-        if ($result == true)
+        if ($result === true)
         {
             UserVerifyWay::where('user_id', $userId)
             ->where('way', $way)
@@ -206,7 +206,7 @@ class TwofaService
     {
         $record = $this->devices->getUserDevice($userId, $device->deviceId);
         if (!empty($record))
-            return __('hanoivip::twofa.device.verified');
+            return __('hanoivip.user::twofa.device.verified');
         $verifier = $this->getVerifier($way);
         return $verifier->startVerify($userId, $device->deviceId);
     }

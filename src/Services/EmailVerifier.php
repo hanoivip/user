@@ -20,6 +20,14 @@ class EmailVerifier implements IVerifier
     
     public function add($userId, $value)
     {
+        if (empty($value))
+            return __("hanoivip.user::twofa.email.empty");
+        $exists = UserVerifyWay::where('way', self::way)
+        ->where('value', $value)
+        ->where('delete', false)
+        ->get();
+        if ($exists->isNotEmpty())
+            return __("hanoivip.user::twofa.email.exists");
         $record = new UserVerifyWay();
         $record->user_id = $userId;
         $record->way = self::way;
@@ -44,7 +52,7 @@ class EmailVerifier implements IVerifier
         ->where('delete', false)
         ->get();
         if ($record->isEmpty())
-            return __('hanoivip::twofa.email.not-valid-email');
+            return __('hanoivip.user::twofa.email.not-valid-email');
         $otp = $this->otp->generate($userId);
         //Log::debug("Send mail to " . $record->first()->value . " otp " . $otp);
         Mail::to($record->first()->value)->send(new UserOtp($otp, 60 * 2));

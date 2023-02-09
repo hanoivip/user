@@ -48,8 +48,8 @@ class Forgot extends Controller
             }
             else 
             {
-                return view('hanoivip::forgot-input-username', ['message' => __('hanoivip::twofa.user.not-exists')]);
-                //return view('hanoivip::forgot-failure', ['message' => __('hanoivip::twofa.user.not-exists')]);
+                return view('hanoivip::forgot-input-username', ['message' => __('hanoivip.user::twofa.user.not-exists')]);
+                //return view('hanoivip::forgot-failure', ['message' => __('hanoivip.user::twofa.user.not-exists')]);
             }
         }
     }
@@ -70,7 +70,7 @@ class Forgot extends Controller
         $ways = $this->twofa->getUserWays($userId);
         if (empty($ways))
         {
-            return view('hanoivip::forgot-failure', ['message' => __('hanoivip::twofa.user.no-way')]);
+            return view('hanoivip::forgot-failure', ['message' => __('hanoivip.user::twofa.user.no-way')]);
         }
         else
         {
@@ -102,7 +102,7 @@ class Forgot extends Controller
             $ways = $this->twofa->getUserWays($userId);
             return view('hanoivip::forgot-input-otp', 
                 ['ways' => $ways, 'username' => $username, 'way' => $way,
-                    'message' => __('hanoivip::twofa.otp-wrong')
+                    'message' => __('hanoivip.user::twofa.otp-wrong')
                 ]);
         }
     }

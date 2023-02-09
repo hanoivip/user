@@ -2,7 +2,7 @@
 
 @section('content')
 
-<p>{{__("hanoivip::twofa.verification.$way")}}</p>
+<p>{{__("hanoivip.user::twofa.verification.$way")}}</p>
 <form action="{{route('twofa.verify.do')}}" method="post">
 	{{ csrf_field() }}
 	<input type="hidden" name="way" id="way" value="{{$way}}"/>

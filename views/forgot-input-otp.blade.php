@@ -7,7 +7,7 @@
 <h3>2. Enter verification code?</h3>
 
 <br/>
-<p>{{__("hanoivip::twofa.forgot.$way")}}</p>
+<p>{{__("hanoivip.user::twofa.forgot.$way")}}</p>
 
 <br/>
 @if (!empty($message))

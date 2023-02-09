@@ -14,12 +14,17 @@ return [
         'protected-code' => 'Đã được bảo về bằng mã số',
         'protected-authenticator' => 'Đã được bảo vệ bằng ứng dụng'
     ],
+    'email' => [
+        'empty' => 'Cần nhập chính xác email!',
+        'exists' => 'Email này đã được sử dụng! Mời dùng cái khác!'
+    ],
     'user' => [
         'not-exists' => 'Người dùng không tồn tại',
         'no-way' => 'Bạn chưa thiết lập cách bảo vệ tài khoản nào'
     ],
     'validate' => [
-        'success' => 'Phương thức xác thực mới đã được thêm thành công'
+        'success' => 'Phương thức xác thực mới đã được thêm thành công',
+        'failure' => 'Chưa thêm được phương thức xác thực này! Mời thử lại!',
     ],
     'verification' => [
         'email' => 'Chúng tôi phát hiện 1 thiết bị mới đang đăng nhập vào tài khoản của bạn và đã gửi 1 email. Hãy kiểm tra email để lấy mã xác thực!',

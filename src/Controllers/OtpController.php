@@ -25,11 +25,11 @@ class OtpController extends Controller
     {
         $email = $request->input('email');
         $error = 0;
-        $message = __('hanoivip::otp.success');
+        $message = __('hanoivip.user::otp.success');
         if (!$this->secures->canSecureByEmail($email))
         {
             $error = 1;
-            $message = __('hanoivip::otp.email-invalid');
+            $message = __('hanoivip.user::otp.email-invalid');
         }
         else
         {

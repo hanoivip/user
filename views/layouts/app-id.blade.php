@@ -45,7 +45,6 @@
 											href="{{ asset('id/css/login_widget.css') }}">
 											<script id="zmzt" type="text/javascript"
 												src="{{ asset('id/js/zt-1.04-1.min.js') }}"></script>
-
 </head>
 <body class="zid_register_touch">
 	<div class="zid_header">
@@ -66,6 +65,17 @@
         			<form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">{{ csrf_field() }}</form>
     		</h2>
     	@endif
+        @if(isset($message))
+            <div style="background-color: green; color: black;">
+            {{ $message }}
+            </div>
+        @endif
+        
+        @if(isset($error))
+            <div style="background-color: red; color: black;">
+            {{ $error }}
+            </div>
+        @endif
 		@yield('content')
 	</div>
 	<p class="text_copyright">Copyright © {{ config('id.name.portal') }}</p>

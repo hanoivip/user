@@ -45,7 +45,7 @@ class AuthenticatorVerifier implements IVerifier
         ->where('verified', false)
         ->get();
         if ($record->isEmpty())
-            return __('hanoivip::twofa.authenticator.empty');
+            return __('hanoivip.user::twofa.authenticator.empty');
         $result = $this->google2fa->verifyKey($record->first()->value, $verifier);
         /*
         if ($result)

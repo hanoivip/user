@@ -47,7 +47,7 @@ class TwofaController extends Controller
     {
         $userId = Auth::user()->getAuthIdentifier();
         $this->twofa->turnoff($userId);
-        return view('hanoivip::twofa-success', ['message' => __('hanoivip::twofa.turn-off-success')]);
+        return view('hanoivip::twofa-success', ['message' => __('hanoivip.user::twofa.turn-off-success')]);
     }
     public function listDevices()
     {
@@ -66,7 +66,7 @@ class TwofaController extends Controller
         $userId = Auth::user()->getAuthIdentifier();
         $deviceId = $request->input('deviceId');
         $this->twofa->revokeDevice($userId, $deviceId);
-        return view('hanoivip::twofa-success', ['message' => __('hanoivip::twofa.device.revoke-success')]);
+        return view('hanoivip::twofa-success', ['message' => __('hanoivip.user::twofa.device.revoke-success')]);
     }
     // List all values of a way
     public function list(Request $request)
@@ -85,14 +85,21 @@ class TwofaController extends Controller
         {
             $value = $request->input('value');
             $result = $this->twofa->addValue($userId, $way, $value);
-            if ($this->twofa->needValidate($way))
+            if ($result === true)
             {
-                return view('hanoivip::twofa-validate-value', 
-                    ['way' => $way, 'value' => $value]);
+                if ($this->twofa->needValidate($way))
+                {
+                    return view('hanoivip::twofa-validate-value', 
+                        ['way' => $way, 'value' => $value]);
+                }
+                else
+                {
+                    return view('hanoivip::twofa-add-success');
+                }
             }
-            else
+            else 
             {
-                return view('hanoivip::twofa-add-success');
+                return view('hanoivip::twofa-add-success', [ 'error' => $result ]);
             }
         }
         else 
@@ -152,7 +159,14 @@ class TwofaController extends Controller
                 abort(500, 'No need validation');
             $otp = $request->input('otp');
             $result = $this->twofa->validateValue($userId, $way, $value, $otp);
-            return view('hanoivip::twofa-success', ['message' => __('hanoivip::twofa.validate.success')]);
+            if ($result === true)
+            {
+                return view('hanoivip::twofa-success', ['message' => __('hanoivip.user::twofa.validate.success')]);
+            }
+            else
+            {
+                return view('hanoivip::twofa-success', ['error' => __('hanoivip.user::twofa.validate.failure')]);
+            }
         }
         else
         {

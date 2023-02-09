@@ -51,12 +51,12 @@ class AppForgot extends Controller
             }
             else
             {
-                return ['error' => 2, 'message' => __('hanoivip::twofa.user.no-way'), 'data' => []];
+                return ['error' => 2, 'message' => __('hanoivip.user::twofa.user.no-way'), 'data' => []];
             }
         }
         else
         {
-            return ['error' => 1, 'message' => __('hanoivip::twofa.user.not-exists'), 'data' => []];
+            return ['error' => 1, 'message' => __('hanoivip.user::twofa.user.not-exists'), 'data' => []];
         }
     }
     

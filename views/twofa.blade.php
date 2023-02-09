@@ -32,7 +32,7 @@
     	@foreach ($userWays as $way => $i)
     		<br/>
     		<img src="{{asset('/id/images/success.png')}}" width="32"/>
-    		<a href="{{route('twofa.list', ['way' => $way])}}">{{__("hanoivip::twofa.way.protected-" . $way)}}</a>
+    		<a href="{{route('twofa.list', ['way' => $way])}}">{{__("hanoivip.user::twofa.way.protected-" . $way)}}</a>
     	@endforeach
     @else
     <p>User have no way to verify!</p>
@@ -43,7 +43,7 @@
     <h2>Another verify methods</h2>
     	@foreach ($otherWays as $way => $i)
     		<br/>
-    		<a href="{{route('twofa.add', ['way' => $way])}}">{{__("hanoivip::twofa.way." . $way)}}</a>
+    		<a href="{{route('twofa.add', ['way' => $way])}}">{{__("hanoivip.user::twofa.way." . $way)}}</a>
     	@endforeach
     @endif
     

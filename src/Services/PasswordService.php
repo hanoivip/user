@@ -37,7 +37,7 @@ class PasswordService
     public function sendResetEmail($email)
     {
         if (!$this->secure->canSecureByEmail($email))
-            return __('hanoivip::secure.reset.email-invalid');
+            return __('hanoivip.user::secure.reset.email-invalid');
         // Check exists
         $record = PasswordReset::where('email', $email)->get();
         if ($record->isEmpty())
@@ -46,7 +46,7 @@ class PasswordService
             $record->email = $email;
             // check throtte
             if (Carbon::now()->timestamp - $record->created_at < 120)
-                return __('hanoivip::secure.reset.too-fast');
+                return __('hanoivip.user::secure.reset.too-fast');
         }
         else
         {
@@ -91,7 +91,7 @@ class PasswordService
     public function resetPassword($token, $password)
     {
         if (($record = $this->validate($token)) === false)
-            return __('hanoivip::secure.reset.token-invalid'); 
+            return __('hanoivip.user::secure.reset.token-invalid'); 
         $secureInfo = $this->secure->getRecordByEmail($record->email);
         $result = $this->credentials->updatePass($secureInfo->user_id, $password);
         if ($result)

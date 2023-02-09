@@ -2,7 +2,6 @@
 
 @section('content')
 
-<h1>Add verification method success</h1>
 <p>Return home after 3 seconds..</p>
 <a href="{{route('twofa')}}">OK</a>
 

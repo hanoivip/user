@@ -4,6 +4,7 @@ namespace Hanoivip\User\Services;
 
 use Hanoivip\User\Otp;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class OtpService
 {
@@ -33,11 +34,14 @@ class OtpService
     
     function check($otp)
     {
+        if (empty($otp))
+            return false;
+        Log::error("Otp checking $otp");
         $record = Otp::where('otp', $otp)->get();
         if ($record->isEmpty())
-            return __('hanoivip::twofa.invalid');
+            return __('hanoivip.user::twofa.invalid');
         if (Carbon::now()->timestamp>=$record->first()->expires)
-            return __('hanoivip::twofa.expired');
+            return __('hanoivip.user::twofa.expired');
         return true;
     }
     

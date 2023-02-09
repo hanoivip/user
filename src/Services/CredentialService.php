@@ -50,7 +50,7 @@ class CredentialService
     {
         $otherUser = $this->getUserCredentials($usernameOrEmail);
         if (!empty($otherUser))
-            return __('hanoivip::user.create.exists');
+            return __('hanoivip.user::user.create.exists');
         $user = new User();
         if(filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {
             $user->email = $usernameOrEmail;
@@ -122,7 +122,7 @@ class CredentialService
             // Check email exists
             $otherUser = $this->getUserCredentials($email);
             if (!empty($otherUser) && $otherUser->id != $uid)
-                return __('hanoivip::email.update.exists');
+                return __('hanoivip.user::email.update.exists');
             // Can update email
             $now = Carbon::now();
             $token = $this->generateToken();
@@ -138,7 +138,7 @@ class CredentialService
         }
         else 
         {
-            return __('hanoivip::email.update.verified');
+            return __('hanoivip.user::email.update.verified');
         }
     }
     
@@ -214,16 +214,16 @@ class CredentialService
     {
         $user = $this->getUserCredentials($uid);
         if (empty($user))
-            return __('hanoivip::user.not-found');
+            return __('hanoivip.user::user.not-found');
         $userSecure = $this->secures->getInfo($uid);
         if (empty($newpass))
-            return __('hanoivip::password.update.password-empty');
+            return __('hanoivip.user::password.update.password-empty');
         if (!empty($userSecure) && !empty($userSecure->pass2) &&
             Hash::check($newpass, $userSecure->pass2))
-            return __('hanoivip::password.update.similar_pass2');
+            return __('hanoivip.user::password.update.similar_pass2');
         if (!empty($userSecure) && !empty($userSecure->answer) &&
             Hash::check($newpass, $userSecure->answer))
-            return __('hanoivip::password.update.similar_answer');
+            return __('hanoivip.user::password.update.similar_answer');
         //Save history    
         $history = new PasswordHistory();
         $history->user_id = $uid;
@@ -314,13 +314,13 @@ class CredentialService
     {
         $user = $this->getUserCredentials($uid);
         if (empty($user))
-            return __('hanoivip::user.not-found');
+            return __('hanoivip.user::user.not-found');
         // name == password == device?
         if (!Hash::check($user->name, $user->password))
-            return __('hanoivip::username.update.not-allowed');
+            return __('hanoivip.user::username.update.not-allowed');
         $existUser = $this->getUserCredentials($username);
         if (!empty($existUser))
-            return __('hanoivip::username.update.exists');
+            return __('hanoivip.user::username.update.exists');
         //update info
         $user->name = $username;
         $user->password = Hash::make($password);

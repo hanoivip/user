@@ -49,14 +49,14 @@ class PublicController extends Controller
             $result = $this->credentials->verify($token);
             if (gettype($result) == "boolean") {
                 if ($result) {
-                    $message = __("hanoivip::email.verify.success");
+                    $message = __("hanoivip.user::email.verify.success");
                 } else
-                    $error_message = __("hanoivip::email.verify.fail");
+                    $error_message = __("hanoivip.user::email.verify.fail");
             } else
                 $error_message = $result;
         } catch (Exception $ex) {
             Log::error("Verify login email exception. Msg:" . $ex->getMessage());
-            $error_message = __("hanoivip::email.verify.exception");
+            $error_message = __("hanoivip.user::email.verify.exception");
         }
         return view("hanoivip::verify-login-result", [
             'message' => $message,
@@ -77,14 +77,14 @@ class PublicController extends Controller
             $result = $this->secures->verify($token);
             if (gettype($result) == "boolean") {
                 if ($result) {
-                    $message = __("hanoivip::secure.email.verify.success");
+                    $message = __("hanoivip.user::secure.email.verify.success");
                 } else
-                    $error_message = __("hanoivip::secure.email.verify.fail");
+                    $error_message = __("hanoivip.user::secure.email.verify.fail");
             } else
                 $error_message = $result;
         } catch (Exception $ex) {
             Log::error("Verify secure email exception. Msg:" . $ex->getMessage());
-            $error_message = __("hanoivip::secure.email.verify.exception");
+            $error_message = __("hanoivip.user::secure.email.verify.exception");
         }
         return view("hanoivip::verify-secure-result", [
             'message' => $message,
@@ -103,7 +103,7 @@ class PublicController extends Controller
         $sentResult = $this->resets->sendResetEmail($email);
         if ($sentResult === true) {
             return view('hanoivip::password-forgot-sent', [
-                'message' => __('hanoivip::secure.reset.email-sent')
+                'message' => __('hanoivip.user::secure.reset.email-sent')
             ]);
         } else {
             return view('hanoivip::password-forgot-sent', [
@@ -117,7 +117,7 @@ class PublicController extends Controller
         $token = $request->input('token');
         if ($this->resets->validate($token) === false)
             return view('hanoivip::password-forgot-reset-result',
-                ['error_message' => __('hanoivip::secure.reset.token-invalid')]);
+                ['error_message' => __('hanoivip.user::secure.reset.token-invalid')]);
         else
             return view('hanoivip::password-forgot-reset', ['token' => $token]);
     }
@@ -141,14 +141,14 @@ class PublicController extends Controller
         if ($validator->fails())
         {
             if ($request->ajax())
-                return ['error' => 1, 'message' => __('hanoivip::secure.reset.validation-fail')];
+                return ['error' => 1, 'message' => __('hanoivip.user::secure.reset.validation-fail')];
             else
                 return view('hanoivip::password-forgot-reset', ['token' => $token])->withErrors($validator->errors());
         }
         try {
             $result = $this->resets->resetPassword($token, $password);
             if ($result == true)
-                $message = __('hanoivip::secure.reset.success');
+                $message = __('hanoivip.user::secure.reset.success');
             else
             {
                 $error = 1;
@@ -156,7 +156,7 @@ class PublicController extends Controller
             }
         } catch (Exception $e) {
             $error = 999;
-            $message = __('hanoivip::secure.reset.exception');
+            $message = __('hanoivip.user::secure.reset.exception');
             Log::error("User reset password exception: " . $e->getMessage());
         }
         if ($request->ajax())
@@ -175,7 +175,7 @@ class PublicController extends Controller
         if ($validator->fails())
         {
             $error = 1;
-            $message = __('hanoivip::secure.reset.validation-fail');
+            $message = __('hanoivip.user::secure.reset.validation-fail');
         }
         else
         {
@@ -186,7 +186,7 @@ class PublicController extends Controller
             try {
                 $result = $this->credentials->updatePass($userID, $password);
                 if ($result === true)
-                    $message = __('hanoivip::secure.reset.success');
+                    $message = __('hanoivip.user::secure.reset.success');
                 else
                 {
                     $error = 2;
@@ -194,7 +194,7 @@ class PublicController extends Controller
                 }
             } catch (Exception $e) {
                 $error = 999;
-                $message = __('hanoivip::secure.reset.exception');
+                $message = __('hanoivip.user::secure.reset.exception');
                 Log::error("User reset password exception: " . $e->getMessage());
             }
         }
