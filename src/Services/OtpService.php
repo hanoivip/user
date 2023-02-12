@@ -12,7 +12,6 @@ class OtpService
         
         $generator = "1357902468";
         $result = "";
-        
         for ($i = 1; $i <= $len; $i++) {
             $result .= substr($generator, (rand()%(strlen($generator))), 1);
         }
@@ -36,17 +35,28 @@ class OtpService
     {
         if (empty($otp))
             return false;
-        Log::error("Otp checking $otp");
-        $record = Otp::where('otp', $otp)->get();
-        if ($record->isEmpty())
+        // Log::error("Otp checking $otp");
+        $record = $this->get($otp);
+        if (empty($record))
             return __('hanoivip.user::twofa.invalid');
-        if (Carbon::now()->timestamp>=$record->first()->expires)
-            return __('hanoivip.user::twofa.expired');
         return true;
     }
-    
+    /**
+     * Get valid otp
+     * @param string $otp
+     * @return Otp|NULL
+     */
     function get($otp)
     {
-        return Otp::where('otp', $otp)->first();
+        $records = Otp::where('otp', $otp)
+        ->whereDate('created_at', Carbon::today())
+        ->get();
+        foreach ($records as $record)
+        {
+            if (Carbon::now()->timestamp<$record->expires)
+            {
+                return $record;
+            }
+        }
     }
 }
