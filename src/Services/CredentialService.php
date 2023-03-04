@@ -18,6 +18,8 @@ use Hanoivip\Events\User\UserBinded;
 
 class CredentialService
 {   
+    const GUEST_DEFAULT_PASSWORD = "$#%#asfhaskf2!@##%@#jtyjw";
+    
     protected $secures;
     
     public function __construct(SecureService $secures)
@@ -65,13 +67,14 @@ class CredentialService
     
     public function createGuest($uuid)
     {
-        return $this->createUser($uuid, $uuid);
+        return $this->createUser($uuid, md5($uuid . self::GUEST_DEFAULT_PASSWORD));
     }
     
     public function isGuest($id)
     {
         $user = $this->getUserCredentials($id);
-        return !empty($user) && Hash::check($user->name, $user->password);
+        $password = md5($id, self::GUEST_DEFAULT_PASSWORD);
+        return !empty($user) && Hash::check($user->name, $password);
     }
     /**
      * Get user all credentials info. 
@@ -314,10 +317,13 @@ class CredentialService
     {
         $user = $this->getUserCredentials($uid);
         if (empty($user))
+        {
             return __('hanoivip.user::user.not-found');
-        // name == password == device?
-        if (!Hash::check($user->name, $user->password))
+        }
+        if ($this->isGuest($uid))
+        {
             return __('hanoivip.user::username.update.not-allowed');
+        }
         $existUser = $this->getUserCredentials($username);
         if (!empty($existUser))
             return __('hanoivip.user::username.update.exists');
