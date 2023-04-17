@@ -65,13 +65,13 @@
         			<form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">{{ csrf_field() }}</form>
     		</h2>
     	@endif
-        @if(isset($message))
+        @if(!empty($message))
             <div style="background-color: green; color: black;">
             {{ $message }}
             </div>
         @endif
         
-        @if(isset($error))
+        @if(!empty($error))
             <div style="background-color: red; color: black;">
             {{ $error }}
             </div>
