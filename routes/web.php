@@ -94,3 +94,13 @@ Route::middleware(['web', 'otp'])->prefix('user')
 ->group(function () {
     Route::post('/pass/reset/do', 'PublicController@resetPass')->name('pass-reset-do');
 });
+
+Route::middleware([
+    'web',
+    'admin'
+])->namespace('Hanoivip\User\Controllers')
+->prefix('ecmin')
+->group(function () {
+    // Admin broadcast message
+    Route::any('/broadcast', 'AdminController@broadcast')->name('ecmin.broadcast');
+});

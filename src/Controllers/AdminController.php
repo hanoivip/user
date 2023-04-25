@@ -2,27 +2,34 @@
 
 namespace Hanoivip\User\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Exception;
 use Hanoivip\User\Facades\DeviceFacade;
 use Hanoivip\User\Requests\AdminRequest;
 use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\Services\SecureService;
+use Hanoivip\User\Services\OnlineService;
+use Hanoivip\User\Notifications\SystemMessage;
 
 class AdminController extends Controller
 {
     const DEFAULT_PASSWORD = '12345678';
     
     protected $credentials;
-    
     protected $secures;
+    protected $onlines;
     
     public function __construct(
-        CredentialService $credentials, SecureService $secures)
+        CredentialService $credentials, 
+        SecureService $secures,
+        OnlineService $onlines)
     {
         $this->credentials = $credentials;
         $this->secures = $secures;
+        $this->onlines = $onlines;
     }
     
     /**
@@ -120,5 +127,34 @@ class AdminController extends Controller
             abort(500);
         }
         abort(404, "User not found");
+    }
+    
+    public function broadcast(Request $request)
+    {
+        $message = "";
+        $errorMessage = "";
+        if ($request->getMethod() == 'POST')
+        {
+            try
+            {
+                $broadcast = $request->input('broadcast');
+                $users = $this->onlines->getCurrentLogins();
+                Notification::send($users, new SystemMessage($broadcast));
+                $message = "Broadcast system message ok!";
+            }
+            catch (Exception $ex)
+            {
+                Log::error("Broadcast err:" . $ex->getMessage());
+                $errorMessage = "Broadcast exception";
+            }
+        }
+        if ($request->expectsJson())
+        {
+            return ['error' => 0, 'message' => $message, 'error_message' => $errorMessage];    
+        }
+        else
+        {
+            return view('hanoivip::admin.broadcast', ['message' => $message, 'error_message' => $errorMessage]);
+        }
     }
 }
