@@ -1,6 +1,7 @@
 <?php 
 
 use Hanoivip\User\Facades\DeviceFacade;
+use Hanoivip\User\Facades\UserFacade;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
@@ -29,5 +30,13 @@ if (! function_exists('current_device_token'))
             Request::session()->invalidate();
         }
         return "";
+    }
+}
+
+if (! function_exists('get_user_info'))
+{
+    function get_user_info($userId)
+    {
+        return UserFacade::getUserCredentials($userId);
     }
 }
