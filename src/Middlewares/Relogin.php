@@ -26,7 +26,7 @@ class Relogin
             }
             else
             {
-                Log::debug("Relogin middeware .. " . Carbon::now()->timestamp . " & " . Cache::get($key)->timestamp);
+                //Log::debug("Relogin middeware .. " . Carbon::now()->timestamp . " & " . Cache::get($key)->timestamp);
             }
         }
         return $next($request);
