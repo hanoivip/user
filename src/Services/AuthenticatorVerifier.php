@@ -4,6 +4,7 @@ namespace Hanoivip\User\Services;
 
 use Hanoivip\User\UserVerifyWay;
 use PragmaRX\Google2FA\Google2FA;
+use Hanoivip\Events\UserSecure\User2faUpdated;
 
 class AuthenticatorVerifier implements IVerifier
 {
@@ -55,6 +56,10 @@ class AuthenticatorVerifier implements IVerifier
             ->where('delete', false)
             ->update(['verified' => true]);
         }*/
+        if ($result)
+        {
+            event(new User2faUpdated($userId, "authenticator"));
+        }
         return $result;
     }
 

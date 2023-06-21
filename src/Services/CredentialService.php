@@ -15,6 +15,7 @@ use Hanoivip\Events\User\UserCreated;
 use Hanoivip\Events\User\PassUpdated;
 use Hanoivip\Events\User\DetailUpdated;
 use Hanoivip\Events\User\UserBinded;
+use Hanoivip\Events\User\EmailLoginVerified;
 
 class CredentialService
 {   
@@ -277,6 +278,7 @@ class CredentialService
         }
         $userByToken->email_verified = true;
         $userByToken->save();
+        event(new EmailLoginVerified($user->id, $user->email));
         return true;
     }
     

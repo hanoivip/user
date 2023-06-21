@@ -6,6 +6,7 @@ use Hanoivip\User\UserVerifyWay;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Hanoivip\User\Mail\UserOtp;
+use Hanoivip\Events\UserSecure\User2faUpdated;
 
 class EmailVerifier implements IVerifier
 {
@@ -62,7 +63,12 @@ class EmailVerifier implements IVerifier
 
     public function verify($userId, $deviceId, $verifier)
     {
-        return $this->otp->check($verifier);
+        $result = $this->otp->check($verifier);
+        if ($result)
+        {
+            event(new User2faUpdated($userId, "email"));
+        }
+        return $result;
     }
 
     public function needValidation()

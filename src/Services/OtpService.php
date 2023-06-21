@@ -39,6 +39,7 @@ class OtpService
         $record = $this->get($otp);
         if (empty($record))
             return __('hanoivip.user::twofa.invalid');
+        // TODO: Mark as checked
         return true;
     }
     /**
