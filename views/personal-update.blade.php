@@ -21,9 +21,9 @@
                 <select name="sex" id="sex" class="form_input">
                         <option value="-1">Chọn giới tính</option>
                         @if (isset($sexs))
-                            @for ($i=0; $i<count($sexs); ++$i)
-                                <option value="{{$sexs[$i][0]}}">{{$sexs[$i][1]}}</option>
-                            @endfor
+                            @foreach ($sexs as $sex)
+                                <option value="{{$sex[0]}}" {{ old('sex') == $sex[0] ? 'selected' : '' }}>{{$sex[1]}}</option>
+                            @endforeach
                         @endif
                 </select>
 
@@ -60,9 +60,9 @@
                 <select name="city" id="city" class="form_input">
                         <option value="-1">Chọn thành phố</option>
                         @if (isset($cities))
-                            @for ($i=0; $i<count($cities); ++$i)
-                                <option value="{{$cities[$i][0]}}">{{$cities[$i][1]}}</option>
-                            @endfor
+                            @foreach ($cities as $city)
+                                <option value="{{$city[0]}}" {{ old('city') == $city[0] ? 'selected' : '' }}>{{$city[1]}}</option>
+                            @endforeach
                         @endif
                     </select>
 
@@ -78,9 +78,9 @@
                     <select name="career" id="career" class="form_input">
                             <option value="-1">Chọn nghề nghiệp</option>
                             @if (isset($careers))
-                                @for ($i=0; $i<count($careers); ++$i)
-                                    <option value="{{$careers[$i][0]}}">{{$careers[$i][1]}}</option>
-                                @endfor
+                                @foreach ($careers as $career)
+                                    <option value="{{$career[0]}}" {{ old('career') == $career[0] ? 'selected' : '' }}>{{$career[1]}}</option>
+                                @endforeach
                             @endif
                         </select>
 
@@ -95,9 +95,9 @@
                 <select name="marriage" id="marriage" class="form_input" >
                     <option value="-1">Chọn tình trạng hôn nhân</option>
                     @if (isset($marriages))
-                        @for ($i=0; $i<count($marriages); ++$i)
-                            <option value="{{$marriages[$i][0]}}">{{$marriages[$i][1]}}</option>
-                        @endfor
+                        @foreach ($marriages as $marriage)
+                            <option value="{{$marriage[0]}}" {{ old('marriage') == $marriage[0] ? 'selected' : '' }}>{{$marriage[1]}}</option>
+                        @endforeach
                     @endif
                 </select>
 
@@ -108,7 +108,16 @@
                 @endif
             </div>
             
-            
+            <div class="form_input_grp{{ $errors->has('captcha') ? ' has-error' : '' }}">
+                	<input id="captcha" type="text" name="captcha" required class="form_input" placeholder="Captcha">
+                	<img src="{{ captcha_src() }}" alt="captcha"/>
+                	@if ($errors->has('captcha'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('captcha') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
             
             <div class="form_input_grp">
                 <div class="col-md-6 col-md-offset-4">

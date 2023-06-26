@@ -199,6 +199,6 @@ class CredentialController extends Controller
             Log::error("Update personal exception. Msg: " . $ex->getMessage());
             $error_message = __('hanoivip.user::personal.update.exception');
         }
-        return view('hanoivip::personal-update-result', ['message' => $message, 'error_message' => $error_message]);
+        return view('hanoivip::process-result', ['message' => $message, 'error_message' => $error_message]);
     }
 }

@@ -75,10 +75,4 @@
             </div>
         </div>
     </div>
-<script type="text/javascript">
-    $=jQuery;
-    jQuery(document).ready(function ($) {
-        $('#menu_left2 a').addClass("selected");
-    });
-</script>
 @endsection

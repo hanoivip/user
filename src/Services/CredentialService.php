@@ -278,7 +278,7 @@ class CredentialService
         }
         $userByToken->email_verified = true;
         $userByToken->save();
-        event(new EmailLoginVerified($user->id, $user->email));
+        event(new EmailLoginVerified($userByToken->id, $userByToken->email));
         return true;
     }
     
