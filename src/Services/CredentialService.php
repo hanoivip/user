@@ -337,5 +337,15 @@ class CredentialService
         return true;
     }
     
-    
+    public function getLastChangePassword($uid)
+    {
+        $last = PasswordHistory::where('user_id', $uid)
+        ->orderBy('id', 'desc')
+        ->first();
+        if (!empty($last))
+        {
+            return $last->created_at;
+        }
+        return 0;
+    }
 }

@@ -96,7 +96,7 @@ class PasswordService
         $result = $this->credentials->updatePass($secureInfo->user_id, $password);
         if ($result)
         {
-            $record->token = 'xxx';
+            $record->token = 'done';
             $record->save();
         }
         return $result;
