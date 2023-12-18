@@ -202,4 +202,16 @@ class PublicController extends Controller
             return ['error' => $error, 'message' => $message];
         return view('hanoivip::password-forgot-reset-result', ['error' => $error, 'message' => $message]);
     }
+    
+    public function terminate(Request $request)
+    {
+        if ($request->getMethod() == 'POST')
+        {
+            return view('hanoivip::user-termination-ok');
+        }
+        else 
+        {
+            return view('hanoivip::user-termination');
+        }
+    }
 }

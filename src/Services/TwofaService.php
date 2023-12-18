@@ -195,6 +195,7 @@ class TwofaService
     
     public function needVerifyDevice($userId, $device)
     {
+        // control disable this feature?
         return $this->getStatus($userId) && $this->devices->needVerifyDevice($userId, $device);
     }
     /**

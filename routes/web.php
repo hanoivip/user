@@ -87,6 +87,8 @@ Route::middleware('web')->prefix('user')
     Route::any('/forgot/otp', 'Forgot@inputOtp')->name('forgot.otp');
     Route::post('/forgot/otp/check', 'Forgot@checkOtp')->name('forgot.checkotp');
     Route::any('/forgot/reset', 'Forgot@resetPassword')->name('forgot.reset');
+    // User termination
+    Route::any('/terminate', 'PublicController@terminate')->name('user.terminate');
 });
     
 Route::middleware(['web', 'otp'])->prefix('user')
