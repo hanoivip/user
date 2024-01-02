@@ -24,8 +24,8 @@
                     <select name="oldquestion" id="oldquestion" class="form_input">
                             <option value="-1">Chọn câu hỏi hiện tại</option>
                             @if (isset($questions))
-                                @for ($i=0; $i<count($questions); ++$i)
-                                    <option value="{{$questions[$i][0]}}">{{$questions[$i][1]}}</option>
+                                @foreach ($questions as $question)
+                                    <option value="{{$question[0]}}">{{$question[1]}}</option>
                                 @endfor
                             @endif
                         </select>
@@ -51,8 +51,8 @@
                 <select name="newquestion" id="newquestion" class="form_input">
                         <option value="-1">Chọn câu hỏi mới</option>
                         @if (isset($questions))
-                            @for ($i=0; $i<count($questions); ++$i)
-                                <option value="{{$questions[$i][0]}}">{{$questions[$i][1]}}</option>
+                            @foreach ($questions as $question)
+                                <option value="{{$question[0]}}">{{$question[1]}}</option>
                             @endfor
                         @endif
                     </select>
