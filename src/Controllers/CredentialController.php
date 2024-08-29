@@ -2,15 +2,14 @@
 
 namespace Hanoivip\User\Controllers;
 
-use Hanoivip\User\User;
 use Hanoivip\User\Services\CredentialService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Exception;
 use Hanoivip\User\Requests\UpdateEmail;
 use Hanoivip\User\Requests\UpdatePassword;
 use Hanoivip\User\Requests\UpdatePersonal;
-use Carbon\Carbon;
 
 class CredentialController extends Controller
 {
@@ -21,10 +20,18 @@ class CredentialController extends Controller
         $this->credentialMgr = $credentialMgr;
     }
 
-    public function infoUI()
+    public function infoUI(Request $request)
     {
         $uid = Auth::user()->id;
         $credential = $this->credentialMgr->getUserCredentials($uid);
+        if ($request->ajax())
+        {
+            return ['error' => 0, 'message' => '', 'data' => [
+                'username' => $credential->name,
+                'email' => $credential->email,
+                'email_verified' => $credential->email_verified,
+            ]];
+        }
         return view('hanoivip::credential-info', ['credential' => $credential]);
     }
     
@@ -67,20 +74,6 @@ class CredentialController extends Controller
         return view('hanoivip::input-email-result', ['message' => $message, 'error_message' => $error_message]);
     }
     
-    protected function isTooFast($uid)
-    {
-        $interval = config('id.email.toofast');
-        $user = User::find($uid);
-        if (!empty($user->last_email_validation))
-        {
-            $now = Carbon::now();
-            $lastEmail = new Carbon($user->last_email_validation);
-            $diff = $now->diffInSeconds($lastEmail);
-            return $diff < $interval;
-        }
-        return false;
-    }
-    
     public function resendEmail()
     {
         $uid = Auth::user()->id;
@@ -88,9 +81,7 @@ class CredentialController extends Controller
         $error_message = '';
         try 
         {
-            if ($this->isTooFast($uid))
-                $error_message = __('hanoivip.user::email.resend.toofast');
-            else if ($this->credentialMgr->resendEmail($uid))
+            if ($this->credentialMgr->resendEmail($uid))
                 $message = __('hanoivip.user::email.resend.success');
             else
                 $error_message = __('hanoivip.user::email.resend.fail');

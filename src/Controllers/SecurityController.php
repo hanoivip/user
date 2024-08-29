@@ -2,16 +2,22 @@
 
 namespace Hanoivip\User\Controllers;
 
-use Carbon\Carbon;
-use Hanoivip\User\UserSecure;
 use Hanoivip\User\Requests\SecureEmail;
 use Hanoivip\User\Requests\UpdatePass2;
 use Hanoivip\User\Requests\UpdateQna;
 use Hanoivip\User\Services\SecureService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Exception;
-
+/**
+ * @deprecated
+ * @author GameOH
+ * No one use
+ * - pass2
+ * - question
+ * - email: make confusion with authentication email 
+ */
 class SecurityController extends Controller
 {
     protected $secureService;
@@ -21,10 +27,14 @@ class SecurityController extends Controller
         $this->secureService = $secure;
     }
 
-    public function infoUI()
+    public function infoUI(Request $request)
     {
         $uid = Auth::user()->getAuthIdentifier();
         $secure = $this->secureService->getInfo($uid);
+        if ($request->ajax())
+        {
+            
+        }
         return view('hanoivip::secure-info', ['info' => $secure]);
     }
     
@@ -79,20 +89,6 @@ class SecurityController extends Controller
         return view('hanoivip::secure-update-email-result', ['message' => $message, 'error_message' => $error_message]);
     }
     
-    protected function isTooFast($uid)
-    {
-        $interval = config('id.email.toofast');
-        $secure = UserSecure::find($uid);
-        if (!empty($secure->last_email_validation))
-        {
-            $now = Carbon::now();
-            $lastEmail = new Carbon($secure->last_email_validation);
-            $diff = $now->diffInSeconds($lastEmail);
-            return $diff < $interval;
-        }
-        return false;
-    }
-    
     public function resendEmail()
     {
         $uid = Auth::user()->getAuthIdentifier();
@@ -100,11 +96,7 @@ class SecurityController extends Controller
         $error_message = '';
         try 
         {
-            if ($this->isTooFast($uid))
-            {
-                $error_message = __('hanoivip.user::secure.email.resend.toofast');
-            }
-            else if ($this->secureService->resendEmail($uid))
+            if ($this->secureService->resendEmail($uid))
                 $message = __('hanoivip.user::secure.email.resend.success');
             else
                 $error_message = __('hanoivip.user::secure.email.resend.fail');

@@ -5,7 +5,7 @@
     "require": {
 		"php" : ">=7.0.0",
 		"laravel/framework" : ">=5.5",
-		"mervick/curl-helper" : "^2.2",
+		"hanoivip/curl-helper" : "dev-main",
 		"doctrine/dbal": "^2.13",
 		"mews/captcha": "^3.0",
 		"pragmarx/google2fa-laravel": "^2.0",

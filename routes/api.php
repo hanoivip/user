@@ -28,4 +28,7 @@ Route::prefix('api')->middleware('auth:api')
     // verify device
     Route::any('/verify', 'TwofaController@verify');
     Route::any('/verify/do', 'TwofaController@doVerify');
+    // verify email from app
+    Route::get('/user/info', 'CredentialController@infoUI');
+    Route::get('/user/email/update', 'CredentialController@doUpdateEmail');
 });

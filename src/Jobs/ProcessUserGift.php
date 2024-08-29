@@ -2,6 +2,7 @@
 
 namespace Hanoivip\User\Jobs;
 
+use Hanoivip\CurlHelper;
 use Hanoivip\User\Mail\UserGift;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -9,7 +10,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Mervick\CurlHelper;
 use Exception;
 
 class ProcessUserGift implements ShouldQueue
