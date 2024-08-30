@@ -64,12 +64,29 @@ class CredentialController extends Controller
                 $message = __('hanoivip.user::email.update.success', ['email' => $email]);
             }
             else
+            {
                 $error_message = $result;
+            }
         }
         catch (Exception $ex)
         {
             Log::error("Update login email exception. Msg:" . $ex->getMessage());
             $error_message = __('hanoivip.user::email.update.exception');
+        }
+        if ($request->ajax())
+        {
+            if (!empty($error_message))
+            {
+                return ['error' => 1, 'message' => $error_message, 'data' => []];
+            }
+            else
+            {
+                return ['error' => 0, 'message' => $message, 'data' => [
+                    'username' => Auth::user()->name,
+                    'email' => $email,
+                    'email_verified' => false,
+                ]];
+            }
         }
         return view('hanoivip::input-email-result', ['message' => $message, 'error_message' => $error_message]);
     }
