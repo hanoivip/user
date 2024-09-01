@@ -29,7 +29,7 @@ class CredentialController extends Controller
             return ['error' => 0, 'message' => '', 'data' => [
                 'username' => $credential->name,
                 'email' => $credential->email,
-                'email_verified' => $credential->email_verified,
+                'email_verified' => empty($credential->email_verified) ? false : true,
             ]];
         }
         return view('hanoivip::credential-info', ['credential' => $credential]);

@@ -30,5 +30,10 @@ Route::prefix('api')->middleware('auth:api')
     Route::any('/verify/do', 'TwofaController@doVerify');
     // verify email from app
     Route::get('/user/info', 'CredentialController@infoUI');
-    Route::get('/user/email/update', 'CredentialController@doUpdateEmail');
+    Route::any('/user/email/update', 'CredentialController@doUpdateEmail');
+    // 2fa
+    Route::get('/2fa/status', 'AppTwofa@status');
+    Route::any('/2fa/add/init', 'AppTwofa@beginAdd');
+    Route::any('/2fa/add', 'AppTwofa@add');
+    Route::any('/2fa/validate', 'AppTwofa@validate1');
 });

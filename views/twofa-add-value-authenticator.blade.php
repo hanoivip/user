@@ -3,7 +3,7 @@
 @section('content')
 
 <p>Scan this barcode </p>
-{!! QrCode::size(100)->generate($init['qrcode']) !!}
+{!! QrCode::size(200)->generate($init['qrcode']) !!}
 
 <p>Or add this key: {{$init['key']}}</p>
 

@@ -154,7 +154,6 @@ class TwofaService
         $status = $this->getStatus($userId);
         $verifier = $this->getVerifier($way);
         $result = $verifier->validate($userId, $value, $validator);
-        //Log::debug("test..." . print_r($result, true));
         if ($result === true)
         {
             UserVerifyWay::where('user_id', $userId)
