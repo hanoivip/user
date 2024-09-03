@@ -4,7 +4,8 @@ return [
     'system-error' => 'Lỗi hệ thống! Hãy thử lại trước khi liên hệ hỗ trợ!',
     'turn-off-success' => 'Đã tắt xác thực 2 bước!',
     'device' => [
-        'verified' => '',
+        'verified' => 'Thiết bị đã được xác thực thành công!',
+        'revoke-success' => 'Quyền truy cập của thiết bị đã được hủy bỏ.',
     ],
     'way' => [
         'email' => 'Xác thực bằng email',
@@ -38,5 +39,5 @@ return [
         'email' => 'Chúng tôi đã gửi 1 mã OTP vào hòm thư của bạn. Hãy kiểm tra và nhập mã vào bên dưới',
         'code' => 'Bạn hãy dùng 1 trong các mã số bạn đã lưu trước đó',
         'authenticator' => 'Hãy lấy mã xác thực trong ứng dụng xác thực đã đăng ký.',
-    ]
+    ],
 ];

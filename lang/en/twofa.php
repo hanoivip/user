@@ -4,7 +4,8 @@ return [
     'system-error' => 'System error! Plz contact administrator (missing default verify way)',
     'turn-off-success' => '2fa had been turned off!',
     'device' => [
-        'verified' => '',
+        'verified' => 'Device verification was success.',
+        'revoke-success' => 'Device was removed success.',
     ],
     'way' => [
         'email' => 'Verify by email',
@@ -13,6 +14,10 @@ return [
         'protected-email' => 'Protected by email',
         'protected-code' => 'Protected by backup codes',
         'protected-authenticator' => 'Protected by authenticator app'
+    ],
+    'email' => [
+        'empty' => 'Need to fill your email',
+        'exists' => 'This email was used on our system. Plz use another email.'
     ],
     'user' => [
         'not-exists' => 'User not exists',
@@ -29,4 +34,9 @@ return [
     'device' => [
         'revoke-success' => 'Device has been revoked from your account'
     ],
+    'forgot' => [
+        'email' => 'We have sent an email to your mail box. Check it out and input OTP here.',
+        'code' => 'You have to use 1 of saved backup codes',
+        'authenticator' => 'Retrieve code from authenticator app.',
+    ]
 ];

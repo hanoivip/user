@@ -38,7 +38,7 @@ class OtpService
         // Log::error("Otp checking $otp");
         $record = $this->get($otp);
         if (empty($record))
-            return __('hanoivip.user::twofa.invalid');
+            return __('hanoivip.user::otp.invalid');
         // TODO: Mark as checked
         return true;
     }
