@@ -44,7 +44,7 @@ class AuthenticatorVerifier implements IVerifier
         $record = UserVerifyWay::where('user_id', $userId)
         ->where('way', self::way)
         ->where('delete', false)
-        ->where('verified', false)
+        ->where('verified', true)
         ->get();
         if ($record->isEmpty())
             return __('hanoivip.user::twofa.authenticator.empty');

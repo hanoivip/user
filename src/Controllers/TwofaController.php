@@ -202,7 +202,7 @@ class TwofaController extends Controller
         {
             if ($request->ajax())
             {
-                return ['error' => 0, 'message' => 'success', 'data' => ''];
+                return ['error' => 0, 'message' => 'Verification success', 'data' => ''];
             }
             else 
             {
@@ -216,7 +216,7 @@ class TwofaController extends Controller
         {
             if ($request->ajax())
             {
-                return ['error' => 1, 'message' => 'failure', 'data' => ''];
+                return ['error' => 1, 'message' => 'Verification failure', 'data' => ''];
             }
             else
             {
