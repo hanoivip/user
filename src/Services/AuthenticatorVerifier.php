@@ -24,6 +24,7 @@ class AuthenticatorVerifier implements IVerifier
         $record->way = self::way;
         $record->value = $value;
         $record->save();
+        return true;
     }
 
     public function init()
