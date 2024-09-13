@@ -1,11 +1,13 @@
 <?php
 namespace Hanoivip\User\Controllers;
 
+use Carbon\Carbon;
 use Hanoivip\User\Mail\UserOtp;
 use Hanoivip\User\Services\TwofaService;
 use Hanoivip\User\Services\DeviceService;
 use Hanoivip\User\Services\CredentialService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 /**
  * Reset password with verification methods
@@ -84,27 +86,30 @@ class AppForgot extends Controller
         $userId = $record->id;
         $way = $request->input('way');
         $result = $this->twofa->verifyUser($userId, $device, $way, $otp);
+        if ($result) {
+            Cache::put("AppForgot:$userId", true, Carbon::now()->addMinutes(5));
+        }
         return ['error' => $result?0:1, 'message' => $result?'success':'failure'];
     }
     
     public function resetPassword(Request $request)
     {
-        $device = $request->get('device');
+        //$device = $request->get('device');
         $username = $request->input('username');
-        $otp = $request->input('otp');
+        //$otp = $request->input('otp');
         $record = $this->users->getUserCredentials($username);
         if (empty($record))
             return ['error' => 1, 'message' => 'User not exists', 'data' => ''];
         $userId = $record->id;
-        $way = $request->input('way');
-        $result = $this->twofa->verifyUser($userId, $device, $way, $otp);
-        if ($result === true)
-        {
-            $password = $request->input('password');
-            $result2 = $this->users->updatePass($userId, $password);
-            return ['error' => $result2?0:1, 'message' => $result2?'success':'failure'];
+        //$way = $request->input('way');
+        //no need to verify otp again.. this might be timeout
+        //$result = $this->twofa->verifyUser($userId, $device, $way, $otp);
+        if (!Cache::has("AppForgot:$userId")) {
+            return ['error' => 2, 'message' => 'Reset password timeout. Please retry.', 'data' => ''];
         }
-        return ['error' => 2, 'message' => 'Otp verification fail', 'data' => ''];
+        $password = $request->input('password');
+        $result2 = $this->users->updatePass($userId, $password);
+        return ['error' => $result2?0:3, 'message' => $result2?'success':'failure'];
     }
     
 }
