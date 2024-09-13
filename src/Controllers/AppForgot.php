@@ -66,7 +66,7 @@ class AppForgot extends Controller
         $username = $request->input('username');
         $record = $this->users->getUserCredentials($username);
         if (empty($record))
-            abort(501, 'User not exists');
+            return ['error' => 1, 'message' => 'User not exists', 'data' => ''];
         $userId = $record->id;
         $way = $request->input('way');
         $this->twofa->startVerifyUser($userId, $way, $device);
@@ -80,7 +80,7 @@ class AppForgot extends Controller
         $otp = $request->input('otp');
         $record = $this->users->getUserCredentials($username);
         if (empty($record))
-            abort(501, 'User not exists');
+            return ['error' => 1, 'message' => 'User not exists', 'data' => ''];
         $userId = $record->id;
         $way = $request->input('way');
         $result = $this->twofa->verifyUser($userId, $device, $way, $otp);
@@ -94,7 +94,7 @@ class AppForgot extends Controller
         $otp = $request->input('otp');
         $record = $this->users->getUserCredentials($username);
         if (empty($record))
-            abort(501, 'User not exists');
+            return ['error' => 1, 'message' => 'User not exists', 'data' => ''];
         $userId = $record->id;
         $way = $request->input('way');
         $result = $this->twofa->verifyUser($userId, $device, $way, $otp);
@@ -104,7 +104,7 @@ class AppForgot extends Controller
             $result2 = $this->users->updatePass($userId, $password);
             return ['error' => $result2?0:1, 'message' => $result2?'success':'failure'];
         }
-        abort(501, 'Otp verification fail');
+        return ['error' => 2, 'message' => 'Otp verification fail', 'data' => ''];
     }
     
 }
