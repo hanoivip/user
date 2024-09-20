@@ -20,7 +20,7 @@ use Exception;
 class TwofaService
 {
     // TODO: other apps
-    const WAYS = ['email' => 1, 'code' => 1, 'authenticator' => 1];
+    public const WAYS = ['email' => 1, 'code' => 1, 'authenticator' => 1];
     
     protected $devices;
     

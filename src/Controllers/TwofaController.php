@@ -39,7 +39,7 @@ class TwofaController extends Controller
             $otherWays = $this->twofa->getOtherWays($userWays);
         }
         return view('hanoivip::twofa', 
-            ['status' => $status, 'default' => $default,
+            ['status' => $status, 'def' => $default,
                 'userWays' => $userWays, 'otherWays' => $otherWays]);
     }
     // Turnoff & delete all ways

@@ -3,7 +3,6 @@ namespace Hanoivip\User\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
 use Hanoivip\User\Services\CredentialService;
 use Hanoivip\User\Services\TwofaService;
 use Hanoivip\User\Services\DeviceService;
@@ -30,8 +29,16 @@ class AppTwofa extends Controller
     {
         $userId = Auth::user()->getAuthIdentifier();
         $status = $this->twofa->getStatus($userId);
-        //$userWays = $this->twofa->getUserWays($userId);
-        return ['error' => 0, 'message' => '', 'data' => ['status' => $status]];
+        $default = $this->twofa->getDefaultWay();
+        $otherWays = TwofaService::WAYS;
+        $userWays = [];
+        if (!empty($status))
+        {
+            $userWays = $this->twofa->getUserWays($userId);
+            $otherWays = $this->twofa->getOtherWays($userWays);
+        }
+        return ['error' => 0, 'message' => '', 'data' => 
+            ['status' => $status, 'default' => $default, 'userWays' => $userWays, 'otherWays' => $otherWays]];
     }
     // Turnoff & delete all ways
     public function turnoff()
@@ -65,7 +72,7 @@ class AppTwofa extends Controller
         $userId = Auth::user()->getAuthIdentifier();
         $way = $request->input('way');
         $values = $this->twofa->list($userId, $way);
-        return view("hanoivip::twofa-list-$way", ['way' => $way, 'values' => $values]);
+        return ['error' => 0, 'message' => '', 'data' => ['way' => $way, 'values' => $values]];
     }
     // Add value into a way
     public function beginAdd(Request $request)
