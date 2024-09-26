@@ -24,7 +24,8 @@ return [
         'no-way' => 'User have not set any verification method'
     ],
     'validate' => [
-        'success' => 'New way to protect your account has been added!'
+        'success' => 'New way to protect your account has been added!',
+        'failure' => 'Fail to add this new secure method. Pls retry!',
     ],
     'verification' => [
         'email' => 'We detect a new device logging to your account and we have sent an email to your mailbox. Please check your email to get OTP there!',

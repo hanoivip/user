@@ -38,7 +38,9 @@ class AppTwofa extends Controller
             $otherWays = $this->twofa->getOtherWays($userWays);
         }
         return ['error' => 0, 'message' => '', 'data' => 
-            ['status' => $status, 'default' => $default, 'userWays' => $userWays, 'otherWays' => $otherWays]];
+            ['status' => $status, 'default' => $default, 
+                'userWays' => empty($userWays) ? null : $userWays, 
+                'otherWays' => empty($otherWays) ? null : $otherWays]];
     }
     // Turnoff & delete all ways
     public function turnoff()
