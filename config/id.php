@@ -15,5 +15,6 @@ return [
     ],
     'password' => [
         'hashed' => true,   // cần băm mật khẩu hay không?
-    ]
+    ],
+    'device-id-key' => 'us-device-id', // key in header, input.. for identifing device
 ];
