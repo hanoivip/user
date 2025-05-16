@@ -2,10 +2,10 @@
 
 return [
     'update' => [
-        'success' => 'Thay đổi mật khẩu thành công.',
+        'success' => 'Password change successful.',
         
-        'fail' => 'Thay đổi mật khẩu thất bại.',
+        'fail' => 'Password change failed.',
         
-        'exception' => 'Cập nhật mật khẩu có lỗi. Vui lòng liên hệ ngay GM để giải quyết.',
+        'exception' => 'Error updating password. Please contact GM immediately to resolve.',
     ],
 ];

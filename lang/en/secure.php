@@ -3,81 +3,76 @@ return [
     
     'email' => [
         'update' => [
-            'success' => 'We have just sent an email to your email address. 
+            'success' => 'We have just sent an email to your email address.
 Please check the inbox and click to validation links. (You might have to check in Spam folder).
-This may take a few minutes, If you still got no email after 5 minutes, please try again!',
+This may take a few minutes, If you still receive no email after 5 minutes, please try again!',
             
             'fail' => 'Fail to update your email. Please try again!',
             
-            'exception' => 'Error occured while updating your email. Please contact our customer support.'
+            'exception' => 'Error occurred while updating your email. Please contact our customer support.'
         ],
         
         'verify' => [
-            'success' => 'Congratulation! Your secure email has been updated!',
-            
-            'fail' => 'Fail to update your secure email. Please try again!',
-            
-            'exception' => 'Error occured while updating your secure email. Please contact our customer support.'
+            'success' => 'Congratulation! Your secure email has been updated!', 
+            'fail' => 'Fail to update your secure email. Please try again!',       
+            'exception' => 'Error occurred while updating your secure email. Please contact our customer support.'
         ],
         
         'resend' => [
-            'success' => 'Gửi lại xác nhận email thành công.',
-            
-            'fail' => 'Gửi lại xác nhận email thất bại.',
-            
-            'exception' => 'Gửi lại xác nhận email có lỗi. Vui lòng liên hệ ngay GM để giải quyết.',
-            
-            'toofast' => 'Yêu cầu gửi email xác thực quá nhanh, bạn cần đợi 5 phút.'
+            'success' => 'Successfully resending email confirmation.',
+            'fail' => 'Failed to resend email confirmation.',
+            'exception' => 'Error in resending email confirmation. Please contact GM immediately to resolve.',
+            'toofast' => 'The request to send email confirmation is too fast, you need to wait 5 minutes.'
         ],
-        'exists' => 'Email đã tồn tại.',
+        'exists' => 'Email already exists.',
         
-        'verified' => 'Email đã được thiết lập. Không cho thiết lập lại.'
+        'verified' => 'Email has been set up. Resetting is not allowed.'
     ],
     'pass2' => [
         'update' => [
-            'success' => 'Cập nhật mật khẩu bảo mật thành công.',
-            'fail' => 'Cập nhật mật khẩu bảo mật thất bại.',
-            'exception' => 'Cập nhật mật khẩu bảo mật có lỗi. Vui lòng liên hệ ngay GM để giải quyết.'
+            'success' => 'Successfully updating security password.',
+            'fail' => 'Failed to update security password.',
+            'exception' => 'Error in updating security password. Please contact GM immediately to resolve.'
         ],
         
-        'duplicated_not_good' => 'Cập nhật mật khẩu bảo mật thất bại, phải khác với mật khẩu hiện tại.'
+        'duplicated_not_good' => 'Security question update failed, must be different from current password.'
     ],
     
     'qna' => [
         'update' => [
-            'success' => 'Cập nhật câu hỏi bảo mật thành công.',
+            'success' => 'Security question update successful.',
             
-            'fail' => 'Cập nhật câu hỏi bảo mật thất bại.',
+            'fail' => 'Security question update failed.',
             
-            'exception' => 'Cập nhật câu hỏi bảo mật có lỗi. Vui lòng liên hệ ngay GM để giải quyết.'
+            'exception' => 'Security question update failed. Please contact GM immediately to resolve.'
         ],
-        'question1' => 'Bạn ghét điều gì nhất?',
-        'question2' => 'Bạn thường làm gì khi rảnh rỗi?',
-        'question3' => 'Bạn yêu quí người nào nhất?',
-        'question4' => 'Bộ phim nào gây ấn tượng nhất với bạn?',
-        'question5' => 'Ca sĩ nào là thần tượng của bạn?',
-        'question6' => 'Công việc lý tưởng của bạn là gì?',
-        'question7' => 'Diễn viên nào là thần tượng của bạn?',
-        'question8' => 'Mơ ước của bạn là gì?',
-        'question9' => 'Món ăn bạn ưa thích nhất?',
-        'question10' => 'Môn thể thao yêu thích của bạn là gì?',
-        'question11' => 'Người bạn thân nhất của bạn là ai?',
-        'question12' => 'Số PinCode trên thẻ tạo sẵn?',
-        'question13' => 'Nơi sinh của bạn ở đâu?',
-        'question14' => 'Trường học tiểu học của bạn tên gì?',
-        'question15' => 'Họ của mẹ bạn là gì?',
-        'question16' => 'Tên công ty đầu tiên bạn làm việc?',
-        'question17' => 'Tên trường đại học mà bạn đã học?',
-        'question18' => 'Bạn gặp vợ (chồng) mình ở đâu?',
-        'question18' => 'Họ của bố bạn là gì?',
-        'question18' => 'Tên của ông bạn là gì?'
+        'question1' => 'What do you hate the most?',
+        'question2' => 'What do you usually do in your free time?',
+        'question3' => 'Who do you admire the most?',
+        'question4' => 'Which movie impressed you the most?',
+        'question5' => 'Which singer is your idol?',
+        'question6' => 'What is your ideal job?',
+        'question7' => 'Which actor is your idol?',
+        'question8' => 'What is your dream?',
+        'question9' => 'Your favorite food?',
+        'question10' => 'What is your favorite sport?',
+        'question11' => 'Who is your best friend?',
+        'question12' => 'The PinCode on the pre-made card?',
+        'question13' => 'Where was your birthplace?',
+        'question14' => 'School What was your primary school name?',
+        'question15' => 'What was your mother\'s last name?',
+        'question16' => 'The name of the first company you worked for?',
+        'question17' => 'The name of the university you attended?',
+        'question18' => 'Where did you meet your spouse?',
+        'question18' => 'What is your father\'s last name?',
+        'question18' => 'What is your grandfather\'s first name?'
     ],
-    
+            
     'reset' => [
-        'email-invalid' => 'Email không tồn tại! Bạn cần nhớ chính xác email bảo mật của mình! (Chú ý email bảo mật cần phải được xác thực trước đó. Phân biệt chữ hoa chữ thường)',
-        'email-sent' => 'Chúng tôi đã gửi cho bạn 1 email hướng dẫn đặt lại mật khẩu. Mời kiểm tra email và làm theo hướng dẫn.',
-        'token-invalid' => 'Mời kiểm tra lại email và làm lại theo hướng dẫn.',
-        'success' => 'Cài đặt lại mật khẩu thành công!',
-        'too-fast' => 'Yêu cầu gửi email quá nhanh. Bạn cần đợi ít nhất 2 phút giữa 2 lần yêu cầu.'
+        'email-invalid' => 'Email does not exist! Please remember your security email! (Please note that the security email must be authenticated first. It is case sensitive)',
+        'email-sent' => 'We have sent you an email with instructions on how to reset your password. Please check your email and follow the instructions.',
+        'token-invalid' => 'Please check your email and follow the instructions again.',
+        'success' => 'Password reset successful!',
+        'too-fast' => 'The email request was sent too quickly. You need to wait at least 2 minutes between requests.'
     ]
 ];

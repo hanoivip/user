@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'success' => 'Hệ thống đã gửi 1 OTP đến địa chỉ bạn vừa đăng ký!',
-    'email-invalid' => 'Email không không hợp lệ!',
+    'success' => 'The system has sent an OTP to the address you just registered!',
+    'email-invalid' => 'The email is not valid!',
     'invalid' => 'Code is wrong'
 ];
